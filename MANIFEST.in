@@ -1,0 +1,8 @@
+include README.md
+include LICENSE.txt
+
+recursive-include pysfd *.py
+recursive-include pysfd/features *.py
+graft             pysfd/features/scripts
+graft             pysfd/tests
+graft             pysfd/VisFeatDiffs

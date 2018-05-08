@@ -1,0 +1,10 @@
+
+"output.bak.tar.gz.abc" is a renamed, tarred gzip folder containing
+output results of the test input data set.
+Under linux, unzip/untar this folder via
+mv output.bak.tar.gz.abc output.bak.tar.gz
+tar -xzf output.bak.tar.gz
+
+You can compare these output results with your own test results, e.g., via
+diff -r output/meta output.bak/meta &> diff.log
+and check the differences reported in diff.log
