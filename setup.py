@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages
 
 setup(
-    name = 'PySFD',
+    name = 'pysfd',
     version = '1.0.0.dev0',
     url = 'https://github.com/markovmodel/PySFD.git',
     author = 'Sebastian Stolzenberg',
