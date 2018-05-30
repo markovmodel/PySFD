@@ -20,11 +20,20 @@ but is currently only supported for Linux and MacOS.
 
 #### Required Packages
 
-First, make sure you have the folllowing python packages installed,
-e.g. via Miniconda https://conda.io/miniconda.html
+With conda installed, e.g., via
+
+Miniconda https://conda.io/miniconda.html
+
+first make sure you have activated the conda-forge channel:
+```sh
+conda config --add channels conda-forge
+```
+
+and then install the folllowing python packages:
 ```sh
 conda install jupyter numpy pathos pandas biopandas mdtraj scipy matplotlib seaborn
 ```
+
 to install SHIFTX2 (only works for Python 3):
 ```sh
 conda install -c omnia/label/dev shiftx2
