@@ -58,14 +58,19 @@ PySFD was successfully tested, e.g., using the following python environment:
 |jupyter                   |1.0.0            |          py_1    |conda-forge|
 |matplotlib                |2.2.2            |        py36_1    |conda-forge|
 |mdtraj                    |1.9.1            |        py36_1    |conda-forge|
-|numpy                     |1.13.3           |py36hdbf6ddf_4    |           |
-|pandas                    |0.23.0           |        py36_1    |conda-forge|
+|numpy                     |1.14.5           |py36hcd700cb_0    |           |
+|pandas                    |0.23.1           |        py36_0    |conda-forge|
 |pathos                    |0.2.1            |        py36_1    |conda-forge|
-|pymol                     |2.1.0            |       py36_13    |schrodinger|
+|pymol                     |2.1.1            |        py36_2    |schrodinger|
 |python                    |3.6.5            |             1    |conda-forge|
 |scipy                     |1.1.0            |py36hfc37229_0    |           |
 |seaborn                   |0.8.1            |        py36_0    |conda-forge|
+(created via
+``conda list "^python$|^jupyter$|numpy|pathos|pandas|biopandas|mdtraj|scipy|matplotlib|seaborn|shiftx2|pymol"``
+)
 
+The full conda environment is listed in ./pysfd.yaml
+(created via ``conda env export > pysfd.yaml``)
 
 #### PySFD
 
