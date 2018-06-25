@@ -65,6 +65,7 @@ PySFD was successfully tested, e.g., using the following python environment:
 |python                    |3.6.5            |             1    |conda-forge|
 |scipy                     |1.1.0            |py36hfc37229_0    |           |
 |seaborn                   |0.8.1            |        py36_0    |conda-forge|
+
 (created via
 ``conda list "^python$|^jupyter$|numpy|pathos|pandas|biopandas|mdtraj|scipy|matplotlib|seaborn|shiftx2|pymol"``
 )
