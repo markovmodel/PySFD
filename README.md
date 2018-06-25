@@ -48,6 +48,25 @@ conda install Pmw
 ```
 - VMD (http://www.ks.uiuc.edu/Research/vmd)
 
+#### Working Package System
+
+PySFD was successfully tested, e.g., using the following python environment:
+
+| package | version | | channel |
+|:---|:---|:---|:---|
+|biopandas                 |0.2.3            |        py36_0    |conda-forge|
+|jupyter                   |1.0.0            |          py_1    |conda-forge|
+|matplotlib                |2.2.2            |        py36_1    |conda-forge|
+|mdtraj                    |1.9.1            |        py36_1    |conda-forge|
+|numpy                     |1.13.3           |py36hdbf6ddf_4    |           |
+|pandas                    |0.23.0           |        py36_1    |conda-forge|
+|pathos                    |0.2.1            |        py36_1    |conda-forge|
+|pymol                     |2.1.0            |       py36_13    |schrodinger|
+|python                    |3.6.5            |             1    |conda-forge|
+|scipy                     |1.1.0            |py36hfc37229_0    |           |
+|seaborn                   |0.8.1            |        py36_0    |conda-forge|
+
+
 #### PySFD
 
 Then just download the PySFD package, e.g., via GitHub
