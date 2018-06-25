@@ -70,7 +70,7 @@ PySFD was successfully tested, e.g., using the following python environment:
 ``conda list "^python$|^jupyter$|numpy|pathos|pandas|biopandas|mdtraj|scipy|matplotlib|seaborn|shiftx2|pymol"``
 )
 
-The full conda environment is listed in ./pysfd_env.yaml
+The full conda environment is listed in ./pysfd.yaml
 
 (created via ``conda env export > pysfd.yaml``)
 
