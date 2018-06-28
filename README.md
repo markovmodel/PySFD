@@ -109,6 +109,7 @@ and feature classes:
     - `mdtraj.compute_omega`
     - `mdtraj.compute_phi`
     - `mdtraj.compute_psi`
+- `IsDSSP_mdtraj`  :  binary secondary structure assignments (DSSP), e.g., whether or not a residual helix ("H") is formed
 - `Scalar_Coupling`:  scalar couplings computed with mdtraj, one of the following methods is passed to the `Scalar_Coupling` class:
     - `mdtraj.compute_J3_HN_C`
     - `mdtraj.compute_J3_HN_CB`
