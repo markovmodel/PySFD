@@ -151,6 +151,8 @@ class _SRF(_feature_agent.FeatureAgent):
             prec = len(str(dbin).partition(".")[2])+1
             a_bins =_np.arange(_np.floor(a_data.min() / dbin),
                                _np.ceil(a_data.max() / dbin) + 1, 1) * dbin
+            if len(a_bins) == 1:
+                a_bins = _np.array([a_bins[0], a_bins[0] + dbin])
             a_hist = _np.histogram(a_data, bins = a_bins, density = True)
             return tuple(list(a_hist))
 
@@ -189,7 +191,6 @@ class _SRF(_feature_agent.FeatureAgent):
             if len(mytmp) > 0:
                 mytmp["fhist"] = list(_np.apply_along_axis(lambda x: myhist(x, dbin), axis = 0, arr = a_feat[:, traj_df.fhist == True]).transpose())
                 traj_df.loc[traj_df.fhist == True, "fhist"] = mytmp["fhist"]
-
             # correction factor to convert numpy.std into pandas.std
             std_factor = _np.sqrt(_np.shape(a_feat)[0] / (_np.shape(a_feat)[0] - 1.)) 
             if circular_stats is None:
@@ -1350,4 +1351,215 @@ class Scalar_Coupling(_SRF):
         traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
         traj_df = traj_df[l_lbl]
         a_feat = a_result[1]
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+
+
+
+class IsDSSP_mdtraj(_SRF):
+    """
+    Computes binary secondary structure assignments (DSSP), e.g.,
+    whether or not a residual helix ("H") is formed (depending on DSSPpars, see below)
+
+    If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
+    by default aggregate via rgn_agg_func = "mean"
+
+    Parameters
+    ----------
+    * error_type   : str, default="std_err"
+        compute feature errors as ...
+        | "std_err" : ... standard errors
+        | "std_dev" : ... mean standard deviations
+
+    * max_mom_ord   : int, default: 1
+                      maximum ordinal of moment to compute
+                      if max_mom_ord > 1, this will add additional entries
+                      "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
+                      to the feature tables
+
+    * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
+                          regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
+      df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
+                                      'seg' : ["A", "A", "B", "B", "C"],
+                                      'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
+                          if None, no coarse-graining is performed
+
+    * rgn_agg_func  : function or str for coarse-graininga, default = "mean"
+                      function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
+                      this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
+                      - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
+                      - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
+                        such as "mean", "std"
+
+    * df_hist_feats : pandas.DataFrame, default=None
+                      data frame of features, for which to compute histograms.
+                      .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
+                      df_hist_feats = pd.DataFrame( { "seg1" : ["A", "A"],
+                                                      "res1" : [5, 10],
+                                                      "seg2" : ["A", "A"],
+                                                      "res2" : [10, 15],
+                                                      "dbin" : [0.1, 0.1] })
+                      dbin is the histogram binning resolution in units of the feature type.
+                      Only dbin values are allowed, which
+                      sum exactly to the next significant digit's unit, e.g.:
+                      for dbin = 0.02 = 2*10^-2 exists an n = 10, so that
+                      n * dbin = 0.1  = 1*10^-1
+                      Currently - for simplicity - dbin values have to be
+                      the same for each feature.
+                      If df_hist_feats == dbin (i.e. an int or float), 
+                      compute histograms for all features with
+                      uniform histogram binning resolution dbin.
+
+    * DSSPpars: tuple, default = (whatDSSP, issimplified) = ('H', True)
+      - whatDSSP: string, defining what DSSP value to check for.
+        Possible values (double-check doc string of mdtraj.compute_dssp):
+        The DSSP assignment codes are:
+                ‘H’ : Alpha helix
+                ‘B’ : Residue in isolated beta-bridge
+                ‘E’ : Extended strand, participates in beta ladder
+                ‘G’ : 3-helix (3/10 helix)
+                ‘I’ : 5 helix (pi helix)
+                ‘T’ : hydrogen bonded turn
+                ‘S’ : bend
+                ‘ ‘ : Loops and irregular elements
+        The simplified DSSP codes are:
+                ‘H’ : Helix. Either of the ‘H’, ‘G’, or ‘I’ codes.
+                ‘E’ : Strand. Either of the ‘E’, or ‘B’ codes.
+                ‘C’ : Coil. Either of the ‘T’, ‘S’ or ‘ ‘ codes.
+        
+        A special ‘NA’ code will be assigned to each ‘residue’ in the topology which isn’t actually a protein residue
+        (does not contain atoms with the names ‘CA’, ‘N’, ‘C’, ‘O’),
+        such as water molecules that are listed as ‘residue’s in the topology.
+
+      - simplified : bool, default=True
+        Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.
+
+    * label        : string, user-specific label for feature_name
+    """
+
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", DSSPpars = None):
+        if DSSPpars is None:
+            DSSPpars = ('H', True)
+        DSSPlabel = "isDSSPeq" + DSSPpars[0]
+        if DSSPpars[1] == True:
+            DSSPlabel += "simplified"
+
+        super(IsDSSP_mdtraj, self).__init__(
+                                        feature_name      = "srf." + DSSPlabel + ".",
+                                        error_type        = error_type,
+                                        max_mom_ord       = max_mom_ord,
+                                        df_rgn_seg_res_bb = df_rgn_seg_res_bb,
+                                        rgn_agg_func      = rgn_agg_func,
+                                        df_hist_feats     = df_hist_feats,
+                                        label             = label,
+                                        DSSPpars          = DSSPpars)
+
+    @staticmethod
+    def _feature_func_engine(args, params):
+        """
+        Computes binary secondary structure assignments (DSSP), e.g., 
+        whether or not a residual helix ("H") is formed (depending on DSSPpars)
+    
+        Parameters
+        ----------
+        * args   : tuple (fself, myens, r):
+            * fself        : self pointer to foreign master PySFD object
+
+            * myens        : string
+                             Name of simulated ensemble
+
+            * r            : int, replica index
+
+        * params : dict, extra parameters as keyword arguments
+            * error_type   : str
+                compute feature errors as ...
+                | "std_err" : ... standard errors
+                | "std_dev" : ... mean standard deviations
+
+            * max_mom_ord   : int, default: 1
+                              maximum ordinal of moment to compute
+                              if max_mom_ord > 1, this will add additional entries
+                              "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
+                              to the feature tables
+
+            * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
+                                  regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
+              df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
+                                              'seg' : ["A", "A", "B", "B", "C"],
+                                              'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
+                                  if None, no coarse-graining is performed
+    
+            * rgn_agg_func  : function or str for coarse-graining
+                              function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
+                              this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
+                              - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
+                              - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
+                                such as "mean", "std"
+    
+            * df_hist_feats : pandas.DataFrame, default=None
+                              data frame of features, for which to compute histograms.
+                              .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
+                              df_hist_feats = pd.DataFrame( { "seg1" : ["A", "A"],
+                                                              "res1" : [5, 10],
+                                                              "seg2" : ["A", "A"],
+                                                              "res2" : [10, 15],
+                                                              "dbin" : [0.1, 0.1] })
+                              dbin is the histogram binning resolution in units of the feature type.
+                              Only dbin values are allowed, which
+                              sum exactly to the next significant digit's unit, e.g.:
+                              for dbin = 0.02 = 2*10^-2 exists an n = 10, so that
+                              n * dbin = 0.1  = 1*10^-1
+                              Currently - for simplicity - dbin values have to be
+                              the same for each feature.
+                              If df_hist_feats == dbin (i.e. an int or float), 
+                              compute histograms for all features with
+                              uniform histogram binning resolution dbin.
+
+            * DSSPpars: tuple, default = (whatDSSP, issimplified) = ('H', True)
+              - whatDSSP: string, defining what DSSP value to check for.
+                Possible values (double-check doc string of mdtraj.compute_dssp):
+                The DSSP assignment codes are:
+                        ‘H’ : Alpha helix
+                        ‘B’ : Residue in isolated beta-bridge
+                        ‘E’ : Extended strand, participates in beta ladder
+                        ‘G’ : 3-helix (3/10 helix)
+                        ‘I’ : 5 helix (pi helix)
+                        ‘T’ : hydrogen bonded turn
+                        ‘S’ : bend
+                        ‘ ‘ : Loops and irregular elements
+                The simplified DSSP codes are:
+                        ‘H’ : Helix. Either of the ‘H’, ‘G’, or ‘I’ codes.
+                        ‘E’ : Strand. Either of the ‘E’, or ‘B’ codes.
+                        ‘C’ : Coil. Either of the ‘T’, ‘S’ or ‘ ‘ codes.
+                
+                A special ‘NA’ code will be assigned to each ‘residue’ in the topology which isn’t actually a protein residue
+                (does not contain atoms with the names ‘CA’, ‘N’, ‘C’, ‘O’),
+                such as water molecules that are listed as ‘residue’s in the topology.
+        
+              - simplified : bool, default=True
+                Use the simplified 3-category assignment scheme. Otherwise the original 8-category scheme is used.
+        """
+
+        fself, myens, r                             = args
+        DSSPpars                                    = params["DSSPpars"]
+        fself.error_type[fself._feature_func_name]  = params["error_type"]
+        fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
+        rgn_agg_func                                = params["rgn_agg_func"]
+        df_hist_feats                               = params["df_hist_feats"]
+        _finish_traj_df                             = params["_finish_traj_df"]
+
+        instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
+        mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
+
+        a_rnm     = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        a_residue = list(mytraj.topology.residues)
+        a_seg     = [a.segment_id for a in a_residue]
+        a_res     = [a.resSeq for a in a_residue]
+        #a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
+        #a_rnm = [a.name for a in a_residue]
+        l_lbl = ['seg', 'res', 'rnm']
+        traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        traj_df = traj_df[l_lbl]
+
+        a_feat = (_md.compute_dssp(mytraj, simplified = DSSPpars[1]) == DSSPpars[0]).astype("int")
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)

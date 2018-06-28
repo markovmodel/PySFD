@@ -414,12 +414,12 @@ class PySFD(object):
                 myzerohist = tuple([_np.array([1/dbin]), _np.array([0, dbin])])
                 l_dfhist  = [_pd.DataFrame({i : x.iloc[i][0]},  index = _np.round(x.iloc[i][1][:-1],  prec).astype("str")) for i in range(len(x))]
                 l_dfhist += [_pd.DataFrame({i : myzerohist[0]}, index = _np.round(myzerohist[1][:-1], prec).astype("str")) for i in range(len(x), numframes)]
-                df_hist = _pd.concat(l_dfhist, axis = 1, join = "outer")
+                df_hist = _pd.concat(l_dfhist, axis = 1, sort = True, join = "outer")
                 del l_dfhist
                 df_hist.fillna(0, inplace = True)
                 df_hist = _pd.DataFrame({ "hmean" : df_hist.apply("mean", axis = 1), "hstd" : df_hist.apply("std", axis = 1)}, index = df_hist.index)
                 allbins = _pd.DataFrame( index = _np.round(_np.arange(_np.round(df_hist.index.astype("float").min()/dbin), _np.round(df_hist.index.astype("float").max()/dbin+1), 1)*dbin, prec).astype("str"))
-                df_hist = _pd.concat([df_hist, allbins], axis = 1, join = "outer")
+                df_hist = _pd.concat([df_hist, allbins], axis = 1, sort = True, join = "outer")
                 df_hist["bin"] = df_hist.index.astype("float")
                 df_hist.sort_values(by = "bin", inplace = True)
                 df_hist.fillna(0, inplace = True)
