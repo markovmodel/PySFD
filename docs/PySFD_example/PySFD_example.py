@@ -184,6 +184,12 @@ l_FeatureType += [pysfd.features.pspbsf.sPBSF_Correlation(partial_corr=is_partia
                                                for mylbl, mydf in cgtype2label.items()
                                                for is_partial_corr in [False, True]]
 
+l_FeatureType += [pysfd.features.srf.IsDSSP_mdtraj(error_type=stdtype,
+                                                   df_rgn_seg_res_bb=mydf,
+                                                   DSSPpars=("H", True),
+                                                   label=mylbl) for mylbl, mydf in cgtype2label.items()
+                                                                for stdtype in ["std_err"]]
+
 #
 # with significant difference tests of higher moments and histogramming of specific features
 #
