@@ -794,7 +794,7 @@ class PySFD(object):
                         df_feature_diffs[(ens_j, ens_i)][(is_['f'], is_['ton'], is_['tof'])].reset_index(drop=True)
         self.df_feature_diffs[self.feature_func_name] = df_feature_diffs
 
-    def comp_and_write_common_feature_diffs(self, feature_func_name=None, l_sda_pair=None, l_sda_not_pair=None, ):
+    def comp_and_write_common_feature_diffs(self, feature_func_name=None, l_sda_pair=None, l_sda_not_pair=None, outdir=None):
         """
         Computes and writes statistically significant differences in
         mean features of "feature_func_name" that are
@@ -811,6 +811,9 @@ class PySFD(object):
         * l_sda_not_pair:    list of 2-d tuples of str
                              pairs of simulated ensembles compaired by
                              comp_feature_diffs
+        * outdir : string, optional, default = "output/meta/%s/%s/common" % (feature_func_name,
+                                                                             self.intrajdatatype)
+                   output path
 
         Returns
         -------
@@ -821,6 +824,8 @@ class PySFD(object):
             raise ValueError("l_sda_pair is not defined")
         if feature_func_name is None:
             raise ValueError("feature_func_name is not defined")
+        if outdir is None:
+            outdir = "output/meta/%s/%s/common" % (feature_func_name, self.intrajdatatype)
 
         df_merged = None
         # aggregate common feature differences among l_sda_pair
@@ -851,7 +856,6 @@ class PySFD(object):
                 df_tmp["lbl"] = df_tmp.loc[:, self.l_lbl[feature_func_name] + [mylbl for mylbl in df_tmp.columns.get_level_values(0) if ("sdiff" in mylbl)]].astype(str).sum(axis=1)
                 df_merged = df_merged.loc[_np.in1d(df_merged["lbl"], _np.setdiff1d(df_merged["lbl"], df_tmp["lbl"])), :]
         del df_merged["lbl"]
-        outdir = "output/meta/%s/%s/common" % (feature_func_name, self.intrajdatatype)
         s_sda_pair = "_and_".join(["_vs_".join(x) for x in l_sda_pair])
         if l_sda_not_pair is not None:
             s_sda_pair += "_not_" + "_and_".join(["_vs_".join(x) for x in l_sda_not_pair])
@@ -871,10 +875,9 @@ class PySFD(object):
 
         Parameters
         ----------
-        * outdir : string, optional, default = "output/meta/%s/%s/%s" % (self.pi_type,
-                                                                         self.pai_type,
-                                                                         self.intrajdatatype)
-                   output path to write out pairwise interaction table
+        * outdir : string, optional, default = "output/meta/%s/%s" % (self.feature_func_name,
+                                                                      self.intrajdatatype)
+                   output path
         """
 
         if self.feature_func_name not in self.df_features:
@@ -904,10 +907,9 @@ class PySFD(object):
 
         Parameters
         ----------
-        * outdir : string, optional, default = "output/meta/%s/%s/%s" % (self.pi_type,
-                                                                         self.pai_type,
-                                                                         self.intrajdatatype)
-                   output path to write out pairwise interaction table
+        * outdir : string, optional, default = "output/meta/%s/%s" % (self.feature_func_name,
+                                                                      self.intrajdatatype)
+                   output path
         """
 
         if self.feature_func_name not in self.df_fhists:
@@ -978,10 +980,9 @@ class PySFD(object):
 
         Parameters
         ----------
-        * outdir : string, optional, default = "output/meta/%s/%s/%s" % (   self.pi_type,
-                                                                            self.pai_type,
-                                                                            self.intrajdatatype)
-                   output path to write out pairwise interaction table
+        * outdir : string, optional, default = "output/meta/%s/%s" % (self.feature_func_name,
+                                                                      self.intrajdatatype)
+                   output path
         """
 
         if self.feature_func_name not in self.df_feature_diffs:
@@ -1023,10 +1024,9 @@ class PySFD(object):
         * l_ens                 : as in _np.transpose(l_ens_numreplica)[0] (see init() above)
                                   if None (default), just reload data from self.l_ens
 
-        * outdir : string, optional, default = "output/meta/%s/%s/%s" %    (self.pi_type,
-                                                                            self.pai_type,
-                                                                            self.intrajdatatype)
-                   output path to write out pairwise interaction table
+        * outdir : string, optional, default = "output/meta/%s/%s" % (self.feature_func_name,
+                                                                      self.intrajdatatype)
+                   output path
         """
 
         def f(x, y):
@@ -1057,7 +1057,7 @@ class PySFD(object):
             self.df_fhists[self.feature_func_name][self.l_ens] = self.df_fhists[self.feature_func_name][self.l_ens].applymap(lambda x: eval(x, None, {'array': _np.array }))
 
     def featuretype_redundancies(self, l_featuretype = None, corrmethod = "spearman", 
-                                 l_radcol = None, withrnmlevel = False, withplots = False ):
+                                 l_radcol = None, withrnmlevel = False, withplots = False, outdir = None ):
         '''
         Detects feature type redundancies via correlations from
         already computed features
@@ -1081,7 +1081,9 @@ class PySFD(object):
                           individual residue names
                           currently implemented for single residual features (SRF)
         * withplots     : bool, whether or not to plot feature type correlations
-
+        * outdir        : string, optional, default = "output/figures/feature_type_correlations"
+                          output path
+                   
         Returns:
         -----------
         * rnm2df_feature_corr : dictionary of pandas.DataFrame objects; keys:
@@ -1094,6 +1096,10 @@ class PySFD(object):
                                 (can be used for further processing, e.g.,
                                 to plot different feature types against each other)
         '''
+
+        # output directory for feature type correlation plots
+        if outdir is None:
+            outdir = "output/figures/feature_type_correlations"
 
         def circcorr(df):
             ''' 
@@ -1117,8 +1123,6 @@ class PySFD(object):
             if l_radcol is None:
                 raise ValueError("need definition of l_radcol because corrmethod != 'circcorr'")        
         if withplots:
-            # output directory for feature type correlation plots
-            outdir = "output/figures/feature_type_correlations"
             _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
 
         df_mean_features    = None
