@@ -48,6 +48,14 @@ conda install Pmw
 ```
 - VMD (http://www.ks.uiuc.edu/Research/vmd)
 
+In case you would like to visualize your PySFD results directly from a Python/iPython/Jupyter session (via ```pysfd.view_feature_diffs()```), you will need to install the Python module iPyMol
+(https://github.com/cxhernandez/ipymol.git)
+via:
+```
+pip install ipymol
+```
+
+
 #### Working Package System
 
 PySFD was successfully tested, e.g., using the following python environment:
@@ -55,6 +63,7 @@ PySFD was successfully tested, e.g., using the following python environment:
 | package | version | | channel |
 |:---|:---|:---|:---|
 |biopandas                 |0.2.3            |        py36_0    |conda-forge|
+|ipymol                    |0.5              |         \<pip\>  |           |
 |jupyter                   |1.0.0            |          py_1    |conda-forge|
 |matplotlib                |2.2.2            |        py36_1    |conda-forge|
 |mdtraj                    |1.9.1            |        py36_1    |conda-forge|
@@ -67,7 +76,7 @@ PySFD was successfully tested, e.g., using the following python environment:
 |seaborn                   |0.8.1            |        py36_0    |conda-forge|
 
 (created via
-``conda list "^python$|^jupyter$|numpy|pathos|pandas|biopandas|mdtraj|scipy|matplotlib|seaborn|shiftx2|pymol"``
+``conda list "^python$|^jupyter$|numpy|pathos|pandas|biopandas|mdtraj|scipy|matplotlib|seaborn|shiftx2|pymol|ipymol"``
 )
 
 The full conda environment is listed in ./pysfd.yaml
@@ -95,7 +104,7 @@ pip uninstall pysfd
 ```
 
 ### Features
-Pre-defined features are stored in `PySFD.features` and currently include the following modules
+Pre-defined features are stored in `pysfd.features` and currently include the following modules
 and feature classes:
 
 [srf.py] : Single Residue Feature (SRF)
@@ -109,7 +118,7 @@ and feature classes:
     - `mdtraj.compute_omega`
     - `mdtraj.compute_phi`
     - `mdtraj.compute_psi`
-- `IsDSSP_mdtraj`  :  binary secondary structure assignments (DSSP), e.g., whether or not a residual helix ("H") is formed
+- `IsDSSP_mdtraj`  :  binary secondary structure assignments (DSSP), e.g., whether or not a helix ("H") is formed in a particular residue
 - `Scalar_Coupling`:  scalar couplings computed with mdtraj, one of the following methods is passed to the `Scalar_Coupling` class:
     - `mdtraj.compute_J3_HN_C`
     - `mdtraj.compute_J3_HN_CB`
@@ -142,9 +151,9 @@ and feature classes:
 - `sPBSF_Correlation`: (partial) correlations between sPBSF features (see spbsf module)
 
 Each of these feature classes contained in each module is derived
-from `PySFD.features._feature_agent.FeatureAgent`.
+from `pysfd.features._feature_agent.FeatureAgent`.
 Each such feature class is instantiated and passed as a `FeatureObj` object into
-an `PySFD.PySFD` object, which in turn extracts the essential feature function from `FeatureObj` via
+an `pysfd.PySFD` object, which in turn extracts the essential feature function from `FeatureObj` via
 `FeatureObj.get_feature_func()`.
 These features classes can be exented by adding further feature classes in each existing feature module,
 or adding further feature modules (make sure then to update `PySFD/features/__init__.py`).
@@ -403,6 +412,8 @@ Currently, PyMOL visualizations for significant feature differences are implemen
 - Single Residual Features (SRF)
 - Pairwise Residual Features (PRF)
 - sparse Pairwise Backbone/Sidechain Features (sPBSF)
+
+In case you would like to visualize your PySFD results in PyMOL directly from a Python/iPython/Jupyter session, you can use the ```PySFD.view_feature_diffs()``` method (see docstring for further documentation).
 
 #### VMD
 [VMD_Vis.tcl] : main VMD Visualizer function `VMD_visualize_feature_diffs`
