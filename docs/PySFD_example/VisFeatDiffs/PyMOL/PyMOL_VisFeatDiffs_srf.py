@@ -35,13 +35,10 @@ class PyMOL_VisFeatDiffs_srf(PyMOL_VisFeatDiffs):
     '''
     __doc__ = PyMOL_VisFeatDiffs.__doc__ + __doc__
 
-    def __init__(self, l_SDApair, l_SDA_not_pair, l_seg, featuregroup, featuretype, stdtype, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, myview=None):
+    def __init__(self, l_SDApair, l_SDA_not_pair, feature_func_name, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, myview=None):
         super(PyMOL_VisFeatDiffs_srf, self).__init__(l_SDApair,
                                              l_SDA_not_pair,
-                                             l_seg,
-                                             featuregroup,
-                                             featuretype,
-                                             stdtype,
+                                             feature_func_name,
                                              stattype,
                                              nsigma,
                                              nfunit,
@@ -54,8 +51,12 @@ class PyMOL_VisFeatDiffs_srf(PyMOL_VisFeatDiffs):
     def _add_vis(self, mymol, row, l_cgo):
         mycolind = int((np.sign(row.sdiff) + 1) / 2)
         if self.df_rgn_seg_res_bb is None:
+            if not hasattr(row,"seg"):
+                raise ValueError("row has no column \"seg\", but self.df_rgn_seg_res_bb is None - maybe parameter \"coarse_grain_type\" is not properly set?")
             cmd.select("sel","/%s/%s and i. %d and not h." % (mymol, row.seg, row.res))
         else:
+            if not hasattr(row,"rgn"):
+                raise ValueError("row has no column \"rgn\", but self.df_rgn_seg_res_bb is not None - maybe parameter \"coarse_grain_type\" is not properly set?")
             df_unique_rgnsegbb = self.df_rgn_seg_res_bb[["seg"]].drop_duplicates()
             for myrgn in [row.rgn]:
                 selstr = "/%s and (" % (mymol)
@@ -84,32 +85,49 @@ class PyMOL_VisFeatDiffs_srf(PyMOL_VisFeatDiffs):
                 
         cmd.delete("sel")
 
-# show significant differences for single ensemble comparison
+#l_SDApair, l_SDA_not_pair: two lists defining what ensembles to compare,
+#                           see examples below:
+#    # show significant differences between ensembles 'bN82A.pcca2' and 'WT.pcca2'
+#    l_SDApair            = [('bN82A.pcca2', 'WT.pcca2')]
+#    l_SDA_not_pair       = []
+#
+#    # show significant differences between ensembles 'bN82A.pcca2' and 'WT.pcca2' ...
+#    l_SDApair            = [('bN82A.pcca2', 'WT.pcca2')]
+#    # ... which are not significantly different between 'aT41A.pcca1' and 'WT.pcca2'
+#    l_SDApair            = [('aT41A.pcca1', 'WT.pcca2')]
+#    
+#    # show significant differences common to multiple ensemble comparisons ...
+#    l_SDApair            = [('bN82A.pcca2', 'WT.pcca2'), ('aT41A.pcca1', 'WT.pcca2')]
+#    # ... which are not significantly different among the following comparisons
+#    l_SDA_not_pair            = [('aT41A.pcca1', 'bN82A.pcca2')]
 l_SDApair            = [('bN82A.pcca2', 'WT.pcca2')]
-#l_SDA_not_pair       = [('aT41A.pcca1', 'WT.pcca2')]
 l_SDA_not_pair       = []
 
-## show significant differences common to multiple ensemble comparisons ...
-#l_SDApair            = [('bN82A.pcca2', 'WT.pcc23'), ('aT41A.pcca1', 'WT.pcca2')]
-## ... which are not significant different among the following comparisons
-#l_SDA_not_pair            = [('aT41A.pcca1', 'bN82A.pcca2')]
-##l_SDA_not_pair       = []
-
-l_seg                = ["A", "B", "C"]
-featuregroup         = "srf"
-#featuretype          = "SASA_sr"
-featuretype          = "chi1"
-stdtype              = "std_err"
+feature_func_name    = "srf.chi1.std_err"
+coarse_grain_type    = None
 stattype             = "samplebatches"
 nsigma               = 2.000000
 nfunit               = 0.000000
 intrajformat         = "xtc"
+# output path, currently not used in PyMOL:
 outdir               = None
+coarse_grain_type    = None
 
-# df_rgn_seg_res_bb is already defined in PyMOL_VisFeatDiffs.py
-# if not-coarse-grained data should be visualized, use:
-# df_rgn_seg_res_bb = None
-#df_rgn_seg_res_bb = None
+# if called directly from PySFD.view_feature_diffs(),
+# update the above parameters:
+if 'd_locals' in locals():
+    locals().update(d_locals)
 
-MyVis = PyMOL_VisFeatDiffs_srf( l_SDApair, l_SDA_not_pair, l_seg, featuregroup, featuretype, stdtype, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=df_rgn_seg_res_bb, VisFeatDiffsDir=VisFeatDiffsDir, outdir=outdir, myview=None)
+if coarse_grain_type is None:
+    df_rgn_seg_res_bb = None
+elif coarse_grain_type == "cg_nobb":
+    df_rgn_seg_res_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb.dat", sep = "\t")
+    df_rgn_seg_res_bb.res = df_rgn_seg_res_bb.res.apply(lambda x : list(eval(x)))
+elif coarse_grain_type == "cg_withbb":
+    df_rgn_seg_res_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb_with_bb.dat", sep = "\t")
+    df_rgn_seg_res_bb.res = df_rgn_seg_res_bb.res.apply(lambda x : list(eval(x)))
+else:
+    raise ValueError("unrecognized value for parameter \"coarse_grain_type:\n%s" % coarse_grain_type)
+
+MyVis = PyMOL_VisFeatDiffs_srf( l_SDApair, l_SDA_not_pair, feature_func_name, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=df_rgn_seg_res_bb, VisFeatDiffsDir=VisFeatDiffsDir, outdir=outdir, myview=None)
 MyVis.vis_feature_diffs()

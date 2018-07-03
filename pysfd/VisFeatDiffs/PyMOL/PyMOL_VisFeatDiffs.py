@@ -44,12 +44,8 @@ class PyMOL_VisFeatDiffs(object):
     * l_SDA_not_pair       : list of 2-d tuples of str
                              pairs of simulated ensembles compaired by
                              comp_feature_diffs
-    * l_seg                : list of segIDs
-                             used for showing residues involed in feature differences
-    * featuregroup         : feature group, e.g. "spbsf"
-    * featuretype          : feature type, e.g., "HBond_VMD"
-    * stdtype              : type of uncertainty, i.e. either "std_err" or "std_dev"
-    * stattype             : type of statistics, i.e. "bootstrapped" or "raw"
+    * feature_func_name    : name of the feature function used, e.g. "srf.chi1.std_err"
+    * stattype             : type of statistics, i.e. either "samplebatches" or "raw"
     * num_sigma            : float, level of statistical significance, measured in multiples of standard errors
     * num_funits           : float, level of biological significance, measured in multiples of feature units
                              (Note: significance is defined by both statistical AND biological significance !)
@@ -72,13 +68,10 @@ class PyMOL_VisFeatDiffs(object):
                              -116.611633301,  200.864410400,    0.000000000"
     '''
 
-    def __init__(self, l_SDApair, l_not_SDApair, l_seg, featuregroup, featuretype, stdtype, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, myview=None):
+    def __init__(self, l_SDApair, l_not_SDApair, feature_func_name, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, myview=None):
         self.l_SDApair         = l_SDApair
         self.l_not_SDApair     = l_not_SDApair
-        self.l_seg             = l_seg
-        self.featuregroup      = featuregroup
-        self.featuretype       = featuretype
-        self.stdtype           = stdtype
+        self.feature_func_name = feature_func_name
         self.stattype          = stattype 
         self.nsigma            = nsigma
         self.nfunit            = nfunit
@@ -88,6 +81,9 @@ class PyMOL_VisFeatDiffs(object):
         self.outdir            = outdir
 
         if (df_rgn_seg_res_bb is not None) and (not isinstance(df_rgn_seg_res_bb, pd.DataFrame)):
+            print("HHELO")
+            print(df_rgn_seg_res_bb)
+            print("BBHHELO")
             raise ValueError("df_rgn_seg_res_bb has to be either None or a pandas DataFrame!")
         if myview is None:
             self.myview  = "\
@@ -126,25 +122,19 @@ class PyMOL_VisFeatDiffs(object):
         # load in diff data
         s_SDApairs      = "_and_".join(["_vs_".join(x) for x in l_SDApair])
         s_SDA_not_pairs = "_and_".join(["_vs_".join(x) for x in l_SDA_not_pair])
-        if self.df_rgn_seg_res_bb is not None:
-            s_coarse = ".coarse"
-        else:
+        if self.df_rgn_seg_res_bb is None:
             cmd.set("cartoon_color", "white")
-            s_coarse = ""
-        instem="output/meta/%s.%s%s.%s/%s" % (featuregroup, featuretype, s_coarse, stdtype, stattype)
+        instem="output/meta/%s/%s" % (feature_func_name, stattype)
         if (len(l_SDApair)>1) or (len(l_SDA_not_pair)>0):
             instem += "/common"
         if (len(l_SDA_not_pair)>0):
             s_SDApairs += "_not_" + s_SDA_not_pairs  
-        infilename="%s/%s.%s%s.%s.%s.%s.nsigma_%.6f.nfunit_%.6f.dat" % (instem,
-                                                                      featuregroup,
-                                                                      featuretype,
-                                                                      s_coarse,
-                                                                      stdtype,
-                                                                      stattype,
-                                                                      s_SDApairs,
-                                                                      nsigma,
-                                                                      nfunit)
+        infilename="%s/%s.%s.%s.nsigma_%.6f.nfunit_%.6f.dat" % (instem,
+                                                                feature_func_name,
+                                                                stattype,
+                                                                s_SDApairs,
+                                                                nsigma,
+                                                                nfunit)
         with open(infilename) as infile:
             l_lbl1  = next(infile).split()
             l_lbl2  = next(infile).split()
@@ -186,5 +176,4 @@ class PyMOL_VisFeatDiffs(object):
         #cmd.ray()
         #cmd.save("" % (outdir))
 
-df_rgn_seg_res_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb.dat", sep = "\t")
-df_rgn_seg_res_bb.res = df_rgn_seg_res_bb.res.apply(lambda x : list(eval(x)))
+
