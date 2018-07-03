@@ -1112,7 +1112,6 @@ class PySFD(object):
                                                          self.intrajdatatype)
                               output path (passed in PyMOL, but currently not used)
         """
-        # for view_feature_diffs, see below 
         from ipymol import viewer as pymol
         import re
 
