@@ -1153,7 +1153,6 @@ class PySFD(object):
         # keep trying until PyMol server is connected
         while not is_pymol_connected:
             try:
-                #pymol._server.do("run %s/PyMOL_VisFeatDiffs.py" % (VisFeatDiffsDir))
                 pymol._server.do("pass")
                 is_pymol_connected = True
             except ConnectionRefusedError:
