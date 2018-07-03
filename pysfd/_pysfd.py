@@ -58,7 +58,6 @@ from matplotlib.backends.backend_pdf import PdfPages as _PdfPages
 
 import seaborn as _sns; _sns.set()
 
-
 if _sys.version_info[0] < 3:
     # Define a non-daemon pathos process pool
     # see
@@ -1055,6 +1054,114 @@ class PySFD(object):
         if _os.path.isfile(indat+".fhists.dat"):
             self.df_fhists[self.feature_func_name] = _pd.read_csv(indat+".fhists.dat", header=[0], sep = "\t")
             self.df_fhists[self.feature_func_name][self.l_ens] = self.df_fhists[self.feature_func_name][self.l_ens].applymap(lambda x: eval(x, None, {'array': _np.array }))
+
+    def view_feature_diffs(self, coarse_grain_type, l_SDApair, l_SDA_not_pair = None, is_only_water_access=None, outdir=None):
+        """
+        Views (common) significant features in a separate PyMOL session.
+        This function uses the IPyMOL module, in essence a PyMOL API.
+
+        Prior to running this function, please make sure to have successfully run
+        self.comp_feature_diffs(),
+        at which state the following required parameters will have been set:
+        - self.feature_func_name
+        - self.intrajdatatype
+        - self.num_sigma_funit
+
+        Parameters
+        ----------
+        * coarse_grain_type : string, defining what coarse-graining has been applied to
+                              the current feature type, possible values:
+                              - None        : no feature coarse-graining used
+                                              in the feature type
+                              - "cg_nobb"   : coarse-graining on seg-res level only, i.e.
+                                              as defined in
+                                              scripts/df_rgn_seg_res_bb.dat
+                              - "cg_withbb" : coarse-graining on seg-res-bb level, i.e.
+                                              as defined in
+                                              scripts/df_rgn_seg_res_bb_with_bb.dat
+
+        * l_SDApair, l_SDA_not_pair: two lists defining what ensembles to compare,
+                                     see examples below
+                                     (if l_SDA_not_pair is None, set l_SDA_not_pair=[] )
+            # show significant differences between ensembles 'bN82A.pcca2' and 'WT.pcca2'
+            l_SDApair            = [('bN82A.pcca2', 'WT.pcca2')]
+            l_SDA_not_pair       = []
+
+            # show significant differences between ensembles
+            # 'bN82A.pcca2' and 'WT.pcca2' ...
+            l_SDApair            = [('bN82A.pcca2', 'WT.pcca2')]
+            # ... which are not significantly different between
+            # 'aT41A.pcca1' and 'WT.pcca2':
+            l_SDApair            = [('aT41A.pcca1', 'WT.pcca2')]
+            
+            # show significant differences common to
+            # multiple ensemble comparisons ...
+            l_SDApair            = [('bN82A.pcca2', 'WT.pcca2'),
+                                    ('aT41A.pcca1', 'WT.pcca2')]
+            # ... which are not significantly different among
+            # the following comparisons
+            l_SDA_not_pair            = [('aT41A.pcca1', 'bN82A.pcca2')]
+
+        * is_only_water_access : whether or not only to show significant differences in
+                                 interaction frequency differences only with water 
+                                 (for spbsf, in particular
+                                 spbsf.Hvvdwdist_VMD and spbsf.HvvdwHB)
+
+        * outdir            : string, optional,
+                              default = "output/meta" % (feature_func_name,
+                                                         self.intrajdatatype)
+                              output path (passed in PyMOL, but currently not used)
+        """
+        # for view_feature_diffs, see below 
+        from ipymol import viewer as pymol
+        import re
+
+        for myvarlbl in ["self.feature_func_name",
+                         "self.intrajdatatype",
+                         "self.num_sigma_funit"]:
+            if eval(myvarlbl) is None:
+                raise ValueError("%s is None, i.e. not defined!" % myvarlbl)
+
+        if l_SDA_not_pair is None:
+            l_SDA_not_pair = []
+        
+        d_locals                         = {}
+        d_locals["l_SDApair"]            = l_SDApair
+        d_locals["l_SDA_not_pair"]       = l_SDA_not_pair
+        d_locals["feature_func_name"]    = self.feature_func_name
+        #d_locals["featuregroup"]         = self.feature_func_name.split(".")[0] # e.g., "spbsf"
+        #d_locals["featuretype"]          = self.feature_func_name.split(".")[1] # e.g., "HBond_VMD"
+        #d_locals["stdtype"]              = self.feature_func_name.split(".")[2] # e.g., "std_err"
+        d_locals["stattype"]             = self.intrajdatatype                  # e.g., "samplebatches"
+        d_locals["nsigma"]               = self.num_sigma_funit[0]              # e.g., 2.000000
+        d_locals["nfunit"]               = self.num_sigma_funit[1]              # e.g., 0.000000
+        d_locals["intrajformat"]         = self.intrajformat                    # e.g., "xtc"
+        d_locals["outdir"]               = outdir                               # 
+        d_locals["coarse_grain_type"]    = coarse_grain_type
+
+        # spbsf
+        if is_only_water_access is None:
+            d_locals["is_only_water_access"] = False
+        else:
+            d_locals["is_only_water_access"] = is_only_water_access
+        
+        # Start PyMOL RPC server, if not started yet 
+        if not hasattr(pymol, "_server"):
+            pymol.start()   # Start PyMOL RPC server
+
+        is_pymol_connected = False
+        # keep trying until PyMol server is connected
+        while not is_pymol_connected:
+            try:
+                #pymol._server.do("run %s/PyMOL_VisFeatDiffs.py" % (VisFeatDiffsDir))
+                pymol._server.do("pass")
+                is_pymol_connected = True
+            except ConnectionRefusedError:
+                _time.sleep(1)
+       
+        pymol._server.do("d_locals = %s" % d_locals)
+        pymol._server.do("run VisFeatDiffs/PyMOL/PyMOL_VisFeatDiffs_%s.py" % self.feature_func_name.split(".")[0])
+
 
     def featuretype_redundancies(self, l_featuretype = None, corrmethod = "spearman", 
                                  l_radcol = None, withrnmlevel = False, withplots = False, outdir = None ):
