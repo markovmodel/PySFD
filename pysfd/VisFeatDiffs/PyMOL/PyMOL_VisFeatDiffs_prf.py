@@ -135,10 +135,10 @@ if 'd_locals' in locals():
 
 if coarse_grain_type is None:
     df_rgn_seg_res_bb = None
-elif coarse_grain_type == ".cg_nobb":
+elif coarse_grain_type == "cg_nobb":
     df_rgn_seg_res_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb.dat", sep = "\t")
     df_rgn_seg_res_bb.res = df_rgn_seg_res_bb.res.apply(lambda x : list(eval(x)))
-elif coarse_grain_type == ".cg_withbb":
+elif coarse_grain_type == "cg_withbb":
     df_rgn_seg_res_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb_with_bb.dat", sep = "\t")
     df_rgn_seg_res_bb.res = df_rgn_seg_res_bb.res.apply(lambda x : list(eval(x)))
 else:
