@@ -1102,7 +1102,7 @@ class PySFD(object):
             # the following comparisons
             l_SDA_not_pair            = [('aT41A.pcca1', 'bN82A.pcca2')]
 
-        * is_only_water_access : whether or not only to show significant differences in
+        * is_only_water_access : whether or not to only show significant differences in
                                  interaction frequency differences only with water 
                                  (for spbsf, in particular
                                  spbsf.Hvvdwdist_VMD and spbsf.HvvdwHB)
@@ -1128,15 +1128,12 @@ class PySFD(object):
         d_locals["l_SDApair"]            = l_SDApair
         d_locals["l_SDA_not_pair"]       = l_SDA_not_pair
         d_locals["feature_func_name"]    = self.feature_func_name
-        #d_locals["featuregroup"]         = self.feature_func_name.split(".")[0] # e.g., "spbsf"
-        #d_locals["featuretype"]          = self.feature_func_name.split(".")[1] # e.g., "HBond_VMD"
-        #d_locals["stdtype"]              = self.feature_func_name.split(".")[2] # e.g., "std_err"
         d_locals["stattype"]             = self.intrajdatatype                  # e.g., "samplebatches"
         d_locals["nsigma"]               = self.num_sigma_funit[0]              # e.g., 2.000000
         d_locals["nfunit"]               = self.num_sigma_funit[1]              # e.g., 0.000000
         d_locals["intrajformat"]         = self.intrajformat                    # e.g., "xtc"
         d_locals["outdir"]               = outdir                               # 
-        d_locals["coarse_grain_type"]    = coarse_grain_type
+        d_locals["coarse_grain_type"]    = coarse_grain_type                    # e.g., "cg_nobb"
 
         # spbsf
         if is_only_water_access is None:

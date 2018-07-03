@@ -182,6 +182,10 @@ nfunit               = 0.000000
 intrajformat         = "xtc"
 # output path, currently not used in PyMOL:
 outdir               = None
+# whether or not to only show significant differences in
+# interaction frequency differences only with water 
+# (for spbsf, in particular
+# spbsf.Hvvdwdist_VMD and spbsf.HvvdwHB)
 is_only_water_access = False
 
 # if called directly from PySFD.view_feature_diffs(),
