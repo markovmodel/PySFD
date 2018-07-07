@@ -134,8 +134,17 @@ class PySFD(object):
                               a meta-stable set of a Markov State Model
         * 'raw'             : plain simulation trajectories, whose feature statistics 
                               - means or (means and standard deviations) - 
-                              are further bootstrapped on the trajectory level
-                              (with *num_bs* bootstraps, see below)
+                              are further bootstrapped (with replacement) on the trajectory level
+                              (with num_bs bootstraps, see below)
+        * 'convcheck'       : for convergence checks of the significant feature differences:
+                              samples a single bootstrap (with replacement) from
+                              the input trajectories containing num_bs (<= numreplica)
+                              bootstrapped trajectories;
+                              for the actual convergence check, you need to run PySFD
+                              with the parameter value 'convcheck' multiple times with
+                              varying parameter values of *num_bs*
+                              (see Fig. S5 in the manuscript and
+                              PySFD/docs/PySFD_example/convcheck folder for example scripts)
 
     * intrajformat : string, default = "xtc"
         Input trajectory format
@@ -172,7 +181,7 @@ class PySFD(object):
 
     def __init__(self, l_ens_numreplica = None, FeatureObj = None, intrajdatatype = "samplebatches",
                  intrajformat = "xtc", num_bs = 10, rnm2pdbrnm = None, l_bb_atomnames = None):
-        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw'], intrajformat = ['xtc'])
+        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck'], intrajformat = ['xtc'])
         for myparam in param2possible_values:
             if eval(myparam) not in param2possible_values[myparam]:
                 raise ValueError("parameter %s with value %s not in %s" % (myparam, eval(myparam),
@@ -402,6 +411,14 @@ class PySFD(object):
                 myensdf["r"] = r
                 l_bsensdf.append(myensdf)
             myensdf = _pd.concat(l_bsensdf, copy=False)
+        elif self.intrajdatatype == "convcheck":
+            myinds = _np.random.choice(range(len(l_traj_df)), size=self.num_bs, replace=True)
+            myensdf = [l_traj_df[i].copy() for i in myinds]
+            for myensind in range(len(myensdf)):
+                myensdf[myensind]["r"] = myensind
+            self.l_ens_numreplica = { i : self.num_bs for i,j in self.l_ens_numreplica.items() }
+            numreplica = self.num_bs
+            myensdf = _pd.concat(myensdf, copy=False)
 
         def myfunc(x, numframes):
             if _np.any(x.isnull()):

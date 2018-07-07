@@ -359,6 +359,15 @@ PySFD.intrajdatatype : string, default="samplebatches"
                               - means or (means and standard deviations) - 
                               are further bootstrapped on the trajectory level
                               (with *num_bs* bootstraps)
+        * 'convcheck'       : for convergence checks of the significant feature differences:
+                              samples a single bootstrap (with replacement) from
+                              the input trajectories containing num_bs (<= numreplica)
+                              bootstrapped trajectories;
+                              for the actual convergence check, you need to run PySFD
+                              with the parameter value 'convcheck' multiple times with
+                              varying parameter values of *num_bs*
+                              (see Fig. S5 in the manuscript and
+                              PySFD/docs/PySFD_example/convcheck folder for example scripts)
 ```
 
 and one of two different formats:
