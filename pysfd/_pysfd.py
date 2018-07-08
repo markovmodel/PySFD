@@ -331,14 +331,34 @@ class PySFD(object):
         pool = _pathos.pools.ProcessPool(max_workers)
         pool.restart(force=True)
         try:
-            feature_func_results = pool.amap(self.feature_func, l_args)
-            counter_i = 0
-            while not feature_func_results.ready():
-                _time.sleep(2)
-                if counter_i % 30 == 0:
-                    print('Waiting for child processes running in pool.amap() in run_ens( {} )'.format(myens))
-                counter_i += 1
-            l_traj_df, dataflags = list(zip(*feature_func_results.get()))
+            if self.intrajtype != "convcheck":
+                feature_func_results = pool.amap(self.feature_func, l_args)
+                counter_i = 0
+                while not feature_func_results.ready():
+                    _time.sleep(2)
+                    if counter_i % 30 == 0:
+                        print('Waiting for child processes running in pool.amap() in run_ens( {} )'.format(myens))
+                    counter_i += 1
+                l_traj_df, dataflags = list(zip(*feature_func_results.get()))
+            else:
+                picklefname = "output/tmp/%s.%s.%s.pickle.dat" % (myens, self.feature_func_name, self.intrajdatatype)
+                import pickle 
+                if not _os.path.isfile(picklefname): 
+                    _os.mkdir("output/tmp")
+                    feature_func_results = pool.amap(self.feature_func, l_args) 
+                    counter_i = 0 
+                    while not feature_func_results.ready(): 
+                        _time.sleep(2) 
+                        if counter_i % 30 == 0: 
+                            print('Waiting for child processes running in pool.amap() in run_ens( {} )'.format(myens)) 
+                        counter_i += 1 
+                    l_traj_df, dataflags = list(zip(*feature_func_results.get()))
+                    with open(picklefname, "wb") as f:
+                        pickle.dump((l_traj_df, dataflags), f)
+                else:
+                    with open(picklefname, "rb") as f:
+                        l_traj_df, dataflags = pickle.load(f)
+
             pool.close()
             pool.join()
             l_traj_df = list(l_traj_df)
