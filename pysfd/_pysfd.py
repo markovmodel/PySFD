@@ -343,7 +343,7 @@ class PySFD(object):
                 picklefname = "output/tmp/%s.%s.%s.pickle.dat" % (myens, self.feature_func_name, self.intrajdatatype)
                 import pickle 
                 if not _os.path.isfile(picklefname): 
-                    _os.mkdir("output/tmp")
+                    _subprocess.Popen(_shlex.split("mkdir -p output/tmp")).wait()
                     feature_func_results = pool.amap(self.feature_func, l_args) 
                     counter_i = 0 
                     while not feature_func_results.ready(): 
