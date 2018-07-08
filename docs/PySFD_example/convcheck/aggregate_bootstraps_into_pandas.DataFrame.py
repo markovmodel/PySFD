@@ -7,7 +7,6 @@ l_runID  = range(100)
 
 #feature_func_name = "prf.distance.Ca2Ca.std_err"
 #feature_func_name = "prf.distance.Ca2Ca.std_dev"
-feature_func_name = "spbsf.distance.Ca2Ca.std_dev"
 intrajtype        = "samplebatches"
 
 l_lbl = ['seg1', 'res1', 'rnm1', 'seg2', 'res2', 'rnm2']
@@ -24,6 +23,8 @@ a_numsdf    = []
 a_bsandref  = []
 a_bsniref   = []
 a_refnibs   = []
+
+intrajtype        = "convcheck"
 
 for num_bs in l_num_bs:
 	for runID in l_runID:
