@@ -151,9 +151,8 @@ class PySFD(object):
         |  "xtc" : gromacs xtc format
         |  "dcd" :         dcd format
 
-    * num_bs: int, optional if intrajdatatype != "bootstrap", default = 10
+    * num_bs: int, optional if intrajdatatype != "samplebatches", default = 10
         Number of bootstrapped trajectory sets to create
-        (only necessary for intrajdatatype != "sample_batches")
 
     * rnm2pdbrnm : dict, optional, default = None
             Maps topology residue name to PDB residue name, e.g.,
@@ -331,7 +330,7 @@ class PySFD(object):
         pool = _pathos.pools.ProcessPool(max_workers)
         pool.restart(force=True)
         try:
-            if self.intrajtype != "convcheck":
+            if self.intrajdatatype != "convcheck":
                 feature_func_results = pool.amap(self.feature_func, l_args)
                 counter_i = 0
                 while not feature_func_results.ready():
