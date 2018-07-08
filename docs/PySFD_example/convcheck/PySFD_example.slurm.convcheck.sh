@@ -23,6 +23,8 @@
 # activate conda python3 environment
 source activate python3
 
+mkdir logs
+
 l_num_bs=(25 50 75 100 125 150 162)
 num_bs=${l_num_bs[$SLURM_ARRAY_TASK_ID]}
 for runID in $(seq 0 1 100)
