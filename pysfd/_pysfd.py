@@ -145,6 +145,9 @@ class PySFD(object):
                               varying parameter values of *num_bs*
                               (see Fig. S5 in the manuscript and
                               PySFD/docs/PySFD_example/convcheck folder for example scripts)
+        * 'bootstraps'      : creates num_bs bootstraps (with replacement) from input trajectories
+                              for later processing
+                              TODO: implement SFD computations
 
     * intrajformat : string, default = "xtc"
         Input trajectory format
@@ -180,7 +183,7 @@ class PySFD(object):
 
     def __init__(self, l_ens_numreplica = None, FeatureObj = None, intrajdatatype = "samplebatches",
                  intrajformat = "xtc", num_bs = 10, rnm2pdbrnm = None, l_bb_atomnames = None):
-        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck'], intrajformat = ['xtc'])
+        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck', 'bootstraps'], intrajformat = ['xtc'])
         for myparam in param2possible_values:
             if eval(myparam) not in param2possible_values[myparam]:
                 raise ValueError("parameter %s with value %s not in %s" % (myparam, eval(myparam),
@@ -416,7 +419,7 @@ class PySFD(object):
 
         self.l_lbl[self.feature_func_name] = [ l for l in l_traj_df[0].columns if l not in ["r", 'fhist'] + l_obs]
         if self.intrajdatatype == "samplebatches":
-            myensdf = _pd.concat(l_traj_df, copy=False)
+            l_myensdf = [_pd.concat(l_traj_df, copy=False)]
             #myensdf.to_csv("df_myensdf.%s.dat" % myens, sep = "\t")
         elif self.intrajdatatype == "raw":
             # bootstrap regular simulation trajectories for statistical significance
@@ -429,7 +432,7 @@ class PySFD(object):
                         self.l_lbl[self.feature_func_name])[myobs].transform("sum") / numreplica
                 myensdf["r"] = r
                 l_bsensdf.append(myensdf)
-            myensdf = _pd.concat(l_bsensdf, copy=False)
+            l_myensdf = [_pd.concat(l_bsensdf, copy=False)]
         elif self.intrajdatatype == "convcheck":
             myinds = _np.random.choice(range(len(l_traj_df)), size=self.num_bs, replace=True)
             myensdf = [l_traj_df[i].copy() for i in myinds]
@@ -437,7 +440,15 @@ class PySFD(object):
                 myensdf[myensind]["r"] = myensind
             self.l_ens_numreplica = { i : self.num_bs for i,j in self.l_ens_numreplica.items() }
             numreplica = self.num_bs
-            myensdf = _pd.concat(myensdf, copy=False)
+            l_myensdf = [_pd.concat(myensdf, copy=False)]
+        elif self.intrajdatatype == "bootstraps":
+            l_myensdf = []
+            for bs in range(self.num_bs):
+                myinds = _np.random.choice(range(len(l_traj_df)), size=numreplica, replace=True)
+                myensdf = [l_traj_df[i].copy() for i in myinds]
+                for myensind in range(len(myensdf)):
+                    myensdf[myensind]["r"] = myensind
+                l_myensdf.append(_pd.concat(myensdf, copy=False))
 
         def myfunc(x, numframes):
             if _np.any(x.isnull()):
@@ -462,51 +473,52 @@ class PySFD(object):
                 a_bin = _np.round(_np.append(a_bin, a_bin[-1]+dbin), prec)
                 return tuple([a_bin, df_hist.hmean.values, df_hist.hstd.values])
 
-        if 'fhist' in myensdf.columns:
-            numframes = len(myensdf.r.unique())
-            #df_hist = myensdf.loc[~_pd.isnull(myensdf.fhist)].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes))
-            df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
-            myensdf = myensdf.loc[~_pd.isnull(myensdf.f)]
-            myensdf.drop(columns = "fhist", inplace = True)
-        else:
-            df_hist = None
-        if self.error_type[self._feature_func_name] == 'std_err':
-            mygroup = myensdf.groupby(self.l_lbl[self.feature_func_name])
-            # check for circular statistics
-            if circular_stats == "csd":
-                #dict_groups = dict([('f', [mycircmean, mycircstd])] + [('f.%d' % mymom, [mycircmean, mycircstd]) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1)])
-                dict_groups = dict([('f', [mycircmean, mycircstd])])
-                myensdf = mygroup.agg(dict_groups)
-                myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's' }, level = 1, inplace = True)
-                myensdf.columns = [myensdf.columns.map('{0[1]}{0[0]}'.format)]
+        for myind, myensdf in enumerate(l_myensdf):
+            if 'fhist' in myensdf.columns:
+                numframes = len(myensdf.r.unique())
+                #df_hist = myensdf.loc[~_pd.isnull(myensdf.fhist)].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes))
+                df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
+                myensdf = myensdf.loc[~_pd.isnull(myensdf.f)]
+                myensdf.drop(columns = "fhist", inplace = True)
             else:
-                # the following unusual way to compute mean/std frequencies for each feature
-                # accounts for missing frequency entries of zero-frequency trajectories in sPBSF features
-                for myobs in l_obs:
-                    myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
-                    myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
-                del mygroup
-                myensdf['sfcount'] = 1
-                myensdf = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
-                for myobs in l_obs:
-                    # add contributions from missing frequency entries, i.e. for which myensdf["freq"] = 0
-                    myensdf['s' + myobs] += (numreplica - myensdf['sfcount']) * myensdf['m' + myobs] ** 2
-                    myensdf['s' + myobs] = _np.sqrt(1. * myensdf['s' + myobs] / (numreplica - 1))
-                del myensdf["sfcount"]
-        elif self.error_type[self._feature_func_name] == 'std_dev':
-            if circular_stats == "csd":
+                df_hist = None
+            if self.error_type[self._feature_func_name] == 'std_err':
                 mygroup = myensdf.groupby(self.l_lbl[self.feature_func_name])
-                myensdf = mygroup.agg( { 'f' : mycircmean, 'sf' : mycircmean } )
-                myensdf.rename(columns = { 'f' : 'mf' }, inplace = True)
-            else:
-                for myobs in l_rename:
-                    myensdf.rename(columns = { myobs : 'm' + myobs }, inplace = True)
-                myensdf  = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
-                myensdf /= 1. * numreplica
-        if df_hist is not None:
-            myensdf = myensdf.merge(df_hist, left_index = True, right_index = True, how = "outer")
-        myensdf = _pd.concat([myensdf], axis=1, keys=[myens]).reset_index(drop = False)
-        return [myensdf, self.l_lbl, self.error_type, self.max_mom_ord]
+                # check for circular statistics
+                if circular_stats == "csd":
+                    #dict_groups = dict([('f', [mycircmean, mycircstd])] + [('f.%d' % mymom, [mycircmean, mycircstd]) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1)])
+                    dict_groups = dict([('f', [mycircmean, mycircstd])])
+                    myensdf = mygroup.agg(dict_groups)
+                    myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's' }, level = 1, inplace = True)
+                    myensdf.columns = [myensdf.columns.map('{0[1]}{0[0]}'.format)]
+                else:
+                    # the following unusual way to compute mean/std frequencies for each feature
+                    # accounts for missing frequency entries of zero-frequency trajectories in sPBSF features
+                    for myobs in l_obs:
+                        myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+                        myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+                    del mygroup
+                    myensdf['sfcount'] = 1
+                    myensdf = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
+                    for myobs in l_obs:
+                        # add contributions from missing frequency entries, i.e. for which myensdf["freq"] = 0
+                        myensdf['s' + myobs] += (numreplica - myensdf['sfcount']) * myensdf['m' + myobs] ** 2
+                        myensdf['s' + myobs] = _np.sqrt(1. * myensdf['s' + myobs] / (numreplica - 1))
+                    del myensdf["sfcount"]
+            elif self.error_type[self._feature_func_name] == 'std_dev':
+                if circular_stats == "csd":
+                    mygroup = myensdf.groupby(self.l_lbl[self.feature_func_name])
+                    myensdf = mygroup.agg( { 'f' : mycircmean, 'sf' : mycircmean } )
+                    myensdf.rename(columns = { 'f' : 'mf' }, inplace = True)
+                else:
+                    for myobs in l_rename:
+                        myensdf.rename(columns = { myobs : 'm' + myobs }, inplace = True)
+                    myensdf  = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
+                    myensdf /= 1. * numreplica
+            if df_hist is not None:
+                myensdf = myensdf.merge(df_hist, left_index = True, right_index = True, how = "outer")
+            l_myensdf[myind] = _pd.concat([myensdf], axis=1, keys=[myens]).reset_index(drop = False)
+        return [l_myensdf, self.l_lbl, self.error_type, self.max_mom_ord]
 
     def comp_features(self, max_workers=(1, 1)):
         """
@@ -519,7 +531,6 @@ class PySFD(object):
                          j is the number of assigned sub-processes for all replicas in a simulated ensemble
             in total, i * j cores will be used simultaneously
         """
-        df_features = None
         l_args = [(myens, self.l_ens_numreplica[myens], max_workers[1]) for myens in self.l_ens]
 
         pool = _NoDaemonPool(max_workers[0])
@@ -543,8 +554,15 @@ class PySFD(object):
             _sys.stdout.flush()
             _os.killpg(_os.getpgid(0), _signal.SIGTERM)
 
-        for myens, myensdf in zip(self.l_ens, results):
-            myensdf, self.l_lbl, self.error_type, self.max_mom_ord = tuple(myensdf)
+        if self.intrajdatatype == "bootstraps":
+            l_df_features           = [None] * self.num_bs
+            l_df_features_segresrnm = [None] * self.num_bs
+        else:
+            l_df_features           = [None]
+            l_df_features_segresrnm = [None]
+
+        for myens, myresults in zip(self.l_ens, results):
+            l_myensdf, self.l_lbl, self.error_type, self.max_mom_ord = tuple(myresults)
             print(myens)
             # distinguish whether "rnm", "rnm1"/"rnm2", or not any are in the labels
             # (used later to turn any different residue names into "MTS", see below)
@@ -554,76 +572,88 @@ class PySFD(object):
                 is_rnm = 'rnm12'
             else:
                 is_rnm = False
-            # prepare a DataFrame df_myens_segresrnm containing segresrnm ID information
-            if is_rnm == 'rnm':
-                myensdf['segres'] = myensdf['seg'].astype(str) + '_' + myensdf['res'].astype(str)
-                df_myens_segresrnm = _pd.DataFrame({
-                 'segres' : myensdf['segres'],
-                 'rnm'    : myensdf['rnm']}).drop_duplicates()
-            elif is_rnm == 'rnm12':
-                myensdf['segres1'] = myensdf['seg1'].astype(str) + '_' + myensdf['res1'].astype(str)
-                myensdf['segres2'] = myensdf['seg2'].astype(str) + '_' + myensdf['res2'].astype(str)
-                df_myens_segresrnm = _pd.DataFrame({
-                 'segres' : _np.concatenate((myensdf['segres1'], myensdf['segres2'])),
-                 'rnm' : _np.concatenate((myensdf['rnm1'], myensdf['rnm2']))}).drop_duplicates()
-            # for any additional ensemble (myensdf), check for differing residue names
-            # that are not NaN and rename them as "MTS"
-            if df_features is None:
-                df_features = myensdf
-                if is_rnm in ['rnm', 'rnm12']:
-                    df_features_segresrnm = df_myens_segresrnm.copy()
-            else:
-                if is_rnm in ['rnm', 'rnm12']:
-                    df_tmp = df_features_segresrnm.merge(df_myens_segresrnm, how = "outer", on = ['segres'])
-                    df_tmp = df_tmp.loc[df_tmp.rnm_x != df_tmp.rnm_y]
-                    df_tmp = df_tmp.loc[df_tmp.rnm_x == df_tmp.rnm_x]
-                    df_tmp = df_tmp.loc[df_tmp.rnm_y == df_tmp.rnm_y].reset_index(drop = True)
-                    if is_rnm == 'rnm':
-                        df_features.loc[_np.in1d(df_features.segres,  df_tmp.segres), 'rnm'] = 'MTS'
-                        myensdf.loc[    _np.in1d(myensdf.segres,      df_tmp.segres), 'rnm'] = 'MTS'
-                    else:
-                        df_features.loc[_np.in1d(df_features.segres1, df_tmp.segres), 'rnm1'] = 'MTS'
-                        df_features.loc[_np.in1d(df_features.segres2, df_tmp.segres), 'rnm2'] = 'MTS'
-                        myensdf.loc[    _np.in1d(myensdf.segres1,     df_tmp.segres), 'rnm1'] = 'MTS'
-                        myensdf.loc[    _np.in1d(myensdf.segres2,     df_tmp.segres), 'rnm2'] = 'MTS'
 
-                # update df_features_segresrnm
-                df_features = df_features.merge(myensdf, how="outer")
+            for myind, myensdf in enumerate(l_myensdf):
+                # prepare a DataFrame df_myens_segresrnm containing segresrnm ID information
                 if is_rnm == 'rnm':
-                    df_features_segresrnm = _pd.DataFrame({
-                     'segres' : df_features['segres'],
-                     'rnm'    : df_features['rnm']}).drop_duplicates()
+                    myensdf['segres'] = myensdf['seg'].astype(str) + '_' + myensdf['res'].astype(str)
+                    df_myens_segresrnm = _pd.DataFrame({
+                     'segres' : myensdf['segres'],
+                     'rnm'    : myensdf['rnm']}).drop_duplicates()
                 elif is_rnm == 'rnm12':
-                    df_features_segresrnm = _pd.DataFrame({
-                     'segres' : _np.concatenate((df_features['segres1'], df_features['segres2'])),
-                     'rnm'    : _np.concatenate((df_features['rnm1'],    df_features['rnm2']))}).drop_duplicates()
+                    myensdf['segres1'] = myensdf['seg1'].astype(str) + '_' + myensdf['res1'].astype(str)
+                    myensdf['segres2'] = myensdf['seg2'].astype(str) + '_' + myensdf['res2'].astype(str)
+                    df_myens_segresrnm = _pd.DataFrame({
+                     'segres' : _np.concatenate((myensdf['segres1'], myensdf['segres2'])),
+                     'rnm' : _np.concatenate((myensdf['rnm1'], myensdf['rnm2']))}).drop_duplicates()
+                # for any additional ensemble (myensdf), check for differing residue names
+                # that are not NaN and rename them as "MTS"
+                if l_df_features[myind] is None:
+                    l_df_features[myind] = myensdf
+                    if is_rnm in ['rnm', 'rnm12']:
+                        l_df_features_segresrnm[myind] = df_myens_segresrnm.copy()
+                else:
+                    if is_rnm in ['rnm', 'rnm12']:
+                        df_tmp = l_df_features_segresrnm[myind].merge(df_myens_segresrnm, how = "outer", on = ['segres'])
+                        df_tmp = df_tmp.loc[df_tmp.rnm_x != df_tmp.rnm_y]
+                        df_tmp = df_tmp.loc[df_tmp.rnm_x == df_tmp.rnm_x]
+                        df_tmp = df_tmp.loc[df_tmp.rnm_y == df_tmp.rnm_y].reset_index(drop = True)
+                        if is_rnm == 'rnm':
+                            l_df_features[myind].loc[_np.in1d(l_df_features[myind].segres,  df_tmp.segres), 'rnm'] = 'MTS'
+                            myensdf.loc[    _np.in1d(myensdf.segres,      df_tmp.segres), 'rnm'] = 'MTS'
+                        else:
+                            l_df_features[myind].loc[_np.in1d(l_df_features[myind].segres1, df_tmp.segres), 'rnm1'] = 'MTS'
+                            l_df_features[myind].loc[_np.in1d(l_df_features[myind].segres2, df_tmp.segres), 'rnm2'] = 'MTS'
+                            myensdf.loc[    _np.in1d(myensdf.segres1,     df_tmp.segres), 'rnm1'] = 'MTS'
+                            myensdf.loc[    _np.in1d(myensdf.segres2,     df_tmp.segres), 'rnm2'] = 'MTS'
+    
+                    # update l_df_features_segresrnm[myind]
+                    l_df_features[myind] = l_df_features[myind].merge(myensdf, how="outer")
+                    if is_rnm == 'rnm':
+                        l_df_features_segresrnm[myind] = _pd.DataFrame({
+                         'segres' : l_df_features[myind]['segres'],
+                         'rnm'    : l_df_features[myind]['rnm']}).drop_duplicates()
+                    elif is_rnm == 'rnm12':
+                        l_df_features_segresrnm[myind] = _pd.DataFrame({
+                         'segres' : _np.concatenate((l_df_features[myind]['segres1'], l_df_features[myind]['segres2'])),
+                         'rnm'    : _np.concatenate((l_df_features[myind]['rnm1'],    l_df_features[myind]['rnm2']))}).drop_duplicates()
 
-        if "fhist" in df_features.columns.get_level_values(1):
-            l_obs = ["fhist", "mf", "sf"] + ['%s.%d' % (flbl, mymom) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1) for flbl in ['mf', 'sf'] ]
+        self.df_features[self.feature_func_name] = []
+        if "fhist" in l_df_features[-1].columns.get_level_values(1):
+            self.df_fhists[self.feature_func_name] = []
+
+        for myind, myensdf in enumerate(l_myensdf):
+            if "fhist" in l_df_features[myind].columns.get_level_values(1):
+                l_obs = ["fhist", "mf", "sf"] + ['%s.%d' % (flbl, mymom) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1) for flbl in ['mf', 'sf'] ]
+            else:
+                l_obs = ["mf", "sf"] + ['%s.%d' % (flbl, mymom) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1) for flbl in ['mf', 'sf'] ]
+            nanentries = l_df_features[myind].loc[_np.all(l_df_features[myind].loc[:,l_df_features[myind].columns.get_level_values(1) == "mf"].isnull(), axis = 1)]
+            if len(nanentries) > 0:
+                warnstr = "The following feature labels defined in df_hist_feats do not match with any simulated ensemble:\n%s" % (nanentries)
+                _warnings.warn(warnstr)
+            l_df_features[myind].iloc[:, l_df_features[myind].columns.get_level_values(1).isin(l_obs)] = \
+                l_df_features[myind].iloc[:, l_df_features[myind].columns.get_level_values(1).isin(l_obs)].fillna(0)
+            if is_rnm == 'rnm':
+                del l_df_features[myind]['segres']
+            elif is_rnm == 'rnm12':
+                del l_df_features[myind]['segres1']
+                del l_df_features[myind]['segres2']
+            l_df_features[myind] = l_df_features[myind].sort_values(by=self.l_lbl[self.feature_func_name])
+            if "fhist" in l_df_features[myind].columns.get_level_values(1):
+                # only consider features for histogramming, i.e. from df_hist_feats
+                self.df_fhists[self.feature_func_name].append(
+                l_df_features[myind].loc[
+                    ~_np.all(l_df_features[myind].loc[:,l_df_features[myind].columns.get_level_values(1) == "fhist"] == 0, axis = 1),
+                    (l_df_features[myind].columns.get_level_values(1)=="fhist") |
+                    (_np.in1d(l_df_features[myind].columns.get_level_values(0), self.l_lbl[self.feature_func_name] ))])
+                #.reset_index(drop=True)
+                self.df_fhists[self.feature_func_name][-1].columns = self.df_fhists[self.feature_func_name][-1].columns.droplevel(1)
+            self.df_features[self.feature_func_name].append(l_df_features[myind].drop(columns = "fhist", level = 1).reset_index(drop=True))
+        if self.intrajdatatype in ["bootstraps"]:
+            if ((len(self.df_features[self.feature_func_name]) == 1)):
+                raise ValueError("self.intrajdatatype is in [\"bootstraps\"] but len(self.df_features[%s]) is zero!" % (self.df_features[self.feature_func_name]))
         else:
-            l_obs = ["mf", "sf"] + ['%s.%d' % (flbl, mymom) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1) for flbl in ['mf', 'sf'] ]
-        nanentries = df_features.loc[_np.all(df_features.loc[:,df_features.columns.get_level_values(1) == "mf"].isnull(), axis = 1)]
-        if len(nanentries) > 0:
-            warnstr = "The following feature labels defined in df_hist_feats do not match with any simulated ensemble:\n%s" % (nanentries)
-            _warnings.warn(warnstr)
-        df_features.iloc[:, df_features.columns.get_level_values(1).isin(l_obs)] = \
-            df_features.iloc[:, df_features.columns.get_level_values(1).isin(l_obs)].fillna(0)
-        if is_rnm == 'rnm':
-            del df_features['segres']
-        elif is_rnm == 'rnm12':
-            del df_features['segres1']
-            del df_features['segres2']
-        df_features = df_features.sort_values(by=self.l_lbl[self.feature_func_name])
-        if "fhist" in df_features.columns.get_level_values(1):
-            # only consider features for histogramming, i.e. from df_hist_feats
-            self.df_fhists[self.feature_func_name] = \
-            df_features.loc[
-                ~_np.all(df_features.loc[:,df_features.columns.get_level_values(1) == "fhist"] == 0, axis = 1),
-                (df_features.columns.get_level_values(1)=="fhist") |
-                (_np.in1d(df_features.columns.get_level_values(0), self.l_lbl[self.feature_func_name] ))]
-            #.reset_index(drop=True)
-            self.df_fhists[self.feature_func_name].columns = self.df_fhists[self.feature_func_name].columns.droplevel(1)
-        self.df_features[self.feature_func_name] = df_features.drop(columns = "fhist", level = 1).reset_index(drop=True)
+            self.df_features[self.feature_func_name] = self.df_features[self.feature_func_name][0]
 
     def comp_feature_diffs_old(self, num_sigma=2, num_funit=0):
         """
@@ -702,6 +732,8 @@ class PySFD(object):
                   p values for two-sided Z-test
         
         """
+        if self.intrajdatatype in ["bootstraps"]:
+            raise NotImplementedError("comp_feature_diffs() not implemented yet for self.intrajdatatype in [\"bootstraps\"]")
         self._num_sigma_funit[self.feature_func_name] = (num_sigma, num_funit)
         df_feature_diffs = {}
         for i in range(len(self.l_ens)):
@@ -922,19 +954,30 @@ class PySFD(object):
             outdir = "output/meta/%s/%s" % (self.feature_func_name, self.intrajdatatype)
 
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
-        self.df_features[self.feature_func_name].to_csv("%s/%s.%s.%s.dat" % (
-            outdir,
-            self.feature_func_name,
-            self.intrajdatatype,
-            "_".join(self.l_ens)),
-            sep="\t", float_format="%.4f", index=False)
-        if self.feature_func_name in self.df_fhists:
-            self.df_fhists[self.feature_func_name].to_csv("%s/%s.%s.%s.fhists.dat" % (
+        if self.intrajdatatype in ["bootstraps"]:
+            for myind, mydf in enumerate(self.df_features[self.feature_func_name]):
+                mydf.to_csv("%s/%s.%s.%s.bs_%05d.dat" % (
+                    outdir,
+                    self.feature_func_name,
+                    self.intrajdatatype,
+                    "_".join(self.l_ens),
+                    myind),
+                    sep="\t", float_format="%.4f", index=False)
+        else:
+            self.df_features[self.feature_func_name].to_csv("%s/%s.%s.%s.dat" % (
                 outdir,
                 self.feature_func_name,
                 self.intrajdatatype,
                 "_".join(self.l_ens)),
                 sep="\t", float_format="%.4f", index=False)
+            if self.feature_func_name in self.df_fhists:
+                self.df_fhists[self.feature_func_name].to_csv("%s/%s.%s.%s.fhists.dat" % (
+                    outdir,
+                    self.feature_func_name,
+                    self.intrajdatatype,
+                    "_".join(self.l_ens)),
+                    sep="\t", float_format="%.4f", index=False)
+
 
     def plot_feature_hists(self, outdir=None):
         """
