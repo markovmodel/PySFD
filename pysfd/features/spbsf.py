@@ -42,6 +42,8 @@ import subprocess as _subprocess
 import shlex as _shlex
 import glob as _glob
 import itertools as _itertools
+#import pickle as _pickle
+#import os as _os
 
 from pysfd.features import _feature_agent
 
@@ -561,16 +563,28 @@ class HBond_mdtraj(_sPBSF):
         df_lbl2 = _pd.DataFrame(data={'seg2': a_seg, 'res2': a_res, 'rnm2': a_rnm, 'bb2': a_bb, 'anm2': a_anm},
                                 columns=l_lbl2)
         traj_df = []
-        for i in range(len(mytraj)):
-            pai_inds = _md.baker_hubbard(mytraj[i], exclude_water=False, periodic=False)
-            a = df_lbl1.iloc[pai_inds[:, 0]].reset_index(drop=True)
-            b = df_lbl2.iloc[pai_inds[:, 2]].reset_index(drop=True)
-            traj_df.append(_pd.concat([a, b], axis=1))
-            traj_df[-1]['frame'] = i
-            # if (i % 10) == 0:
-            #    print(i)
-        traj_df = _pd.concat(traj_df, copy=False)
-    
+        #picklefname = "output/tmp/%s.%s/%s/r_%05d/%s.%s.%s.r_%05d.pickle.dat" % (fself.feature_func_name, fself.intrajdatatype, myens, r, fself.feature_func_name, fself.intrajdatatype, myens, r)
+        #if not _os.path.isfile(picklefname):
+        if True:
+            for i in range(len(mytraj)):
+                pai_inds = _md.baker_hubbard(mytraj[i], exclude_water=False, periodic=False)
+                a = df_lbl1.iloc[pai_inds[:, 0]].reset_index(drop=True)
+                b = df_lbl2.iloc[pai_inds[:, 2]].reset_index(drop=True)
+                traj_df.append(_pd.concat([a, b], axis=1))
+                traj_df[-1]['frame'] = i
+                # if (i % 10) == 0:
+                #    print(i)
+            traj_df = _pd.concat(traj_df, copy=False)
+            #_subprocess.Popen(_shlex.split("mkdir -p output/tmp/%s.%s/%s/r_%05d" % (fself.feature_func_name, fself.intrajdatatype, myens, r))).wait()
+            #with open(picklefname, "wb") as f:
+            #    _pickle.dump(traj_df, f)
+        #else:
+        #    with open(picklefname, "rb") as f:
+        #        print("reloading %s" % picklefname)
+        #        traj_df = _pickle.load(f)
+        if fself.maxnumframes > 0:
+            traj_df = traj_df.query("frame < %d" % fself.maxnumframes).copy()
+  
         for mycol in ['anm1', 'anm2']:
             del traj_df[mycol]
         traj_df.drop_duplicates(inplace = True)

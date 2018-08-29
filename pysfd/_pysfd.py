@@ -55,6 +55,8 @@ import matplotlib as _matplotlib
 _matplotlib.use('Agg')
 import matplotlib.pyplot as _plt
 from matplotlib.backends.backend_pdf import PdfPages as _PdfPages
+import pickle as _pickle
+#import socket as _socket
 
 import seaborn as _sns; _sns.set()
 
@@ -157,6 +159,11 @@ class PySFD(object):
     * num_bs: int, optional if intrajdatatype != "samplebatches", default = 10
         Number of bootstrapped trajectory sets to create
 
+    * maxnumframes: int, optional, default = -1
+        Maximum number of frames to analyze in each trajectory,
+        if not > 0, then all frames in each trajectory will be analyzed
+        (currently only implemented for spbsf.HBond_mdtraj)
+
     * rnm2pdbrnm : dict, optional, default = None
             Maps topology residue name to PDB residue name, e.g.,
             rnm2pdbrnm = {"ASH": "ASP", "GLH": "GLU", ... }
@@ -182,7 +189,7 @@ class PySFD(object):
     """
 
     def __init__(self, l_ens_numreplica = None, FeatureObj = None, intrajdatatype = "samplebatches",
-                 intrajformat = "xtc", num_bs = 10, rnm2pdbrnm = None, l_bb_atomnames = None):
+                 intrajformat = "xtc", num_bs = 10, maxnumframes = -1, rnm2pdbrnm = None, l_bb_atomnames = None):
         param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck', 'bootstraps'], intrajformat = ['xtc'])
         for myparam in param2possible_values:
             if eval(myparam) not in param2possible_values[myparam]:
@@ -199,6 +206,7 @@ class PySFD(object):
         self.intrajformat        = intrajformat
         self.pkg_dir             = _os.path.dirname(_os.path.abspath(__file__))
         self.num_bs              = num_bs
+        self.maxnumframes        = maxnumframes
         if rnm2pdbrnm is None:
             self._rnm2pdbrnm     = {
                                    "ASH": "ASP",
@@ -343,10 +351,9 @@ class PySFD(object):
                     counter_i += 1
                 l_traj_df, dataflags = list(zip(*feature_func_results.get()))
             else:
-                picklefname = "output/tmp/%s.%s.%s.pickle.dat" % (myens, self.feature_func_name, self.intrajdatatype)
-                import pickle 
+                picklefname = "output/tmp/%s.%s/%s/%s.%s.%s.mnf_%d.pickle.dat" % (self.feature_func_name, self.intrajdatatype, myens, self.feature_func_name, self.intrajdatatype, myens, self.maxnumframes)
                 if not _os.path.isfile(picklefname): 
-                    _subprocess.Popen(_shlex.split("mkdir -p output/tmp")).wait()
+                    _subprocess.Popen(_shlex.split("mkdir -p output/tmp/%s.%s/%s" % (self.feature_func_name, self.intrajdatatype, myens))).wait()
                     feature_func_results = pool.amap(self.feature_func, l_args) 
                     counter_i = 0 
                     while not feature_func_results.ready(): 
@@ -356,10 +363,11 @@ class PySFD(object):
                         counter_i += 1 
                     l_traj_df, dataflags = list(zip(*feature_func_results.get()))
                     with open(picklefname, "wb") as f:
-                        pickle.dump((l_traj_df, dataflags), f)
+                        _pickle.dump((l_traj_df, dataflags), f)
                 else:
                     with open(picklefname, "rb") as f:
-                        l_traj_df, dataflags = pickle.load(f)
+                        print("reloading %s" % picklefname)
+                        l_traj_df, dataflags = _pickle.load(f)
 
             pool.close()
             pool.join()
@@ -536,6 +544,9 @@ class PySFD(object):
         pool = _NoDaemonPool(max_workers[0])
         #pool.restart(force=True)
         try:
+            #_subprocess.Popen(_shlex.split("mkdir -p logs/%s" % _socket.gethostname())).wait()
+            #with open("logs/%s/top.out" % _socket.gethostname(), "wb") as outf:
+            #    _subprocess.Popen(_shlex.split("top -u stolzen -c -d 5 -n 30 -b"), stdout=outf, stderr=outf)
             results = pool.map_async(self.run_ens, l_args)
             counter_i = 0
             while not results.ready():
@@ -963,6 +974,16 @@ class PySFD(object):
                     "_".join(self.l_ens),
                     myind),
                     sep="\t", float_format="%.4f", index=False)
+        elif self.intrajdatatype in ["convcheck"]:
+            self.df_features[self.feature_func_name].to_csv("%s/%s.%s.mnf_%d.nbst_%d.%s.dat" % (
+                    outdir,
+                    self.feature_func_name,
+                    self.intrajdatatype,
+                    self.maxnumframes,
+                    self.num_bs,
+                    "_".join(self.l_ens)),
+                    sep="\t", float_format="%.4f", index=False)
+
         else:
             self.df_features[self.feature_func_name].to_csv("%s/%s.%s.%s.dat" % (
                 outdir,
