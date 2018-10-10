@@ -11,8 +11,9 @@ For further details, please read
 ### Citation
 If you find this tool useful, please cite:
 ```
-S. Stolzenberg: "PySFD: Molecular Mechanistic Clues from Significant Features Differences detected among Simulated Ensembles" (submitted)
+Stolzenberg, S. "PySFD: Comprehensive Molecular Insights from Significant Feature Differences detected among many Simulated Ensembles." Bioinformatics (Oxford, England) (2018).
 ```
+https://doi.org/10.1093/bioinformatics/bty818
 
 ### Installation
 PySFD is a Python package available for Python 2 and 3, should in principle run on all common platforms, 
