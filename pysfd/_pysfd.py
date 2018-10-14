@@ -965,13 +965,20 @@ class PySFD(object):
             outdir = "output/meta/%s/%s" % (self.feature_func_name, self.intrajdatatype)
 
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
+
+        s_l_ens = "_".join(self.l_ens)
+        if len(s_l_ens) > 150:
+            s_l_ens = "MD_ensembles"
+            warnstr = "output string for l_ens is too long (> 150), renaming to \"MD_ensembles\""
+            _warnings.warn(warnstr)
+
         if self.intrajdatatype in ["bootstraps"]:
             for myind, mydf in enumerate(self.df_features[self.feature_func_name]):
                 mydf.to_csv("%s/%s.%s.%s.bs_%05d.dat" % (
                     outdir,
                     self.feature_func_name,
                     self.intrajdatatype,
-                    "_".join(self.l_ens),
+                    s_l_ens,
                     myind),
                     sep="\t", float_format="%.4f", index=False)
         elif self.intrajdatatype in ["convcheck"]:
@@ -981,7 +988,7 @@ class PySFD(object):
                     self.intrajdatatype,
                     self.maxnumframes,
                     self.num_bs,
-                    "_".join(self.l_ens)),
+                    s_l_ens),
                     sep="\t", float_format="%.4f", index=False)
 
         else:
@@ -989,14 +996,14 @@ class PySFD(object):
                 outdir,
                 self.feature_func_name,
                 self.intrajdatatype,
-                "_".join(self.l_ens)),
+                s_l_ens),
                 sep="\t", float_format="%.4f", index=False)
             if self.feature_func_name in self.df_fhists:
                 self.df_fhists[self.feature_func_name].to_csv("%s/%s.%s.%s.fhists.dat" % (
                     outdir,
                     self.feature_func_name,
                     self.intrajdatatype,
-                    "_".join(self.l_ens)),
+                    s_l_ens),
                     sep="\t", float_format="%.4f", index=False)
 
 
@@ -1022,10 +1029,16 @@ class PySFD(object):
 
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
 
+        s_l_ens = "_".join(self.l_ens)
+        if len(s_l_ens) > 150:
+            s_l_ens = "MD_ensembles"
+            warnstr = "output string for l_ens is too long (> 150), renaming to \"MD_ensembles\""
+            _warnings.warn(warnstr)
+
         mypdf = "%s/%s.%s.%s.fhists.pdf" % (outdir,
                                             self.feature_func_name,
                                             self.intrajdatatype,
-                                            "_".join(self.l_ens))
+                                            s_l_ens)
         mydf_fhists = self.df_fhists[self.feature_func_name].copy()
         mydf_fhists.columns = _pd.MultiIndex.from_arrays(
                               [mydf_fhists.columns,
@@ -1144,7 +1157,13 @@ class PySFD(object):
         if outdir is None:
             outdir = "output/meta/%s/%s" % (self.feature_func_name, self.intrajdatatype)
 
-        indat = "%s/%s.%s.%s" % (outdir, self.feature_func_name, self.intrajdatatype, "_".join(self.l_ens))
+        s_l_ens = "_".join(self.l_ens)
+        if len(s_l_ens) > 150:
+            s_l_ens = "MD_ensembles"
+            warnstr = "output string for l_ens is too long (> 150), renaming to \"MD_ensembles\""
+            _warnings.warn(warnstr)
+
+        indat = "%s/%s.%s.%s" % (outdir, self.feature_func_name, self.intrajdatatype, s_l_ens)
         df_features = _pd.read_csv(indat+".dat", header=[0,1], sep = "\t")
         df_features.rename(columns = { key: "" for key in [i for i in df_features.columns.get_level_values(1) if "Unnamed: " in i ] }, inplace = True)
         self.l_lbl[self.feature_func_name] = list(df_features.columns.get_level_values(0)[df_features.columns.get_level_values(1)==''])
