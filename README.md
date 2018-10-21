@@ -151,6 +151,11 @@ and feature classes:
 [pspbsf.py] : Pairwise sparse Pairwise Backbone/Sidechain Features (PsPBSF)
 - `sPBSF_Correlation`: (partial) correlations between sPBSF features (see spbsf module)
 
+[pff.py]    : Pairwise Feature Features (PFF)
+- `Feature_Correlation`: pairwise (partial) correlations between (coarse-grained) features, each which are specified for individual frames, e.g. for correlations between `srf.Dihedral` and `spbsf.HBond_mdtraj`, but not with `srf.CA_RMSF_VMD`
+
+Beware of spurious correlations in big data!
+
 Each of these feature classes contained in each module is derived
 from `pysfd.features._feature_agent.FeatureAgent`.
 Each such feature class is instantiated and passed as a `FeatureObj` object into
@@ -457,6 +462,7 @@ Currently, VMD visualizations for significant feature differences are implemente
 - sparse Pairwise Backbone/Sidechain Features (sPBSF)
 
 [srf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/srf.py>
+[pff.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/pff.py>
 [prf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/prf.py>
 [spbsf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/spbsf.py>
 [pprf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/pprf.py>

@@ -110,20 +110,14 @@ class _sPBSF(_feature_agent.FeatureAgent):
     * is_with_dwell_times : bool, default=False
         compute binary pairwise interactions with mean dwell times (t_on, t_off)?
 
-    * is_correlation : bool, default=False
-        compute correlations between pairwise backbone/sidechain features? (used by psPBSF feature class in pspbsf.py)
-
     * label        : string, user-specific label for feature_name 
     """
 
     def __init__(self, feature_name, error_type, max_mom_ord, df_rgn_seg_res_bb, rgn_agg_func, is_with_dwell_times,
-                 is_correlation, label, df_hist_feats = None, **params):
+                 label, df_hist_feats = None, **params):
         if rgn_agg_func is None:
             rgn_agg_func = "sum"
-        if is_with_dwell_times and is_correlation:
-            raise ValueError("both is_with_dwell_times and is_correlation are True!")
         params["is_with_dwell_times"] = is_with_dwell_times
-        params["is_correlation"]      = is_correlation
         params["_finish_traj_df"]     = self._finish_traj_df
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
@@ -187,8 +181,8 @@ class _sPBSF(_feature_agent.FeatureAgent):
         * is_with_dwell_times : bool
             compute binary pairwise interactions with mean dwell times (t_on, t_off)?
 
-        * is_correlation : bool
-            compute correlations between pairwise backbone/sidechain features?
+        * is_correlation : bool, optional, whether or not to output feature values
+                           for a subsequent correlation analysis (e.g. pff.Feature_Correlation())
 
         * r              : int, replica index
 
@@ -203,6 +197,9 @@ class _sPBSF(_feature_agent.FeatureAgent):
                       "is_with_dwell_times" : is_with_dwell_times }
         if fself._feature_func_name in fself.max_mom_ord:
             dataflags["max_mom_ord"] = fself.max_mom_ord[fself._feature_func_name]
+
+        if is_with_dwell_times and is_correlation:
+            raise ValueError("both is_with_dwell_times and is_correlation are True!")
 
         def _comp_mean_dwell_times(a, is_std, mylen):
             """
@@ -245,13 +242,13 @@ class _sPBSF(_feature_agent.FeatureAgent):
 
         numframes = traj_df['frame'].max() + 1
         if is_correlation:
-            traj_df["bspair"] = traj_df["seg1"]             + "_" + \
-                                traj_df["res1"].astype(str) + "_" + \
-                                traj_df["bb1"].astype(str)  + "_" + \
-                                traj_df["seg2"]             + "_" + \
-                                traj_df["res2"].astype(str) + "_" + \
-                                traj_df["bb2"].astype(str)
-            for mycol in ['seg1', 'rnm1', 'res1', 'bb1', 'seg2', 'rnm2', 'res2', 'bb2', 'f']:
+            traj_df["feature"] = traj_df["seg1"]             + "_" + \
+                                 traj_df["res1"].astype(str) + "_" + \
+                                 traj_df["bb1"].astype(str)  + "_" + \
+                                 traj_df["seg2"]             + "_" + \
+                                 traj_df["res2"].astype(str) + "_" + \
+                                 traj_df["bb2"].astype(str)
+            for mycol in ['seg1', 'rnm1', 'res1', 'bb1', 'seg2', 'rnm2', 'res2', 'bb2']:
                 del traj_df[mycol]
 
             def sparse2full01(x, numframes):
@@ -262,16 +259,20 @@ class _sPBSF(_feature_agent.FeatureAgent):
                     return float('NaN')
                 else:
                     return list(b)
-            full_traj = traj_df.groupby("bspair").agg({"frame" : lambda x : sparse2full01(x, numframes)}).dropna()
-            corr      = _np.corrcoef(_np.array(list(full_traj["frame"].values)))
-            a_pairs   = _np.array(list(_itertools.combinations(full_traj.index, 2)))
-            a_ind1    = a_pairs[:,0]
-            a_ind2    = a_pairs[:,1]
-            a_0pairs  = _np.array(list(_itertools.combinations(range(len(full_traj)), 2)))
-            a_0ind1   = a_0pairs[:,0]
-            a_0ind2   = a_0pairs[:,1]
-            traj_df = _pd.DataFrame(data={'bspair1': a_ind1, 'bspair2': a_ind2 })
-            return traj_df, corr, a_0ind1, a_0ind2 
+            traj_df = traj_df.groupby("feature").agg({"frame" : lambda x : sparse2full01(x, numframes)}).dropna()
+            traj_df = _pd.DataFrame(_np.array(list(traj_df["frame"].values)), index = traj_df.index)
+            ##traj_df_old = traj_df.copy()
+            #traj_df.set_index(["bspair", "frame"], inplace = True)
+            #traj_df = traj_df.unstack(fill_value=0)
+            #traj_df.columns = traj_df.columns.get_level_values(1)
+            #del traj_df.columns.name
+            ## delete all rows that have only "1" entries
+            #traj_df = traj_df.loc[traj_df.sum(axis=1) != traj_df.shape[1]]
+            ##print("len(full_traj):", len(full_traj), "len(traj_df_old):", len(traj_df_old), "len(traj_df):", len(traj_df))
+            ##import pickle
+            ##with open("test.pickle.%d.dat" % (r), "bw") as fout:
+            ##    pickle.dump([traj_df_old, traj_df, full_traj], fout)
+            return traj_df, l_lbl
 
         if is_with_dwell_times:
             if fself.error_type[fself._feature_func_name] == "std_dev":
@@ -464,8 +465,7 @@ class HBond_mdtraj(_sPBSF):
     """
     __doc__ = __doc__ + _sPBSF.__doc__
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False,
-                 is_correlation = False, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False, label = ""):
         super(HBond_mdtraj, self).__init__(feature_name        = "spbsf.HBond_mdtraj.",
                                            error_type          = error_type,
                                            max_mom_ord         = max_mom_ord,
@@ -473,7 +473,6 @@ class HBond_mdtraj(_sPBSF):
                                            rgn_agg_func        = rgn_agg_func,
                                            df_hist_feats       = df_hist_feats,
                                            is_with_dwell_times = is_with_dwell_times,
-                                           is_correlation      = is_correlation,
                                            label               = label)
 
     @staticmethod
@@ -546,7 +545,7 @@ class HBond_mdtraj(_sPBSF):
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
         is_with_dwell_times                         = params["is_with_dwell_times"]
-        is_correlation                              = params["is_correlation"]
+        is_correlation                              = params.get("is_correlation", False)
         _finish_traj_df                             = params["_finish_traj_df"]
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
@@ -591,7 +590,7 @@ class HBond_mdtraj(_sPBSF):
         traj_df = traj_df[l_lbl + ['frame']]
         #traj_df['f'] = 1. / len(mytraj)
         # now, number of contacts, later mean of number of contacts = frequency
-        traj_df['f'] = 1.
+        traj_df['f'] = 1
         return _finish_traj_df(fself, l_lbl, traj_df, df_rgn_seg_res_bb, rgn_agg_func, df_hist_feats, is_with_dwell_times, is_correlation, r)
 
 
@@ -624,8 +623,7 @@ class Hvvdwdist_VMD(_sPBSF):
     """
     __doc__ = __doc__ + _sPBSF.__doc__
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False,
-                 is_correlation = False, l_solv_rnm = None,
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False, l_solv_rnm = None,
                  l_anm = None, l_rad = None, solv_seg = "X", label = ""):
         if l_solv_rnm is None:
             l_solv_rnm = ["\\\"Cl-\\\"", "\\\"Na\\\\+\\\"", "WAT"]
@@ -641,7 +639,6 @@ class Hvvdwdist_VMD(_sPBSF):
                                             rgn_agg_func        = rgn_agg_func,
                                             df_hist_feats       = df_hist_feats,
                                             is_with_dwell_times = is_with_dwell_times,
-                                            is_correlation      = is_correlation,
                                             label               = label,
                                             l_solv_rnm          = l_solv_rnm,
                                             l_anm               = l_anm,
@@ -736,7 +733,7 @@ class Hvvdwdist_VMD(_sPBSF):
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
         is_with_dwell_times                         = params["is_with_dwell_times"]
-        is_correlation                              = params["is_correlation"]
+        is_correlation                              = params.get("is_correlation", False)
         _finish_traj_df                             = params["_finish_traj_df"]
 
         s_solv_seg   = "_".join(solv_seg)
@@ -798,8 +795,7 @@ class HBond_VMD(_sPBSF):
     """
     __doc__ = __doc__ + _sPBSF.__doc__
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False,
-                 is_correlation = False, cutoff_dist = 3.0, cutoff_angle = 20, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False, cutoff_dist = 3.0, cutoff_angle = 20, label = ""):
         super(HBond_VMD, self).__init__(feature_name        = "spbsf.HBond_VMD.",
                                         error_type          = error_type,
                                         max_mom_ord         = max_mom_ord,
@@ -807,7 +803,6 @@ class HBond_VMD(_sPBSF):
                                         rgn_agg_func        = rgn_agg_func,
                                         df_hist_feats       = df_hist_feats,
                                         is_with_dwell_times = is_with_dwell_times,
-                                        is_correlation      = is_correlation,
                                         label               = label,
                                         cutoff_dist         = cutoff_dist,
                                         cutoff_angle        = cutoff_angle)
@@ -891,7 +886,7 @@ class HBond_VMD(_sPBSF):
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
         is_with_dwell_times                         = params["is_with_dwell_times"]
-        is_correlation                              = params["is_correlation"]
+        is_correlation                              = params.get("is_correlation", False)
         _finish_traj_df                             = params["_finish_traj_df"]
         indir = "input/%s/r_%05d" % (myens, r)
         instem = "%s.r_%05d.prot" % (myens, r)
@@ -937,8 +932,7 @@ class HBond_HBPLUS(_sPBSF):
     """
     __doc__ = __doc__ + _sPBSF.__doc__
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False,
-                 is_correlation = False, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False, label = ""):
         super(HBond_HBPLUS, self).__init__(feature_name        = "spbsf.HBond_HBPLUS.",
                                            error_type          = error_type,
                                            max_mom_ord         = max_mom_ord,
@@ -946,7 +940,6 @@ class HBond_HBPLUS(_sPBSF):
                                            rgn_agg_func        = rgn_agg_func,
                                            df_hist_feats       = df_hist_feats,
                                            is_with_dwell_times = is_with_dwell_times,
-                                           is_correlation      = is_correlation,
                                            label               = label)
 
     @staticmethod
@@ -1021,7 +1014,7 @@ class HBond_HBPLUS(_sPBSF):
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
         is_with_dwell_times                         = params["is_with_dwell_times"]
-        is_correlation                              = params["is_correlation"]
+        is_correlation                              = params.get("is_correlation", False)
         _finish_traj_df                             = params["_finish_traj_df"]
 
         indir = "input/%s/r_%05d" % (myens, r)
@@ -1123,7 +1116,7 @@ class HvvdwHB(_sPBSF):
     __doc__ = __doc__ + _sPBSF.__doc__
 
     def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, is_with_dwell_times = False,
-                 is_correlation = False, l_solv_rnm = None, l_anm = None, l_rad = None, solv_seg = "X", label = ""):
+                 l_solv_rnm = None, l_anm = None, l_rad = None, solv_seg = "X", label = ""):
         if l_solv_rnm is None:
             l_solv_rnm = ["\\\"Cl-\\\"", "\\\"Na\\\\+\\\"", "WAT"]
         if l_anm is None:
@@ -1138,7 +1131,6 @@ class HvvdwHB(_sPBSF):
                                       rgn_agg_func        = rgn_agg_func,
                                       df_hist_feats       = df_hist_feats,
                                       is_with_dwell_times = is_with_dwell_times,
-                                      is_correlation      = is_correlation,
                                       label               = label,
                                       l_solv_rnm          = l_solv_rnm,
                                       l_anm               = l_anm,
@@ -1240,7 +1232,7 @@ class HvvdwHB(_sPBSF):
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
         is_with_dwell_times                         = params["is_with_dwell_times"]
-        is_correlation                              = params["is_correlation"]
+        is_correlation                              = params.get("is_correlation", False)
         _finish_traj_df                             = params["_finish_traj_df"]
 
         s_solv_seg   = "_".join(solv_seg)

@@ -37,6 +37,7 @@ from __future__ import absolute_import as _
 import warnings as _warnings
 import numpy as _np
 import pandas as _pd
+import itertools as _itertools
 
 from pysfd.features import _feature_agent
 
@@ -140,7 +141,16 @@ class _PsPBSF_Correlation(_PsPBSF):
         fself.partial_corr                         = params["partial_corr"]
         df_rgn_seg_res_bb                          = params["df_rgn_seg_res_bb"]
         rgn_agg_func                               = params["rgn_agg_func"]
-        traj_df, corr, a_0ind1, a_0ind2            = myf(params["sPBSF_class"], args, params)
+        #traj_df, corr, a_0ind1, a_0ind2            = myf(params["sPBSF_class"], args, params)
+        full_traj = myf(params["sPBSF_class"], args)
+        corr      = _np.corrcoef(_np.array(list(full_traj["frame"].values)))
+        a_pairs   = _np.array(list(_itertools.combinations(full_traj.index, 2)))
+        a_ind1    = a_pairs[:,0]
+        a_ind2    = a_pairs[:,1]
+        a_0pairs  = _np.array(list(_itertools.combinations(range(len(full_traj)), 2)))
+        a_0ind1   = a_0pairs[:,0]
+        a_0ind2   = a_0pairs[:,1]
+        traj_df   = _pd.DataFrame(data={'bspair1': a_ind1, 'bspair2': a_ind2 })
 
         dataflags = { "error_type" : fself.error_type[fself._feature_func_name] }
 
@@ -286,7 +296,7 @@ class sPBSF_Correlation(_PsPBSF_Correlation):
             raise ValueError("sPBSF_class not defined")
         s_pcorr = "partial_" if partial_corr else ""
         super(sPBSF_Correlation, self).__init__(
-            feature_name      = "prf." + s_pcorr + "correlation." + sPBSF_class.feature_name + ".",
+            feature_name      = "pspbsf." + s_pcorr + "correlation." + sPBSF_class.feature_name + ".",
             partial_corr      = partial_corr,
             error_type        = error_type,
             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
@@ -295,6 +305,7 @@ class sPBSF_Correlation(_PsPBSF_Correlation):
             sPBSF_class       = sPBSF_class)
 
     @staticmethod
-    def _myf(sPBSF_class, args, params):
+    def _myf(sPBSF_class, args):
+        sPBSF_class.params["is_correlation"] = True
         myfeature_func = sPBSF_class.get_feature_func()
         return myfeature_func(args)

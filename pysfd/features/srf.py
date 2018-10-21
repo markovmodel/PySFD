@@ -68,7 +68,7 @@ class _SRF(_feature_agent.FeatureAgent):
                                    **params)
 
     @staticmethod
-    def _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats = None, circular_stats = None):
+    def _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats = None, circular_stats = None):
         """
         helper function of _feature_func_engine:
         finishes processing of traj_df in each of
@@ -103,6 +103,13 @@ class _SRF(_feature_agent.FeatureAgent):
                           - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
                             such as "mean", "std"
 
+        * r             : int, replica index
+
+        * params        : extra parameters from initial feature class initiation, possibly
+                          containing, e.g., "is_correlation"
+                          * is_correlation : bool, optional, whether or not to output feature values
+                                             for a subsequent correlation analysis (e.g. pff.Feature_Correlation())
+
         * df_hist_feats : pandas.DataFrame, default=None
                           data frame of features, for which to compute histograms.
                           .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
@@ -121,8 +128,6 @@ class _SRF(_feature_agent.FeatureAgent):
                           If df_hist_feats == dbin (i.e. an int or float), 
                           compute histograms for all features with
                           uniform histogram binning resolution dbin.
-
-        * r              : int, replica index
 
         * circular_stats : str, default=None
             whether to use circular statistics in combination with
@@ -158,6 +163,14 @@ class _SRF(_feature_agent.FeatureAgent):
 
         # if a_feat == None (as for class CA_RMSF), feature values are already averaged over frames and are found in traj_df
         if (df_rgn_seg_res_bb is None) and (a_feat is not None):
+            if "is_correlation" in params:
+                if params["is_correlation"] == True:
+                    traj_df["feature"] = traj_df["seg"].astype(str) + "_" + traj_df["res"].astype(str) + "_" + traj_df["rnm"].astype(str)
+                    traj_df.drop(columns = l_lbl, inplace = True)
+                    traj_df.set_index("feature", inplace = True)
+                    traj_df = _pd.DataFrame(a_feat.transpose(), index = traj_df.index)
+                    return traj_df, None 
+
             # if include ALL feature entries for histogramming:
             if isinstance(df_hist_feats, (int, float)):
                 dbin = df_hist_feats
@@ -253,6 +266,15 @@ class _SRF(_feature_agent.FeatureAgent):
                     traj_df.set_index(["rgn", "frame"] + l_lbl, inplace = True)
                     # computes the rgn_agg_func, e.g., mean over a region "rgn" in each frame:
                     traj_df = traj_df.groupby(["rgn", "frame"]).agg( { "f" : rgn_agg_func } )
+
+                    if "is_correlation" in params:
+                        if params["is_correlation"] == True:
+                            traj_df = traj_df.unstack()
+                            traj_df.index.name = "feature"
+                            traj_df.columns = traj_df.columns.get_level_values(1)
+                            traj_df.columns.name = None
+                            return traj_df, None 
+
                     # if include ALL feature entries for histogramming:
                     if isinstance(df_hist_feats, (int, float)):
                         dbin = df_hist_feats
@@ -303,6 +325,14 @@ class _SRF(_feature_agent.FeatureAgent):
                 traj_df.set_index(["rgn", "frame"] + l_lbl, inplace = True)
                 # computes the mean over a region in each frame:
                 traj_df = traj_df.groupby(["rgn", "frame"]).agg( { "f" : rgn_agg_func } )
+
+                if "is_correlation" in params:
+                    if params["is_correlation"] == True:
+                        traj_df = traj_df.unstack()
+                        traj_df.index.name = "feature"
+                        traj_df.columns = traj_df.columns.get_level_values(1)
+                        traj_df.columns.name = None
+                        return traj_df, None 
 
                 # if include ALL feature entries for histogramming:
                 if isinstance(df_hist_feats, (int, float)):
@@ -508,7 +538,7 @@ class ChemicalShift(_SRF):
         traj_df.rename(columns={'rnm_old': 'rnm'}, inplace=True)
         l_lbl = ["seg", "res", "rnm", "anm"]
         traj_df = traj_df[l_lbl]
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
 
 
 class CA_RMSF(_SRF):
@@ -617,7 +647,7 @@ class CA_RMSF(_SRF):
         outfile.close()
         traj_df = _pd.read_csv("%s/%s.caRMSF.vmd.dat" % (outdir, instem), sep=' ', names=l_lbl + ["f"])
         a_feat = None
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params)
 
 
 class SASA_sr(_SRF):
@@ -766,7 +796,7 @@ class SASA_sr(_SRF):
         traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
         traj_df = traj_df[l_lbl]
         a_feat = _md.shrake_rupley(mytraj, mode="residue")
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
 
 class RSASA_sr(_SRF):
     """
@@ -947,7 +977,7 @@ class RSASA_sr(_SRF):
         a_feat = _np.apply_along_axis(lambda x: x / a_maxrsasa,
                                       1,
                                       _md.shrake_rupley(mytraj, mode="residue"))
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
 
 
 class Dihedral(_SRF):
@@ -1160,7 +1190,6 @@ class Dihedral(_SRF):
             def mycircmean(x):
                 return _scipy_stats.circmean(x, low = -_np.pi, high = _np.pi)
             rgn_agg_func = mycircmean
-        traj_df, dataflags = _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats = df_hist_feats, circular_stats = circular_stats)
 
         if df_rgn_seg_res_bb is None:
             a_residue = list(mytraj.topology.residues)
@@ -1169,8 +1198,16 @@ class Dihedral(_SRF):
             a_res = [a.resSeq for a in a_residue]
             l_lbl = ['seg', 'res', 'rnm']
             traj_df_allres = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
-            traj_df_allres = traj_df_allres[l_lbl]
-            traj_df = traj_df_allres.merge(traj_df, how = "outer")
+            #traj_df_allres.set_index(l_lbl, inplace = True)
+            #traj_df = traj_df_allres.merge(traj_df, left_index = True, right_index = True, how = "outer")
+            #print(traj_df.head(), traj_df_allres.head())
+            traj_df = traj_df_allres.merge(traj_df, how = "right")
+            #traj_df["feature"] = traj_df["seg"].astype(str) + "_" + traj_df["res"].astype(str) + "_" + traj_df["rnm"].astype(str)
+            #traj_df.drop(columns = l_lbl, inplace = True)
+            #traj_df.set_index("feature", inplace = True)
+
+        traj_df, dataflags = _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats = df_hist_feats, circular_stats = circular_stats)
+
         return traj_df, dataflags
 
 class Scalar_Coupling(_SRF):
@@ -1351,7 +1388,7 @@ class Scalar_Coupling(_SRF):
         traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
         traj_df = traj_df[l_lbl]
         a_feat = a_result[1]
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
 
 
 
@@ -1562,4 +1599,4 @@ class IsDSSP_mdtraj(_SRF):
         traj_df = traj_df[l_lbl]
 
         a_feat = (_md.compute_dssp(mytraj, simplified = DSSPpars[1]) == DSSPpars[0]).astype("int")
-        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, df_hist_feats)
+        return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)

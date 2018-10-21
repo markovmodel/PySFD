@@ -154,6 +154,9 @@ class _PRF_Distance(_PRF):
                               compute histograms for all features with
                               uniform histogram binning resolution dbin.
 
+            * is_correlation : bool, optional, whether or not to output feature values
+                               for a subsequent correlation analysis (e.g. pff.Feature_Correlation())
+
         * myf          : function, with which to compute feature-to-feature distance
 
         Returns
@@ -187,6 +190,19 @@ class _PRF_Distance(_PRF):
             return tuple(list(a_hist))
 
         if df_rgn_seg_res_bb is None:
+            if "is_correlation" in params:
+                if params["is_correlation"] == True:
+                    traj_df["feature"] = traj_df["seg1"].astype(str) + "_" + \
+                                         traj_df["res1"].astype(str) + "_" + \
+                                         traj_df["rnm1"].astype(str) + "_" + \
+                                         traj_df["seg2"].astype(str) + "_" + \
+                                         traj_df["res2"].astype(str) + "_" + \
+                                         traj_df["rnm2"].astype(str)
+                    traj_df.drop(columns = l_lbl, inplace = True)
+                    traj_df.set_index("feature", inplace = True)
+                    traj_df = _pd.DataFrame(a_f.transpose(), index = traj_df.index)
+                    return traj_df, None 
+
             traj_df['f'] = _np.mean(a_f, axis=0)
             # if include ALL feature entries for histogramming:
             if isinstance(df_hist_feats, (int, float)):
@@ -259,6 +275,16 @@ class _PRF_Distance(_PRF):
             # computes the mean distance between two regions in each frame:
             traj_df = traj_df.groupby(["rgn1", "rgn2", "frame"]).agg( { "f" : rgn_agg_func } )
             #print(traj_df.query("rgn1 == 'a1L1' and rgn2 == 'a1L1'"))
+            if "is_correlation" in params:
+                if params["is_correlation"] == True:
+                    traj_df = traj_df.unstack()
+                    traj_df.columns = traj_df.columns.get_level_values(1)
+                    traj_df.columns.name = None
+                    traj_df.reset_index(inplace = True)
+                    traj_df["feature"] = traj_df["rgn1"] + "_" + traj_df["rgn2"]
+                    traj_df.drop(columns =["rgn1", "rgn2"], inplace = True)
+                    traj_df.set_index("feature", inplace = True)
+                    return traj_df, None 
 
             # if include ALL feature entries for histogramming:
             if isinstance(df_hist_feats, (int, float)):

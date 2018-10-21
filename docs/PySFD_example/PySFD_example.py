@@ -174,7 +174,6 @@ l_FeatureType += [pysfd.features.pprf.Ca2Ca_Distance_Correlation(partial_corr=is
 #
 
 mysPBSF_class = pysfd.features.spbsf.HBond_mdtraj(error_type="std_err",
-                                                  is_correlation=True,
                                                   label="")
 l_FeatureType += [pysfd.features.pspbsf.sPBSF_Correlation(partial_corr=is_partial_corr,
                                                           error_type="std_err",
@@ -202,6 +201,28 @@ l_FeatureType += [pysfd.features.srf.Scalar_Coupling(error_type=stdtype,
                                                      label=mylbl+"_2moms_fhists") for mylbl, mydf in cgtype2label.items()
                                                                                   for stdtype in ["std_err"]
                                                                                   for feat_subfunc in [md.compute_J3_HN_C]]
+
+myFeature_class1 = pysfd.features.spbsf.HBond_mdtraj(error_type="std_err",
+                                                     label="")
+myFeature_class2 = pysfd.features.srf.Dihedral(circular_stats=None, error_type="std_err",
+                                               df_rgn_seg_res_bb=df_rgn_seg_res_bb_with_bb,
+                                               feat_subfunc=md.compute_chi1,
+                                               label=".cg_withbb")
+#myFeature_class2 = pysfd.features.srf.IsDSSP_mdtraj(error_type="std_err",
+#                                                   df_rgn_seg_res_bb=df_rgn_seg_res_bb_with_bb,
+#                                                   DSSPpars=("H", True),
+#                                                   label=".cg_withbb")
+
+#myFeature_class2 = None
+l_FeatureType = [pysfd.features.pff.Feature_Correlation(partial_corr=is_partial_corr,
+                                                        error_type="std_err",
+                                                        label="",
+                                                        Feature_class1=myFeature_class1,
+                                                        Feature_class2=myFeature_class2) \
+                                               for is_partial_corr in [False]]
+
+
+# examples with histograms:
 
 l_FeatureType += [pysfd.features.prf.Ca2Ca_Distance(error_type=stdtype,
                                                     df_rgn_seg_res_bb=mydf,
