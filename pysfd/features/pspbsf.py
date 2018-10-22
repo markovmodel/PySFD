@@ -142,32 +142,41 @@ class _PsPBSF_Correlation(_PsPBSF):
         df_rgn_seg_res_bb                          = params["df_rgn_seg_res_bb"]
         rgn_agg_func                               = params["rgn_agg_func"]
         #traj_df, corr, a_0ind1, a_0ind2            = myf(params["sPBSF_class"], args, params)
-        full_traj = myf(params["sPBSF_class"], args)
-        corr      = _np.corrcoef(_np.array(list(full_traj["frame"].values)))
-        a_pairs   = _np.array(list(_itertools.combinations(full_traj.index, 2)))
-        a_ind1    = a_pairs[:,0]
-        a_ind2    = a_pairs[:,1]
-        a_0pairs  = _np.array(list(_itertools.combinations(range(len(full_traj)), 2)))
-        a_0ind1   = a_0pairs[:,0]
-        a_0ind2   = a_0pairs[:,1]
-        traj_df   = _pd.DataFrame(data={'bspair1': a_ind1, 'bspair2': a_ind2 })
+        full_traj, sub_dataflags = myf(params["sPBSF_class"], args)
+        l_lbl = sub_dataflags["l_lbl"]
+        traj_df = full_traj.transpose().corr()
+        #corr      = _np.corrcoef(_np.array(list(full_traj["frame"].values)))
+        #a_pairs   = _np.array(list(_itertools.combinations(full_traj.index, 2)))
+        #a_ind1    = a_pairs[:,0]
+        #a_ind2    = a_pairs[:,1]
+        #a_0pairs  = _np.array(list(_itertools.combinations(range(len(full_traj)), 2)))
+        #a_0ind1   = a_0pairs[:,0]
+        #a_0ind2   = a_0pairs[:,1]
+        #traj_df   = _pd.DataFrame(data={'bspair1': a_ind1, 'bspair2': a_ind2 })
 
         dataflags = { "error_type" : fself.error_type[fself._feature_func_name] }
 
         if fself.partial_corr:
-            cinv      = _np.linalg.pinv(corr)
+            #cinv      = _np.linalg.pinv(corr)
+            cinv      = _np.linalg.pinv(traj_df.values)
             cinv_diag = _np.diag(cinv)
             # square root of self inverse correlations
             scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
             #pcorr    = - cinv[i,j] / _np.sqrt(cinv[i,i] * cinv[j,j])
-            corr      = - cinv / scinv / scinv.transpose()
-        a_f    = corr[a_0ind1, a_0ind2]
-        l_lbl = ['bspair1', 'bspair2']
+            #corr      = - cinv / scinv / scinv.transpose()
+            traj_df   = _pd.DataFrame(- cinv / scinv / scinv.transpose(), index = traj_df.index, columns = traj_df.columns)
 
+        traj_df.index.name = "bspair1"
+        traj_df.columns.name = "bspair2"
+        traj_df = traj_df.stack(dropna = False).to_frame().reset_index()
+        traj_df.columns = ["bspair1", "bspair2", "f"]
         if df_rgn_seg_res_bb is None:
-            traj_df['f'] =  a_f
-            traj_df = traj_df[l_lbl + ['f']].copy()
+            #traj_df['f'] =  a_f
+            #traj_df = traj_df[l_lbl + ['f']].copy()
+            traj_df.columns = ['bspair1', 'bspair2', 'f']
         elif df_rgn_seg_res_bb is not None:
+            if sub_dataflags["df_rgn_seg_res_bb"] is not None:
+                raise TypeError("cannot coarse-grain coarse-grained PBSF feature!")
             df_rgn_seg_res_bb["res"] = df_rgn_seg_res_bb["res"].astype("str")
             if "bb" in df_rgn_seg_res_bb.columns:
                 df_rgn1_seg1_res1 = df_rgn_seg_res_bb.copy()
@@ -189,9 +198,6 @@ class _PsPBSF_Correlation(_PsPBSF):
                 df_rgn4_seg4_res4.columns = ["rgn4", "seg4", "res4"]
 
             if fself.error_type[fself._feature_func_name] == "std_err":
-                traj_df['f'] = a_f
-                traj_df = traj_df[l_lbl + ['f']]
-
                 df_tmp = traj_df["bspair1"].str.split('_', 6, expand = True)
                 df_tmp.columns = ["seg1", "res1", "bb1", "seg2", "res2", "bb2"]
                 traj_df = _pd.concat([traj_df, df_tmp], axis = 1, copy = True)

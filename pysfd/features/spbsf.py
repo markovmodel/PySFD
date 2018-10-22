@@ -272,7 +272,9 @@ class _sPBSF(_feature_agent.FeatureAgent):
             ##import pickle
             ##with open("test.pickle.%d.dat" % (r), "bw") as fout:
             ##    pickle.dump([traj_df_old, traj_df, full_traj], fout)
-            return traj_df, l_lbl
+            dataflags["df_rgn_seg_res_bb"] = df_rgn_seg_res_bb
+            dataflags["l_lbl"]             = ['seg1', 'res1', 'bb1', 'seg2', 'res2', 'bb2']
+            return traj_df, dataflags
 
         if is_with_dwell_times:
             if fself.error_type[fself._feature_func_name] == "std_dev":
