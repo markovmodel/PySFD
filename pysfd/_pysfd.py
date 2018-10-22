@@ -633,7 +633,7 @@ class PySFD(object):
         if "fhist" in l_df_features[-1].columns.get_level_values(1):
             self.df_fhists[self.feature_func_name] = []
 
-        for myind, myensdf in enumerate(l_myensdf):
+        for myind in range(len(l_myensdf)):
             if "fhist" in l_df_features[myind].columns.get_level_values(1):
                 l_obs = ["fhist", "mf", "sf"] + ['%s.%d' % (flbl, mymom) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1) for flbl in ['mf', 'sf'] ]
             else:
@@ -660,11 +660,14 @@ class PySFD(object):
                 #.reset_index(drop=True)
                 self.df_fhists[self.feature_func_name][-1].columns = self.df_fhists[self.feature_func_name][-1].columns.droplevel(1)
             self.df_features[self.feature_func_name].append(l_df_features[myind].drop(columns = "fhist", level = 1).reset_index(drop=True))
+        
         if self.intrajdatatype in ["bootstraps"]:
             if ((len(self.df_features[self.feature_func_name]) == 1)):
                 raise ValueError("self.intrajdatatype is in [\"bootstraps\"] but len(self.df_features[%s]) is zero!" % (self.df_features[self.feature_func_name]))
         else:
             self.df_features[self.feature_func_name] = self.df_features[self.feature_func_name][0]
+            if self.feature_func_name in self.df_fhists:
+                self.df_fhists[self.feature_func_name]   = self.df_fhists[self.feature_func_name][0]
 
     def comp_feature_diffs_old(self, num_sigma=2, num_funit=0):
         """

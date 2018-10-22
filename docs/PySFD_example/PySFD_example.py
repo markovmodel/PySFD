@@ -46,19 +46,19 @@ df_rgn_seg_res_bb_with_bb     = pd.read_csv("scripts/df_rgn_seg_res_bb_with_bb.d
 df_rgn_seg_res_bb_with_bb.res = df_rgn_seg_res_bb_with_bb.res.apply(lambda x : list(eval(x)))
 
 cgtype2label   = { "" : None, ".cg_nobb" : df_rgn_seg_res_bb, ".cg_withbb" : df_rgn_seg_res_bb_with_bb }
-# histgramming for single features
+# histogramming for single features
 cgtype2hSRFs   = { ""           : pd.DataFrame( { "seg" : ["A", "A"],         "res" : [5, 10]}),
                    ".cg_nobb"   : pd.DataFrame( { "rgn" : ["a1_0", "a1_4"] }),
                    ".cg_withbb" : pd.DataFrame( { "rgn" : ["MHCII"] }) }
 for mykey in cgtype2hSRFs:
     cgtype2hSRFs[mykey]["dbin"] = 0.1
-# histgramming for pairwise residual features
+# histogramming for pairwise residual features
 cgtype2hPRFs   = { ""           : pd.DataFrame( { "seg1" : ["A", "A"],       "res1" : [5, 10], "seg2" : ["A", "A"], "res2" : [10, 15]}),
                    ".cg_nobb"   : pd.DataFrame( { "rgn1" : ["a1_0", "a1_0"], "rgn2" : ["a1_0", "a1_7"] }),
                    ".cg_withbb" : pd.DataFrame( { "rgn1" : ["MHCII"],        "rgn2" : ["MHCII"] }) }
 for mykey in cgtype2hPRFs:
     cgtype2hPRFs[mykey]["dbin"] = 0.1
-# histgramming for sparse pairwise backbone/sidechain features
+# histogramming for sparse pairwise backbone/sidechain features
 cgtype2hsPBSFs = { ""           : pd.DataFrame( { "seg1" : ["A", "A"], "res1" : [4, 5], "bb1" : [1, 1], "seg2" : ["A", "B"], "res2" : [4, 17], "bb2" : [1, 1]}),
                    ".cg_nobb"   : pd.DataFrame( { "rgn1" : ["a1_0", "a1_0"], "rgn2" : ["a1_0", "a1_7"] }),
                    ".cg_withbb" : pd.DataFrame( { "rgn1" : ["MHCII"],        "rgn2" : ["MHCII"] }) }
@@ -214,7 +214,7 @@ myFeature_class2 = pysfd.features.srf.Dihedral(circular_stats=None, error_type="
 #                                                   label=".cg_withbb")
 
 #myFeature_class2 = None
-l_FeatureType = [pysfd.features.pff.Feature_Correlation(partial_corr=is_partial_corr,
+l_FeatureType += [pysfd.features.pff.Feature_Correlation(partial_corr=is_partial_corr,
                                                         error_type="std_err",
                                                         label="",
                                                         Feature_class1=myFeature_class1,

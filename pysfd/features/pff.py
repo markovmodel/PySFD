@@ -151,7 +151,6 @@ class _Feature_Correlation(_PFF):
         else:
             traj_df2, _ = myf(params["Feature_class2"], args)
             traj_df2.index.name = "feature2"
-            print(traj_df2.index)
             traj_df2.index = "f2_" + traj_df2.index
             if not isinstance(traj_df2, _pd.DataFrame):
                 raise TypeError("Feature_class2 returns wrong type! Is is_correlation=True implemented yet for Feature_class2?")
@@ -181,7 +180,6 @@ class _Feature_Correlation(_PFF):
         l_lbl = ['feature1', 'feature2']
         traj_df['r'] = r
         traj_df.columns = l_lbl + ["f", "r"]
-        print(traj_df.head())
         return traj_df, dataflags
 
 
@@ -213,7 +211,7 @@ class Feature_Correlation(_Feature_Correlation):
         s_pcorr = "partial_" if partial_corr else ""
         
         super(Feature_Correlation, self).__init__(
-            feature_name      = "pf." + s_pcorr + "correlation." + Feature_class1.feature_name + "_vs_" + Feature_class2.feature_name,
+            feature_name      = "pff." + s_pcorr + "correlation." + Feature_class1.feature_name + "_vs_" + Feature_class2.feature_name,
             partial_corr      = partial_corr,
             error_type        = error_type,
             df_rgn_seg_res_bb = None,
