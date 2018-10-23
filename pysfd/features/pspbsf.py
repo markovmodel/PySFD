@@ -145,19 +145,10 @@ class _PsPBSF_Correlation(_PsPBSF):
         full_traj, sub_dataflags = myf(params["sPBSF_class"], args)
         l_lbl = sub_dataflags["l_lbl"]
         traj_df = full_traj.transpose().corr()
-        #corr      = _np.corrcoef(_np.array(list(full_traj["frame"].values)))
-        #a_pairs   = _np.array(list(_itertools.combinations(full_traj.index, 2)))
-        #a_ind1    = a_pairs[:,0]
-        #a_ind2    = a_pairs[:,1]
-        #a_0pairs  = _np.array(list(_itertools.combinations(range(len(full_traj)), 2)))
-        #a_0ind1   = a_0pairs[:,0]
-        #a_0ind2   = a_0pairs[:,1]
-        #traj_df   = _pd.DataFrame(data={'bspair1': a_ind1, 'bspair2': a_ind2 })
 
         dataflags = { "error_type" : fself.error_type[fself._feature_func_name] }
 
         if fself.partial_corr:
-            #cinv      = _np.linalg.pinv(corr)
             cinv      = _np.linalg.pinv(traj_df.values)
             cinv_diag = _np.diag(cinv)
             # square root of self inverse correlations
@@ -171,8 +162,6 @@ class _PsPBSF_Correlation(_PsPBSF):
         traj_df = traj_df.stack(dropna = False).to_frame().reset_index()
         traj_df.columns = ["bspair1", "bspair2", "f"]
         if df_rgn_seg_res_bb is None:
-            #traj_df['f'] =  a_f
-            #traj_df = traj_df[l_lbl + ['f']].copy()
             traj_df.columns = ['bspair1', 'bspair2', 'f']
         elif df_rgn_seg_res_bb is not None:
             if sub_dataflags["df_rgn_seg_res_bb"] is not None:

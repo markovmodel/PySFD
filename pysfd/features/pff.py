@@ -166,17 +166,6 @@ class _Feature_Correlation(_PFF):
             #pcorr    = - cinv[i,j] / _np.sqrt(cinv[i,i] * cinv[j,j])
             df_corr   = _pd.DataFrame(- cinv / scinv / scinv.transpose(), index = df_corr.index, columns = df_corr.columns)
         traj_df = df_corr.stack(dropna = False).to_frame().reset_index()
-        #if params["Feature_class1"] == params["Feature_class2"]:
-        #    a_pairs   = _np.array(list(_itertools.combinations(traj_df1.index, 2)))
-        #    a_ind1    = a_pairs[:,0]
-        #    a_ind2    = a_pairs[:,1]
-        #    a_0pairs  = _np.array(list(_itertools.combinations(range(len(traj_df1)), 2)))
-        #    a_0ind1   = a_0pairs[:,0]
-        #    a_0ind2   = a_0pairs[:,1]
-        #    traj_df   = _pd.DataFrame(data={'feature1': a_ind1, 'feature2': a_ind2, 'f' : corr[a_0ind1, a_0ind2] })
-        #else:
-        #    traj_df = _pd.DataFrame(corr, index = myindex, columns = mycolumns).stack()
-        #    print(traj_df.head())
         l_lbl = ['feature1', 'feature2']
         traj_df['r'] = r
         traj_df.columns = l_lbl + ["f", "r"]
