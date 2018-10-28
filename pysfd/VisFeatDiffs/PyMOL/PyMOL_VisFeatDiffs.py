@@ -81,9 +81,7 @@ class PyMOL_VisFeatDiffs(object):
         self.outdir            = outdir
 
         if (df_rgn_seg_res_bb is not None) and (not isinstance(df_rgn_seg_res_bb, pd.DataFrame)):
-            print("HHELO")
             print(df_rgn_seg_res_bb)
-            print("BBHHELO")
             raise ValueError("df_rgn_seg_res_bb has to be either None or a pandas DataFrame!")
         if myview is None:
             self.myview  = "\
