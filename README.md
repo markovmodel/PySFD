@@ -127,6 +127,10 @@ and feature classes:
 - `SASA_sr`  : solvent accessibility surface areas (SASAs) via mdtraj.shrake_rupley
 - `RSASA_sr` : relative SASA, i.e. normalized to the total SASA of a particular residue, computed via mdtraj.shrake_rupley
 
+[paf.py] : Pairwise Atomic Features (PAF)
+- `Atm2Atm_Distance`:     atom-to-atom distance (CA atoms by default, i.e. if df_sel is None)
+- `AtmPos_Correlation`:   (partial) correlations between atom positions (CA atoms by default, i.e. if df_sel is None)
+
 [prf.py] : Pairwise Residual Features (PRF)
 - `Ca2Ca_Distance`:       distance between CA atoms
 - `CaPos_Correlation`:    (partial) correlations between Ca positions
@@ -463,6 +467,7 @@ Currently, VMD visualizations for significant feature differences are implemente
 
 [srf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/srf.py>
 [pff.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/pff.py>
+[paf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/paf.py>
 [prf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/prf.py>
 [spbsf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/spbsf.py>
 [pprf.py]: <https://github.com/markovmodel/PySFD/blob/master/pysfd/features/pprf.py>
