@@ -42,6 +42,7 @@ from __future__ import absolute_import as _
 
 from . import srf
 from . import prf
+from . import paf
 from . import spbsf
 from . import pspbsf
 from . import pprf

@@ -25,7 +25,7 @@
 r"""
 =======================================
 PySFD - Significant Feature Differences Analyzer for Python
-        pairwise residual features (prf)
+        pairwise atomic features (paf)
 =======================================
 """
 
@@ -46,9 +46,9 @@ import scipy.stats as _scipy_stats
 from pysfd.features import _feature_agent
 
 
-class _PRF(_feature_agent.FeatureAgent):
+class _PAF(_feature_agent.FeatureAgent):
     """
-    Pairwise Residual Feature (PRF):
+    Pairwise Atomic Feature (PAF):
     Intermediary class between a particular feature class in this module and
     _feature_agent.FeatureAgent
     in order to bundle common tasks
@@ -57,7 +57,7 @@ class _PRF(_feature_agent.FeatureAgent):
         if df_rgn_seg_res_bb is not None:
             if "bb" in df_rgn_seg_res_bb.columns:
                 df_rgn_seg_res_bb.drop(columns = "bb", inplace = True)
-        super(_PRF, self).__init__(feature_name      = feature_name,
+        super(_PAF, self).__init__(feature_name      = feature_name,
                                    error_type        = error_type,
                                    max_mom_ord       = max_mom_ord,
                                    df_rgn_seg_res_bb = df_rgn_seg_res_bb,
@@ -72,18 +72,19 @@ class _PRF(_feature_agent.FeatureAgent):
         return f
 
 
-class _PRF_Distance(_PRF):
+class _PAF_Distance(_PAF):
     """
-    Pairwise Residual Feature Distance:
+    Pairwise Atomic Feature Distance:
     Intermediary class between a particular feature class in this module and
     _feature_agent.FeatureAgent
     in order to bundle common tasks
     """
-    def __init__(self, feature_name, error_type, max_mom_ord, df_rgn_seg_res_bb, rgn_agg_func, df_hist_feats, label, **params):
+    def __init__(self, feature_name, error_type, max_mom_ord, df_sel, df_rgn_seg_res_bb, rgn_agg_func, df_hist_feats, label, **params):
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
             s_coarse = "coarse."
-        super(_PRF_Distance, self).__init__(
+        params["df_sel"] = df_sel
+        super(_PAF_Distance, self).__init__(
                                   feature_name      = feature_name + s_coarse + error_type + label,
                                   error_type        = error_type,
                                   max_mom_ord       = max_mom_ord,
@@ -120,6 +121,10 @@ class _PRF_Distance(_PRF):
                               if max_mom_ord > 1, this will add additional entries
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
+
+            * df_sel : pandas.DataFrame, optional, default = None
+                       if not None, distances are only computed between atom pairs listed in this DataFrame
+                       df_sel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -171,16 +176,17 @@ class _PRF_Distance(_PRF):
         df_rgn_seg_res_bb                             = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                  = params["rgn_agg_func"]
         df_hist_feats                                 = params["df_hist_feats"]
+        df_sel                                        = params["df_sel"]
 
         dataflags = { "error_type"  : error_type, "max_mom_ord" : max_mom_ord }
 
         mytraj = _md.load('input/%s/r_%05d/%s.r_%05d.prot.%s' % (myens, r, myens, r, fself.intrajformat),
                           top = 'input/%s/r_%05d/%s.r_%05d.prot.pdb' % (myens, r, myens, r))
-        l_lbl = ['seg1', 'res1', 'rnm1', 'seg2', 'res2', 'rnm2']
+        l_lbl = ['seg1', 'res1', 'rnm1', 'anm1', 'seg2', 'res2', 'rnm2', 'anm2']
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         a_rnm = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
-        a_f, traj_df = myf(mytraj, a_rnm)
+        a_f, traj_df = myf(mytraj, a_rnm, df_sel)
 
         def myhist(a_data, dbin):
             prec = len(str(dbin).partition(".")[2])+1
@@ -195,9 +201,11 @@ class _PRF_Distance(_PRF):
                     traj_df["feature"] = traj_df["seg1"].astype(str) + "_" + \
                                          traj_df["res1"].astype(str) + "_" + \
                                          traj_df["rnm1"].astype(str) + "_" + \
+                                         traj_df["anm1"].astype(str) + "_" + \
                                          traj_df["seg2"].astype(str) + "_" + \
                                          traj_df["res2"].astype(str) + "_" + \
-                                         traj_df["rnm2"].astype(str)
+                                         traj_df["rnm2"].astype(str) + "_" + \
+                                         traj_df["anm2"].astype(str)
                     traj_df.drop(columns = l_lbl, inplace = True)
                     traj_df.set_index("feature", inplace = True)
                     traj_df = _pd.DataFrame(a_f.transpose(), index = traj_df.index)
@@ -327,20 +335,22 @@ class _PRF_Distance(_PRF):
         return traj_df, dataflags
 
 
-class _PRF_Correlation(_PRF):
+class _PAF_Correlation(_PAF):
     """
-    Pairwise Residual Feature Correlation:
+    Pairwise Atomic Feature Correlation:
     Intermediary class between a particular feature class in this module and
     _feature_agent.FeatureAgent
     in order to bundle common tasks
     """
-    def __init__(self, feature_name, partial_corr, error_type,
+    def __init__(self, feature_name, partial_corr, error_type, df_sel,
                  df_rgn_seg_res_bb, rgn_agg_func, label, **params):
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
             s_coarse = "coarse."
         params["partial_corr"] = partial_corr
-        super(_PRF_Correlation, self).__init__(feature_name      = feature_name + s_coarse + error_type + label,
+        params["df_sel"] = df_sel
+
+        super(_PAF_Correlation, self).__init__(feature_name      = feature_name + s_coarse + error_type + label,
                                                error_type        = error_type,
                                                df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                                rgn_agg_func      = rgn_agg_func,
@@ -369,6 +379,10 @@ class _PRF_Correlation(_PRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
+            * df_sel : pandas.DataFrame, optional, default = None
+                       if not None, distances are only computed between atom pairs listed in this DataFrame
+                       df_sel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
+
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
               df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
@@ -396,11 +410,12 @@ class _PRF_Correlation(_PRF):
         """
         fself, myens, r = args
         if params["error_type"] == "std_dev":
-            print("WARNING: error_type \"std_dev\" not defined in _PRF_Correlation!"
+            print("WARNING: error_type \"std_dev\" not defined in _PAF_Correlation!"
                   " Falling back to \"std_err\" instead ...")
             params["error_type"] = "std_err"
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.partial_corr                          = params["partial_corr"]
+        df_sel                                      = params["df_sel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
 
@@ -412,9 +427,9 @@ class _PRF_Correlation(_PRF):
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         a_rnm = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
         if "feat_subfunc" in params:
-            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, params["feat_subfunc"])
+            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, df_sel, params["feat_subfunc"])
         else:
-            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm)
+            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, df_sel)
 
         if fself.partial_corr:
             cinv      = _np.linalg.pinv(corr)
@@ -424,7 +439,7 @@ class _PRF_Correlation(_PRF):
             #pcorr     = - cinv[i,j] / _np.sqrt(cinv[i,i] * cinv[j,j])
             corr      = - cinv / scinv / scinv.transpose()
         a_f    = corr[a_0ind1, a_0ind2] 
-        l_lbl = ['seg1', 'res1', 'rnm1', 'seg2', 'res2', 'rnm2']
+        l_lbl = ['seg1', 'res1', 'rnm1', 'anm1', 'seg2', 'res2', 'rnm2', 'anm2']
 
         if df_rgn_seg_res_bb is None:
             traj_df['f'] = a_f
@@ -461,9 +476,9 @@ class _PRF_Correlation(_PRF):
         return traj_df, dataflags
 
 
-class Ca2Ca_Distance(_PRF_Distance):
+class Atm2Atm_Distance(_PAF_Distance):
     """
-    Computes CA-CA atom distances (in units of nm)
+    Computes atom-to-atom distances (in units of nm)
     for a particular simulation with replica index r
 
     If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
@@ -481,6 +496,10 @@ class Ca2Ca_Distance(_PRF_Distance):
                       if max_mom_ord > 1, this will add additional entries
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
+
+    * df_sel : pandas.DataFrame, optional, default = None
+               if not None, distances are only computed between atom pairs listed in this DataFrame
+               df_sel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -535,36 +554,56 @@ class Ca2Ca_Distance(_PRF_Distance):
     vecstddev $l_dist 
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
-        super(Ca2Ca_Distance, self).__init__(
-            feature_name      = "prf.distance.Ca2Ca.",
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_sel = None, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
+        super(Atm2Atm_Distance, self).__init__(
+            feature_name      = "paf.distance.Atm2Atm.",
             error_type        = error_type,
             max_mom_ord       = max_mom_ord,
+            df_sel            = df_sel,
             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
             rgn_agg_func      = rgn_agg_func,
             df_hist_feats     = df_hist_feats,
             label             = label)
 
     @staticmethod
-    def _myf(mytraj, a_rnm):
-        atmselstr = "name CA"
+    def _myf	(mytraj, a_rnm, df_sel):
+        if df_sel is None:
+            atmselstr = "name CA"
+            a_index = mytraj.topology.select(atmselstr)
+            a_pairs = _np.array(list(_itertools.combinations(a_index, 2)))
+            a_ind1  = a_pairs[:,0]
+            a_ind2  = a_pairs[:,1]
+        else:
+            df_top  = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq", "name"]].reset_index()
+            df_top.columns = ["ind1", "seg1", "res1", "anm1"]
+            print(df_top.head())
+            print(df_sel.head())
+            newdf_sel  = df_sel.merge(df_top)
+            df_top.columns = ["ind2", "seg2", "res2", "anm2"]
+            newdf_sel  = newdf_sel.merge(df_top)
+            if len(newdf_sel) != len(df_sel):
+                df_err = df_sel.merge(newdf_sel, indicator=True, how='outer')
+                df_err = df_err.query("_merge != 'both'")
+                warnstr = "check your entries in df_sel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
+                _warnings.warn(warnstr)
+            a_ind1  = newdf_sel.ind1.values
+            a_ind2  = newdf_sel.ind2.values
+            a_pairs = newdf_sel.loc[:, ["ind1", "ind2"]].values
+           
         a_atom = list(mytraj.topology.atoms)
         a_seg  = _np.array([a.segment_id for a in a_atom])
         a_res  = _np.array([a.residue.resSeq for a in a_atom])
+        a_anm  = _np.array([a.name for a in a_atom])
         #a_rnm  = _np.array([a.residue.name for a in a_atom])
-        a_index = mytraj.topology.select(atmselstr)
-        a_pairs = _np.array(list(_itertools.combinations(a_index, 2)))
-        a_ind1  = a_pairs[:,0]
-        a_ind2  = a_pairs[:,1]
         a_f     = _md.compute_distances(mytraj, atom_pairs = a_pairs, periodic = True, opt = True)
-        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1],
-                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2] })
+        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1], 'anm1' : a_anm[a_ind1],
+                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2], 'anm2' : a_anm[a_ind2] })
         return a_f, traj_df
 
 
-class CaPos_Correlation(_PRF_Correlation):
+class AtmPos_Correlation(_PAF_Correlation):
     """
-    Computes pairwise CA position (partial) correlations
+    Computes pairwise atom position (partial) correlations
     for a particular simulation with replica index r
 
     If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
@@ -576,6 +615,10 @@ class CaPos_Correlation(_PRF_Correlation):
         compute feature errors as ...
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
+
+    * df_sel : pandas.DataFrame, optional, default = None
+               if not None, distances are only computed between atom pairs listed in this DataFrame
+               df_sel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -598,30 +641,53 @@ class CaPos_Correlation(_PRF_Correlation):
     * label        : string, user-specific label
     """
 
-    def __init__(self, partial_corr = False, error_type = "std_err", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
+    def __init__(self, partial_corr = False, error_type = "std_err", df_sel = None, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
         s_pcorr = "partial_" if partial_corr else ""
-        super(CaPos_Correlation, self).__init__(
-            feature_name      = "prf." + s_pcorr + "correlation.CaPos.",
+        super(AtmPos_Correlation, self).__init__(
+            feature_name      = "paf." + s_pcorr + "correlation.AtmPos.",
             partial_corr      = partial_corr,
             error_type        = error_type,
+            df_sel            = df_sel,
             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
             rgn_agg_func      = rgn_agg_func,
             label             = label)
 
     @staticmethod
-    def _myf(mytraj, a_rnm):
-        atmselstr = "name CA"    
+    def _myf(mytraj, a_rnm, df_sel):
         a_atom    = list(mytraj.topology.atoms)
         a_seg     = _np.array([a.segment_id for a in a_atom])
         a_res     = _np.array([a.residue.resSeq for a in a_atom])
+        a_anm     = _np.array([a.name for a in a_atom])
         #a_rnm    = _np.array([a.residue.name for a in a_atom])
-        a_index   = mytraj.topology.select(atmselstr)
-        a_pairs   = _np.array(list(_itertools.combinations(a_index, 2)))
-        a_ind1    = a_pairs[:,0]
-        a_ind2    = a_pairs[:,1]
-        a_0pairs  = _np.array(list(_itertools.combinations(range(len(a_index)), 2)))
-        a_0ind1   = a_0pairs[:,0]
-        a_0ind2   = a_0pairs[:,1]
+        if df_sel is None:
+            atmselstr = "name CA"
+            a_index   = mytraj.topology.select(atmselstr)
+            a_pairs   = _np.array(list(_itertools.combinations(a_index, 2)))
+            a_ind1    = a_pairs[:,0]
+            a_ind2    = a_pairs[:,1]
+            a_0pairs  = _np.array(list(_itertools.combinations(range(len(a_index)), 2)))
+            a_0ind1   = a_0pairs[:,0]
+            a_0ind2   = a_0pairs[:,1]
+        else:
+            df_top  = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq", "name"]].reset_index()
+            df_top.columns = ["ind1", "seg1", "res1", "anm1"]
+            newdf_sel  = df_sel.merge(df_top)
+            df_top.columns = ["ind2", "seg2", "res2", "anm2"]
+            newdf_sel  = newdf_sel.merge(df_top)
+            if len(newdf_sel) != len(df_sel):
+                df_err = df_sel.merge(newdf_sel, indicator=True, how='outer')
+                df_err = df_err.query("_merge != 'both'")
+                warnstr = "check your entries in df_sel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
+                _warnings.warn(warnstr)
+            a_ind1   = newdf_sel.ind1.values
+            a_ind2   = newdf_sel.ind2.values
+            a_pairs  = newdf_sel.loc[:, ["ind1", "ind2"]].values
+            a_index  = _np.unique(a_pairs)
+            # give me the indices in a_index of the atomic indices in a_ind1, a_ind2:
+            a_0ind1  = _np.nonzero(a_ind1[:, None] == a_index)[1]
+            a_0ind2  = _np.nonzero(a_ind2[:, None] == a_index)[1]
+            a_0pairs = _np.array([a_0ind1, a_0ind2])
+
         xyz       = mytraj.xyz[:, a_index, :]
         x         = _np.transpose(xyz[:,:,0])
         y         = _np.transpose(xyz[:,:,1])
@@ -636,170 +702,7 @@ class CaPos_Correlation(_PRF_Correlation):
         # square root of self covariances
         scov   = _np.sqrt(_np.repeat([scov_x + scov_y + scov_z], len(scov_x), axis = 0))
         corr   = (cov_x + cov_y + cov_z) / scov / scov.transpose()
-        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1],
-                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2] })
+        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1], 'anm1' : a_anm[a_ind1],
+                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2], 'anm2' : a_anm[a_ind2] })
         return traj_df, corr, a_0ind1, a_0ind2
 
-
-class Dihedral_Correlation(_PRF_Correlation):
-    """
-    Computes pairwise correlations of Dihedral() (see srf module)
-    for a particular simulation with replica index r
-    At one's own risk, one can also try partial correlations with this class as well.
-
-    If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
-    by default aggregate via rgn_agg_func = "mean"
-
-    Parameters
-    ----------
-    * error_type   : str, default="std_err"
-        compute feature errors as ...
-        | "std_err" : ... standard errors
-        | "std_dev" : ... mean standard deviations
-
-    * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
-                          regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
-      df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
-                                      'seg' : ["A", "A", "B", "B", "C"],
-                                      'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
-                          if None, no coarse-graining is performed
-
-    * rgn_agg_func  : function or str for coarse-graining, default = "mean"
-                      function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
-                      this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
-                      - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
-                      - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
-                        such as "mean", "std"
-
-    * label        : string, user-specific label
-    """
-
-    def __init__(self, partial_corr = False, error_type = "std_err",
-                 df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = "", feat_subfunc = None):
-        if feat_subfunc is None:
-            raise ValueError("feat_subfunc not defined")
-        s_pcorr = "partial_" if partial_corr else ""
-        super(Dihedral_Correlation, self).__init__(
-            feature_name      = "prf." + s_pcorr + "correlation." + feat_subfunc.__name__.split("compute_")[-1] + ".",
-            partial_corr      = partial_corr,
-            error_type        = error_type,
-            df_rgn_seg_res_bb = df_rgn_seg_res_bb,
-            rgn_agg_func      = rgn_agg_func,
-            label             = label,
-            feat_subfunc      = feat_subfunc)
-
-    @staticmethod
-    def _myf(mytraj, a_rnm, feat_subfunc):
-        a_atom    = list(mytraj.topology.atoms)
-        a_seg     = _np.array([a.segment_id for a in a_atom])
-        a_res     = _np.array([a.residue.resSeq for a in a_atom])
-        #a_rnm    = _np.array([a.residue.name for a in a_atom])
-        a_result  = feat_subfunc(mytraj)
-        a_index   = a_result[0][:, 1]
-        a_pairs   = _np.array(list(_itertools.combinations(a_index, 2)))
-        a_ind1    = a_pairs[:,0]
-        a_ind2    = a_pairs[:,1]
-        a_0pairs  = _np.array(list(_itertools.combinations(range(len(a_index)), 2)))
-        a_0ind1   = a_0pairs[:,0]
-        a_0ind2   = a_0pairs[:,1]
-
-        def circcorr(x,y):
-            ''' 
-            circular correlation, as defined in 
-            S. R. Jammalamadaka and A. SenGupta:
-            "Topics In Circular Statistics. Series on Multivariate Analysis",
-            World Scientific (2001)
-            see also:
-            https://ncss-wpengine.netdna-ssl.com/wp-content/themes/ncss/pdf/Procedures/NCSS/Circular_Data_Correlation.pdf
-            '''
-            dsinx = _np.sin(x - _scipy_stats.circmean(x, low = -_np.pi, high = _np.pi))
-            dsiny = _np.sin(y - _scipy_stats.circmean(y, low = -_np.pi, high = _np.pi))
-            return _np.sum(dsinx * dsiny) / _np.sqrt(_np.sum(dsinx**2) * _np.sum(dsiny**2))
-        corr = _np.array([[circcorr(a_result[1][:,i], a_result[1][:,j]) for i in range(len(a_result[1][0,:]))]
-                                                                        for j in range(len(a_result[1][0,:]))])
-
-        # alternatively, one can try the following function to
-        # determine Dihedral Correlations:
-        def cossincirccorr(data):
-            x         = _np.transpose(_np.cos(data))
-            y         = _np.transpose(_np.sin(data))
-            cov_x     = _np.cov(x)
-            cov_y     = _np.cov(y)
-            # self covariance
-            scov_x = _np.diag(cov_x)
-            scov_y = _np.diag(cov_y)
-            # square root of self covariances
-            scov   = _np.sqrt(_np.repeat([scov_x + scov_y], len(scov_x), axis = 0))
-            return (cov_x + cov_y) / scov / scov.transpose()
-        #corr = cossincirccorr(a_result[1])
-        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1],
-                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2] })
-        return traj_df, corr, a_0ind1, a_0ind2
-
-
-
-class Scalar_Coupling_Correlation(_PRF_Correlation):
-    """
-    Computes pairwise (partial) correlations of Scalar_Coupling() (see srf module)
-    for a particular simulation with replica index r
-
-    If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
-    by default aggregate via rgn_agg_func = "mean"
-
-    Parameters
-    ----------
-    * error_type   : str, default="std_err"
-        compute feature errors as ...
-        | "std_err" : ... standard errors
-        | "std_dev" : ... mean standard deviations
-
-    * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
-                          regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
-      df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
-                                      'seg' : ["A", "A", "B", "B", "C"],
-                                      'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
-                          if None, no coarse-graining is performed
-
-    * rgn_agg_func  : function or str for coarse-graining, default = "mean"
-                      function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
-                      this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
-                      - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
-                      - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
-                        such as "mean", "std"
-
-    * label        : string, user-specific label
-    """
-
-    def __init__(self, partial_corr = False, error_type = "std_err",
-                 df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = "", feat_subfunc = None):
-        if feat_subfunc is None:
-            raise ValueError("feat_subfunc not defined")
-        s_pcorr = "partial_" if partial_corr else ""
-        super(Scalar_Coupling_Correlation, self).__init__(
-            feature_name       = "prf." + s_pcorr + "correlation." + feat_subfunc.__name__.split("compute_")[-1] + ".",
-            partial_corr       = partial_corr,
-            error_type         = error_type,
-            df_rgn_seg_res_bb  = df_rgn_seg_res_bb,
-            rgn_agg_func       = rgn_agg_func,
-            label              = label,
-            feat_subfunc       = feat_subfunc)
-
-    @staticmethod
-    def _myf(mytraj, a_rnm, feat_subfunc):
-        a_atom    = list(mytraj.topology.atoms)
-        a_seg     = _np.array([a.segment_id for a in a_atom])
-        a_res     = _np.array([a.residue.resSeq for a in a_atom])
-        #a_rnm    = _np.array([a.residue.name for a in a_atom])
-        a_result  = feat_subfunc(mytraj)
-        a_index   = a_result[0][:, 1]
-        a_pairs   = _np.array(list(_itertools.combinations(a_index, 2)))
-        a_ind1    = a_pairs[:,0]
-        a_ind2    = a_pairs[:,1]
-        a_0pairs  = _np.array(list(_itertools.combinations(range(len(a_index)), 2)))
-        a_0ind1   = a_0pairs[:,0]
-        a_0ind2   = a_0pairs[:,1]
-
-        corr = _np.corrcoef(a_result[1].transpose())
-        traj_df  = _pd.DataFrame(data={'seg1': a_seg[a_ind1], 'rnm1': a_rnm[a_ind1], 'res1': a_res[a_ind1],
-                                       'seg2': a_seg[a_ind2], 'rnm2': a_rnm[a_ind2], 'res2': a_res[a_ind2] })
-        return traj_df, corr, a_0ind1, a_0ind2
