@@ -1,0 +1,59 @@
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 8 CPUs detected.
+Info) Free system memory: 3137MB (19%)
+Info) Creating CUDA device pool and initializing hardware...
+Info) Detected 1 available CUDA accelerator:
+Info) [0] NVS 300             2 SM_1.2 @ 1.23 GHz,  511MB RAM, KTO, OIO, ZCP
+Info) Dynamically loaded 2 plugins in directory:
+Info) /import/vmd/lib/vmd-191/plugins/LINUXAMD64/molfile
+after#0
+input/aT41A.pcca1/r_00000
+aT41A.pcca1.r_00000.noh
+xtc
+output/aT41A.pcca1/r_00000/spbsf.Hvvdwdist_VMD.coarse.std_err.cg_withbb/samplebatches
+X
+"Cl-" "Na\+" WAT
+{"Cl-"} {"Na\+"}
+1.9 1.5
+-999.99
+{name "Cl-"} sulfur carbon oxygen nitrogen {name "Na\+"}
+{name "Cl-"} sulfur carbon oxygen nitrogen {name "Na\+"}
+Info) Using plugin pdb for structure file input/aT41A.pcca1/r_00000/aT41A.pcca1.r_00000.noh.pdb
+Info) Using plugin pdb for coordinates from file input/aT41A.pcca1/r_00000/aT41A.pcca1.r_00000.noh.pdb
+Info) Determining bond structure from distance search ...
+Info) Finished with coordinate file input/aT41A.pcca1/r_00000/aT41A.pcca1.r_00000.noh.pdb.
+Info) Analyzing structure ...
+Info)    Atoms: 23480
+Info)    Bonds: 3267
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 20695
+Info)    Waters: 20189
+Warning) Unusual bond between residues:  101 (none) and 102 (protein)
+Warning) Unusual bond between residues:  120 (protein) and 121 (none)
+Info)    Segments: 4
+Info)    Fragments: 20309   Protein: 3   Nucleic: 0
+Info) Using plugin xtc for coordinates from file input/aT41A.pcca1/r_00000/aT41A.pcca1.r_00000.noh.xtc
+Info) Finished with coordinate file input/aT41A.pcca1/r_00000/aT41A.pcca1.r_00000.noh.xtc.
+0.0
+atomselect0
+1.5
+0.6
+numframes: 3
+3
+{"Cl-"} {"Na\+"} WAT
+atomselect7
+atomselect11
+file18
+frame 0
+frame 1
+frame 2
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) Exiting normally.
+ERROR) Error reading Tcl input: bad file number

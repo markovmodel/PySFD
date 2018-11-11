@@ -1,0 +1,5 @@
+index	seg1	res1	rnm1	anm1	seg2	res2	rnm2	anm2	bN82A.pcca2	bN82A.pcca2	WT.pcca2	WT.pcca2	lsdm	sdiff	score	pval
+									mf	sf	mf	sf				
+2	A	5	HIP	CA	A	6	VAL	CA	0.9755	0.0061	0.9952	0.0072	1	-0.0009	-2.0944	0.0362
+4	A	5	HIP	CA	A	7	ILE	CA	0.8896	0.0139	0.9578	0.0233	1	-0.0141	-2.5191	0.0118
+6	A	4	GLU	CA	A	8	ILE	CA	0.5918	0.1113	0.9107	0.0349	1	-0.0856	-2.7336	0.0063

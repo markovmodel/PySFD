@@ -1,0 +1,5 @@
+
+You can compare these output results with your own test results, e.g., via
+diff -r output/meta output.bak/meta &> diff.log
+diff log log.bak &> diff.log
+and check the differences reported in diff.log

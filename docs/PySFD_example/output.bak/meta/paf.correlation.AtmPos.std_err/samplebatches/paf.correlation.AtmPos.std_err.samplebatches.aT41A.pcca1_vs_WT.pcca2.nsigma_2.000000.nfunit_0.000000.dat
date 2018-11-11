@@ -1,0 +1,5 @@
+index	seg1	res1	rnm1	anm1	seg2	res2	rnm2	anm2	aT41A.pcca1	aT41A.pcca1	WT.pcca2	WT.pcca2	lsdm	sdiff	score	pval
+									mf	sf	mf	sf				
+1	A	4	GLU	CA	A	6	VAL	CA	0.7092	0.0693	0.9869	0.0086	1	-0.1381	-3.9778	0.0001
+2	A	5	HIP	CA	A	6	VAL	CA	0.8180	0.0669	0.9952	0.0072	1	-0.0427	-2.6341	0.0084
+4	A	5	HIP	CA	A	7	ILE	CA	0.7531	0.0992	0.9578	0.0233	1	-0.0009	-2.0089	0.0445

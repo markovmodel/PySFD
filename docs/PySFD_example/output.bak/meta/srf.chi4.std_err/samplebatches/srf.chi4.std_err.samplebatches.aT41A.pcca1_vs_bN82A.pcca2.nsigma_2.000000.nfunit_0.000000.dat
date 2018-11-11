@@ -1,0 +1,4 @@
+seg	res	rnm	aT41A.pcca1	aT41A.pcca1	bN82A.pcca2	bN82A.pcca2	lsdm	sdiff	score	pval
+			mf	sf	mf	sf				
+A	126	LYS	-0.1472	0.8075	-2.4405	0.6387	1	0.2342	2.2274	0.0259
+B	65	LYS	-0.8553	0.4074	0.8270	0.1516	1	-0.8129	-3.8702	0.0001

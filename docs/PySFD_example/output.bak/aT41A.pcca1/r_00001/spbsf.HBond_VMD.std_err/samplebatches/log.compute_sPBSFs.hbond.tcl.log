@@ -1,0 +1,48 @@
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) http://www.ks.uiuc.edu/Research/vmd/                         
+Info) Email questions and bug reports to vmd@ks.uiuc.edu           
+Info) Please include this reference in published work using VMD:   
+Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual   
+Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
+Info) -------------------------------------------------------------
+Info) Multithreading available, 8 CPUs detected.
+Info) Free system memory: 3058MB (19%)
+Info) Creating CUDA device pool and initializing hardware...
+Info) Detected 1 available CUDA accelerator:
+Info) [0] NVS 300             2 SM_1.2 @ 1.23 GHz,  511MB RAM, KTO, OIO, ZCP
+Info) Dynamically loaded 2 plugins in directory:
+Info) /import/vmd/lib/vmd-191/plugins/LINUXAMD64/molfile
+after#0
+input/aT41A.pcca1/r_00001
+aT41A.pcca1.r_00001.prot
+xtc
+output/aT41A.pcca1/r_00001/spbsf.HBond_VMD.std_err/samplebatches
+3.000000
+20.000000
+Info) Using plugin pdb for structure file input/aT41A.pcca1/r_00001/aT41A.pcca1.r_00001.prot.pdb
+Info) Using plugin pdb for coordinates from file input/aT41A.pcca1/r_00001/aT41A.pcca1.r_00001.prot.pdb
+Info) Determining bond structure from distance search ...
+Info) Finished with coordinate file input/aT41A.pcca1/r_00001/aT41A.pcca1.r_00001.prot.pdb.
+Info) Analyzing structure ...
+Info)    Atoms: 6242
+Info)    Bonds: 6335
+Info)    Angles: 0  Dihedrals: 0  Impropers: 0  Cross-terms: 0
+Info)    Bondtypes: 0  Angletypes: 0  Dihedraltypes: 0  Impropertypes: 0
+Info)    Residues: 387
+Info)    Waters: 0
+Info)    Segments: 3
+Info)    Fragments: 3   Protein: 3   Nucleic: 0
+Info) Using plugin xtc for coordinates from file input/aT41A.pcca1/r_00001/aT41A.pcca1.r_00001.prot.xtc
+Info) Finished with coordinate file input/aT41A.pcca1/r_00001/aT41A.pcca1.r_00001.prot.xtc.
+numframes: 3
+3
+atomselect0
+file18
+atomselect1
+totframes 3
+len mycontacts 94
+len mycontacts 93
+len mycontacts 91
+Info) VMD for LINUXAMD64, version 1.9.1 (February 1, 2012)
+Info) Exiting normally.
+ERROR) Error reading Tcl input: bad file number

@@ -1,0 +1,1752 @@
+nohup: ignoriere Eingabe
+<pysfd.features.srf.CA_RMSF object at 0x7fecdbde08d0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.CA_RMSF object at 0x7fecdbde0908>
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.CA_RMSF object at 0x7fecdbde09e8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0b00>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0b38>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0b70>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0c88>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0da0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.SASA_sr object at 0x7fecdbde0dd8>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbde0ef0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbdf5048>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbdf5080>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbdf5198>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbdf52b0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.RSASA_sr object at 0x7fecdbdf52e8>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:316: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5550>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf55c0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf55f8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5588>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5630>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5668>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf56a0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf56d8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5748>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5780>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5710>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf57b8>
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf57f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5828>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5860>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf58d0>
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf59e8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5ac8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5be0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5cf8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbde0e10>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5400>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5b00>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf51d0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbdf5f60>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe040b8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe041d0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe042e8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04400>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04550>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04668>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04748>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04860>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04978>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04a90>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04ba8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04cf8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04e48>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04f28>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbd960b8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbd96208>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Dihedral object at 0x7fecdbe04cc0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbe04518>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbe04438>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbe04320>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbe04208>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbe040f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdf5518>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdf5f98>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdf5320>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96358>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd964a8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd965c0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd966d8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd967f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96908>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96a20>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96b38>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96c50>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbd96d68>
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbe04630>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbd96e80>
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbd96f98>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbda40f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbda4208>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbda4240>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbda4358>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbda4470>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbda44a8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbda44e0>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbda45f8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.CaPos_Correlation object at 0x7fecdbd96da0>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbd96710>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbd965f8>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbd964e0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbd96470>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbda47f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Dihedral_Correlation object at 0x7fecdbda4278>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda48d0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda49e8>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda4a20>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda4a58>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda4b70>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Scalar_Coupling_Correlation object at 0x7fecdbda4c88>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/prf.py:450: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.paf.Atm2Atm_Distance object at 0x7fecdbda4ef0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.paf.AtmPos_Correlation object at 0x7fecdbda4f28>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_VMD object at 0x7fecdbda4f98>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_VMD object at 0x7fecdbda4fd0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_VMD object at 0x7fecdbdb3048>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdb3160>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdb3278>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdb32b0>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+638   C  101  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.Hvvdwdist_VMD object at 0x7fecdbdb33c8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.Hvvdwdist_VMD object at 0x7fecdbdb34e0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.Hvvdwdist_VMD object at 0x7fecdbdb3518>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+776   X    0  NaN
+777   X    1  NaN
+778   X    2  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbdb3630>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbdb3748>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbdb3780>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbdb37b8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbdb38d0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pprf.Ca2Ca_Distance_Correlation object at 0x7fecdbda4cc0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdf5c18>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbd96b70>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb39e8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb3908>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb32e8>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:239: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+456   C  101  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb3b38>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:239: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+456   C  101  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb3e48>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pspbsf.sPBSF_Correlation object at 0x7fecdbdb3e80>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/pspbsf.py:155: RuntimeWarning: invalid value encountered in sqrt
+  scinv     = _np.sqrt(_np.repeat([cinv_diag], len(cinv_diag), axis = 0))
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.IsDSSP_mdtraj object at 0x7fecdbdb3eb8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.IsDSSP_mdtraj object at 0x7fecdbdb3ef0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.IsDSSP_mdtraj object at 0x7fecdbdb3f28>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/srf.py:252: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+736   C  101  NaN
+775   C  121  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.pff.Feature_Correlation object at 0x7fecdbdc42b0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdc4320>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdc4390>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.srf.Scalar_Coupling object at 0x7fecdbdc44e0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc4630>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc46a0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc47f0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc49b0>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc49e8>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.prf.Ca2Ca_Distance object at 0x7fecdbdc4a58>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdc4b70>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdc4d30>
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pandas/core/frame.py:3697: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  errors=errors)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:509: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['sfcount'] = 1
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pandas/core/frame.py:3697: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  errors=errors)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:509: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['sfcount'] = 1
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pandas/core/frame.py:3697: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  errors=errors)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:506: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:507: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/_pysfd.py:509: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  myensdf['sfcount'] = 1
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+<pysfd.features.spbsf.HBond_mdtraj object at 0x7fecdbdb3c88>
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/pysfd-1.0.0.dev0-py3.6.egg/pysfd/features/spbsf.py:383: UserWarning: not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):
+    seg  res  rgn
+638   C  101  NaN
+  _warnings.warn(warnstr)
+Waiting for child processes running in pool.amap() in run_ens( WT.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( bN82A.pcca2 )
+Waiting for child processes running in pool.amap() in run_ens( aT41A.pcca1 )
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/matplotlib/pyplot.py:522: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/matplotlib/colors.py:1031: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/matplotlib/colors.py:1031: RuntimeWarning: invalid value encountered in less_equal
+  mask |= resdat <= 0
+/home/mi/sstolzen/mystore/mypackages/miniconda3/envs/python3/lib/python3.6/site-packages/matplotlib/pyplot.py:522: RuntimeWarning: More than 20 figures have been opened. Figures created through the pyplot interface (`matplotlib.pyplot.figure`) are retained until explicitly closed and may consume too much memory. (To control this warning, see the rcParam `figure.max_open_warning`).
+  max_open_warning, RuntimeWarning)
+Waiting for child processes running in pool.map_async() in comp_features()
+Waiting for child processes running in pool.map_async() in comp_features()
+WT.pcca2
+bN82A.pcca2
+aT41A.pcca1
+{'srf.CA_RMSF.std_err': 6.377823829650879, 'srf.CA_RMSF.coarse.std_err.cg_nobb': 6.286390542984009, 'srf.CA_RMSF.coarse.std_err.cg_withbb': 6.284170866012573, 'srf.SASA_sr.std_err': 12.372005224227905, 'srf.SASA_sr.coarse.std_err.cg_nobb': 12.313647031784058, 'srf.SASA_sr.coarse.std_err.cg_withbb': 12.270811319351196, 'srf.SASA_sr.std_dev': 12.38124418258667, 'srf.SASA_sr.coarse.std_dev.cg_nobb': 12.326926708221436, 'srf.SASA_sr.coarse.std_dev.cg_withbb': 12.328848361968994, 'srf.RSASA_sr.std_err': 12.380230903625488, 'srf.RSASA_sr.coarse.std_err.cg_nobb': 12.343050241470337, 'srf.RSASA_sr.coarse.std_err.cg_withbb': 12.303491592407227, 'srf.RSASA_sr.std_dev': 12.379284381866455, 'srf.RSASA_sr.coarse.std_dev.cg_nobb': 12.349208354949951, 'srf.RSASA_sr.coarse.std_dev.cg_withbb': 12.35586166381836, 'srf.phi.std_err': 6.414129018783569, 'srf.psi.std_err': 6.4165260791778564, 'srf.omega.std_err': 6.420054197311401, 'srf.chi1.std_err': 6.453750133514404, 'srf.chi2.std_err': 6.422746181488037, 'srf.chi3.std_err': 6.425903081893921, 'srf.chi4.std_err': 6.40141749382019, 'srf.phi.std_dev': 6.3788251876831055, 'srf.psi.std_dev': 6.369488954544067, 'srf.omega.std_dev': 6.414522409439087, 'srf.chi1.std_dev': 6.364858150482178, 'srf.chi2.std_dev': 6.35941743850708, 'srf.chi3.std_dev': 6.3552141189575195, 'srf.chi4.std_dev': 6.4027698040008545, 'srf.phi.coarse.std_err.cg_nobb': 6.357079267501831, 'srf.psi.coarse.std_err.cg_nobb': 6.34646201133728, 'srf.omega.coarse.std_err.cg_nobb': 8.36047077178955, 'srf.chi1.coarse.std_err.cg_nobb': 8.370384693145752, 'srf.chi2.coarse.std_err.cg_nobb': 8.36014986038208, 'srf.chi3.coarse.std_err.cg_nobb': 8.369490623474121, 'srf.chi4.coarse.std_err.cg_nobb': 8.35269832611084, 'srf.phi.coarse.std_dev.cg_nobb': 8.335436820983887, 'srf.psi.coarse.std_dev.cg_nobb': 8.36858057975769, 'srf.omega.coarse.std_dev.cg_nobb': 8.39954137802124, 'srf.chi1.coarse.std_dev.cg_nobb': 10.38988709449768, 'srf.chi2.coarse.std_dev.cg_nobb': 10.399114847183228, 'srf.chi3.coarse.std_dev.cg_nobb': 10.433753252029419, 'srf.chi4.coarse.std_dev.cg_nobb': 10.36437439918518, 'srf.phi.coarse.std_err.cg_withbb': 10.390469312667847, 'srf.psi.coarse.std_err.cg_withbb': 10.305076837539673, 'srf.omega.coarse.std_err.cg_withbb': 10.298029661178589, 'srf.chi1.coarse.std_err.cg_withbb': 10.317901849746704, 'srf.chi2.coarse.std_err.cg_withbb': 10.317702293395996, 'srf.chi3.coarse.std_err.cg_withbb': 10.331436157226562, 'srf.chi4.coarse.std_err.cg_withbb': 10.328600883483887, 'srf.phi.coarse.std_dev.cg_withbb': 10.345452308654785, 'srf.psi.coarse.std_dev.cg_withbb': 10.33318543434143, 'srf.omega.coarse.std_dev.cg_withbb': 10.333602666854858, 'srf.chi1.coarse.std_dev.cg_withbb': 10.287367582321167, 'srf.chi2.coarse.std_dev.cg_withbb': 10.320294618606567, 'srf.chi3.coarse.std_dev.cg_withbb': 10.3547945022583, 'srf.chi4.coarse.std_dev.cg_withbb': 10.352540731430054, 'srf.J3_HN_C.std_err': 10.400123834609985, 'srf.J3_HN_CB.std_err': 10.422961235046387, 'srf.J3_HN_HA.std_err': 10.418562889099121, 'srf.J3_HN_C.std_dev': 10.449737071990967, 'srf.J3_HN_CB.std_dev': 10.434268474578857, 'srf.J3_HN_HA.std_dev': 10.433651685714722, 'srf.J3_HN_C.coarse.std_err.cg_nobb': 10.376106262207031, 'srf.J3_HN_CB.coarse.std_err.cg_nobb': 10.367679357528687, 'srf.J3_HN_HA.coarse.std_err.cg_nobb': 10.317633390426636, 'srf.J3_HN_C.coarse.std_dev.cg_nobb': 10.414278268814087, 'srf.J3_HN_CB.coarse.std_dev.cg_nobb': 10.307884216308594, 'srf.J3_HN_HA.coarse.std_dev.cg_nobb': 10.31237006187439, 'srf.J3_HN_C.coarse.std_err.cg_withbb': 10.367913246154785, 'srf.J3_HN_CB.coarse.std_err.cg_withbb': 10.343713998794556, 'srf.J3_HN_HA.coarse.std_err.cg_withbb': 12.337424993515015, 'srf.J3_HN_C.coarse.std_dev.cg_withbb': 12.395966529846191, 'srf.J3_HN_CB.coarse.std_dev.cg_withbb': 10.39608883857727, 'srf.J3_HN_HA.coarse.std_dev.cg_withbb': 12.37057089805603, 'prf.distance.Ca2Ca.std_err': 22.24507451057434, 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb': 18.498182773590088, 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb': 20.440939903259277, 'prf.distance.Ca2Ca.std_dev': 20.089398860931396, 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb': 20.495330095291138, 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb': 22.474254369735718, 'prf.correlation.CaPos.std_err': 28.572752952575684, 'prf.partial_correlation.CaPos.std_err': 32.258418560028076, 'prf.correlation.CaPos.coarse.std_err.cg_nobb': 30.550687551498413, 'prf.partial_correlation.CaPos.coarse.std_err.cg_nobb': 30.53024411201477, 'prf.correlation.CaPos.coarse.std_err.cg_withbb': 30.485169410705566, 'prf.partial_correlation.CaPos.coarse.std_err.cg_withbb': 32.44080996513367, 'prf.correlation.phi.std_err': 81.97656345367432, 'prf.partial_correlation.phi.std_err': 91.39609217643738, 'prf.correlation.phi.coarse.std_err.cg_nobb': 90.64448308944702, 'prf.partial_correlation.phi.coarse.std_err.cg_nobb': 88.60629081726074, 'prf.correlation.phi.coarse.std_err.cg_withbb': 86.53603458404541, 'prf.partial_correlation.phi.coarse.std_err.cg_withbb': 90.60019373893738, 'prf.correlation.J3_HN_C.std_err': 55.967716693878174, 'prf.partial_correlation.J3_HN_C.std_err': 63.432478189468384, 'prf.correlation.J3_HN_C.coarse.std_err.cg_nobb': 62.63325786590576, 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_nobb': 62.619388818740845, 'prf.correlation.J3_HN_C.coarse.std_err.cg_withbb': 62.594104051589966, 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_withbb': 62.61233067512512, 'paf.distance.Atm2Atm.std_err': 60.68485164642334, 'paf.correlation.AtmPos.std_err': 62.70782470703125, 'spbsf.HBond_VMD.std_err': 60.76746368408203, 'spbsf.HBond_VMD.coarse.std_err.cg_nobb': 60.59346294403076, 'spbsf.HBond_VMD.coarse.std_err.cg_withbb': 62.55463910102844, 'spbsf.HBond_mdtraj.std_err': 62.79595637321472, 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb': 62.577560901641846, 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb': 62.57481527328491, 'spbsf.Hvvdwdist_VMD.std_err': 66.80394554138184, 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_nobb': 68.54801630973816, 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_withbb': 66.54609751701355, 'pprf.correlation.Ca2Ca_Distance.std_err': 62.59174466133118, 'pprf.partial_correlation.Ca2Ca_Distance.std_err': 60.554715633392334, 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb': 62.56268095970154, 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb': 62.63562297821045, 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb': 62.595181465148926, 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb': 62.580482482910156, 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.std_err': 74.03368401527405, 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.std_err': 81.97886490821838, 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb': 86.11258435249329, 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb': 89.9704966545105, 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb': 92.71540188789368, 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb': 94.82314205169678, 'pspbsf.correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb': 100.08965134620667, 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb': 106.06757259368896, 'srf.isDSSPeqHsimplified.std_err': 100.74737882614136, 'srf.isDSSPeqHsimplified.coarse.std_err.cg_nobb': 100.67183303833008, 'srf.isDSSPeqHsimplified.coarse.std_err.cg_withbb': 100.7011079788208, 'pff.correlation.spbsf.HBond_mdtraj.std_err_vs_srf.chi1.coarse.std_err.cg_withbbstd_err': 116.2593560218811, 'srf.J3_HN_C.std_err_2moms_fhists': 110.96207356452942, 'srf.J3_HN_C.coarse.std_err.cg_nobb_2moms_fhists': 109.18994808197021, 'srf.J3_HN_C.coarse.std_err.cg_withbb_2moms_fhists': 109.19080400466919, 'prf.distance.Ca2Ca.std_err_fhists': 119.08156561851501, 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb_fhists': 115.28116273880005, 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb_fhists': 115.09266114234924, 'prf.distance.Ca2Ca.std_dev_fhists': 118.98557257652283, 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb_fhists': 117.3663420677185, 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb_fhists': 121.1750602722168, 'spbsf.HBond_mdtraj.std_err_fhists': 119.49263000488281, 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb_fhists': 119.18374347686768, 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb_fhists': 126.0704288482666}
+['srf.CA_RMSF.std_err', 'srf.CA_RMSF.coarse.std_err.cg_nobb', 'srf.CA_RMSF.coarse.std_err.cg_withbb', 'srf.SASA_sr.std_err', 'srf.SASA_sr.coarse.std_err.cg_nobb', 'srf.SASA_sr.coarse.std_err.cg_withbb', 'srf.SASA_sr.std_dev', 'srf.SASA_sr.coarse.std_dev.cg_nobb', 'srf.SASA_sr.coarse.std_dev.cg_withbb', 'srf.RSASA_sr.std_err', 'srf.RSASA_sr.coarse.std_err.cg_nobb', 'srf.RSASA_sr.coarse.std_err.cg_withbb', 'srf.RSASA_sr.std_dev', 'srf.RSASA_sr.coarse.std_dev.cg_nobb', 'srf.RSASA_sr.coarse.std_dev.cg_withbb', 'srf.phi.std_err', 'srf.psi.std_err', 'srf.omega.std_err', 'srf.chi1.std_err', 'srf.chi2.std_err', 'srf.chi3.std_err', 'srf.chi4.std_err', 'srf.phi.std_dev', 'srf.psi.std_dev', 'srf.omega.std_dev', 'srf.chi1.std_dev', 'srf.chi2.std_dev', 'srf.chi3.std_dev', 'srf.chi4.std_dev', 'srf.phi.coarse.std_err.cg_nobb', 'srf.psi.coarse.std_err.cg_nobb', 'srf.omega.coarse.std_err.cg_nobb', 'srf.chi1.coarse.std_err.cg_nobb', 'srf.chi2.coarse.std_err.cg_nobb', 'srf.chi3.coarse.std_err.cg_nobb', 'srf.chi4.coarse.std_err.cg_nobb', 'srf.phi.coarse.std_dev.cg_nobb', 'srf.psi.coarse.std_dev.cg_nobb', 'srf.omega.coarse.std_dev.cg_nobb', 'srf.chi1.coarse.std_dev.cg_nobb', 'srf.chi2.coarse.std_dev.cg_nobb', 'srf.chi3.coarse.std_dev.cg_nobb', 'srf.chi4.coarse.std_dev.cg_nobb', 'srf.phi.coarse.std_err.cg_withbb', 'srf.psi.coarse.std_err.cg_withbb', 'srf.omega.coarse.std_err.cg_withbb', 'srf.chi1.coarse.std_err.cg_withbb', 'srf.chi2.coarse.std_err.cg_withbb', 'srf.chi3.coarse.std_err.cg_withbb', 'srf.chi4.coarse.std_err.cg_withbb', 'srf.phi.coarse.std_dev.cg_withbb', 'srf.psi.coarse.std_dev.cg_withbb', 'srf.omega.coarse.std_dev.cg_withbb', 'srf.chi1.coarse.std_dev.cg_withbb', 'srf.chi2.coarse.std_dev.cg_withbb', 'srf.chi3.coarse.std_dev.cg_withbb', 'srf.chi4.coarse.std_dev.cg_withbb', 'srf.J3_HN_C.std_err', 'srf.J3_HN_CB.std_err', 'srf.J3_HN_HA.std_err', 'srf.J3_HN_C.std_dev', 'srf.J3_HN_CB.std_dev', 'srf.J3_HN_HA.std_dev', 'srf.J3_HN_C.coarse.std_err.cg_nobb', 'srf.J3_HN_CB.coarse.std_err.cg_nobb', 'srf.J3_HN_HA.coarse.std_err.cg_nobb', 'srf.J3_HN_C.coarse.std_dev.cg_nobb', 'srf.J3_HN_CB.coarse.std_dev.cg_nobb', 'srf.J3_HN_HA.coarse.std_dev.cg_nobb', 'srf.J3_HN_C.coarse.std_err.cg_withbb', 'srf.J3_HN_CB.coarse.std_err.cg_withbb', 'srf.J3_HN_HA.coarse.std_err.cg_withbb', 'srf.J3_HN_C.coarse.std_dev.cg_withbb', 'srf.J3_HN_CB.coarse.std_dev.cg_withbb', 'srf.J3_HN_HA.coarse.std_dev.cg_withbb', 'prf.distance.Ca2Ca.std_err', 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb', 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb', 'prf.distance.Ca2Ca.std_dev', 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb', 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb', 'prf.correlation.CaPos.std_err', 'prf.partial_correlation.CaPos.std_err', 'prf.correlation.CaPos.coarse.std_err.cg_nobb', 'prf.partial_correlation.CaPos.coarse.std_err.cg_nobb', 'prf.correlation.CaPos.coarse.std_err.cg_withbb', 'prf.partial_correlation.CaPos.coarse.std_err.cg_withbb', 'prf.correlation.phi.std_err', 'prf.partial_correlation.phi.std_err', 'prf.correlation.phi.coarse.std_err.cg_nobb', 'prf.partial_correlation.phi.coarse.std_err.cg_nobb', 'prf.correlation.phi.coarse.std_err.cg_withbb', 'prf.partial_correlation.phi.coarse.std_err.cg_withbb', 'prf.correlation.J3_HN_C.std_err', 'prf.partial_correlation.J3_HN_C.std_err', 'prf.correlation.J3_HN_C.coarse.std_err.cg_nobb', 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_nobb', 'prf.correlation.J3_HN_C.coarse.std_err.cg_withbb', 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_withbb', 'paf.distance.Atm2Atm.std_err', 'paf.correlation.AtmPos.std_err', 'spbsf.HBond_VMD.std_err', 'spbsf.HBond_VMD.coarse.std_err.cg_nobb', 'spbsf.HBond_VMD.coarse.std_err.cg_withbb', 'spbsf.HBond_mdtraj.std_err', 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb', 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb', 'spbsf.Hvvdwdist_VMD.std_err', 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_nobb', 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_withbb', 'pprf.correlation.Ca2Ca_Distance.std_err', 'pprf.partial_correlation.Ca2Ca_Distance.std_err', 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb', 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb', 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb', 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.std_err', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.std_err', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb', 'pspbsf.correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb', 'srf.isDSSPeqHsimplified.std_err', 'srf.isDSSPeqHsimplified.coarse.std_err.cg_nobb', 'srf.isDSSPeqHsimplified.coarse.std_err.cg_withbb', 'pff.correlation.spbsf.HBond_mdtraj.std_err_vs_srf.chi1.coarse.std_err.cg_withbbstd_err', 'srf.J3_HN_C.std_err_2moms_fhists', 'srf.J3_HN_C.coarse.std_err.cg_nobb_2moms_fhists', 'srf.J3_HN_C.coarse.std_err.cg_withbb_2moms_fhists', 'prf.distance.Ca2Ca.std_err_fhists', 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb_fhists', 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb_fhists', 'prf.distance.Ca2Ca.std_dev_fhists', 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb_fhists', 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb_fhists', 'spbsf.HBond_mdtraj.std_err_fhists', 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb_fhists', 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb_fhists']
+spbsf.HBond_mdtraj.coarse.std_err.cg_withbb_fhists
+  seg res  rnm  WT.pcca2    ...    bN82A.pcca2           aT41A.pcca1          
+                      mf    ...             mf        sf          mf        sf
+0   A   4  GLU  2.102252    ...       2.527934  1.034232    1.625656  0.569914
+1   A   5  HIP  1.309556    ...       1.737274  0.225462    1.214368  0.540756
+2   A   6  VAL  1.039768    ...       1.433000  0.092440    0.887309  0.204210
+3   A   7  ILE  0.928307    ...       1.040921  0.133051    0.831836  0.142137
+4   A   8  ILE  0.844304    ...       0.894025  0.091317    0.937108  0.117882
+
+[5 rows x 9 columns]
+[('bN82A.pcca2', 'WT.pcca2'), ('aT41A.pcca1', 'WT.pcca2'), ('aT41A.pcca1', 'bN82A.pcca2')]
+  seg  res  rnm bN82A.pcca2    ...    lsdm     sdiff     score      pval
+                         mf    ...                                      
+0   A   93  THR    1.256061    ...       1  0.214662  3.204123  0.001355
+1   A  101  GLU    1.675850    ...       1  0.013283  2.044490  0.040905
+2   A  103  ASN    1.412511    ...       1  0.078324  2.275846  0.022855
+3   A  104  VAL    1.134741    ...       1  0.243821  3.913039  0.000091
+4   A  105  LEU    1.018685    ...       1  0.161552  3.271487  0.001070
+
+[5 rows x 11 columns]
+['srf.CA_RMSF.std_err', 'srf.CA_RMSF.coarse.std_err.cg_nobb', 'srf.CA_RMSF.coarse.std_err.cg_withbb', 'srf.SASA_sr.std_err', 'srf.SASA_sr.coarse.std_err.cg_nobb', 'srf.SASA_sr.coarse.std_err.cg_withbb', 'srf.SASA_sr.std_dev', 'srf.SASA_sr.coarse.std_dev.cg_nobb', 'srf.SASA_sr.coarse.std_dev.cg_withbb', 'srf.RSASA_sr.std_err', 'srf.RSASA_sr.coarse.std_err.cg_nobb', 'srf.RSASA_sr.coarse.std_err.cg_withbb', 'srf.RSASA_sr.std_dev', 'srf.RSASA_sr.coarse.std_dev.cg_nobb', 'srf.RSASA_sr.coarse.std_dev.cg_withbb', 'srf.phi.std_err', 'srf.psi.std_err', 'srf.omega.std_err', 'srf.chi1.std_err', 'srf.chi2.std_err', 'srf.chi3.std_err', 'srf.chi4.std_err', 'srf.phi.std_dev', 'srf.psi.std_dev', 'srf.omega.std_dev', 'srf.chi1.std_dev', 'srf.chi2.std_dev', 'srf.chi3.std_dev', 'srf.chi4.std_dev', 'srf.phi.coarse.std_err.cg_nobb', 'srf.psi.coarse.std_err.cg_nobb', 'srf.omega.coarse.std_err.cg_nobb', 'srf.chi1.coarse.std_err.cg_nobb', 'srf.chi2.coarse.std_err.cg_nobb', 'srf.chi3.coarse.std_err.cg_nobb', 'srf.chi4.coarse.std_err.cg_nobb', 'srf.phi.coarse.std_dev.cg_nobb', 'srf.psi.coarse.std_dev.cg_nobb', 'srf.omega.coarse.std_dev.cg_nobb', 'srf.chi1.coarse.std_dev.cg_nobb', 'srf.chi2.coarse.std_dev.cg_nobb', 'srf.chi3.coarse.std_dev.cg_nobb', 'srf.chi4.coarse.std_dev.cg_nobb', 'srf.phi.coarse.std_err.cg_withbb', 'srf.psi.coarse.std_err.cg_withbb', 'srf.omega.coarse.std_err.cg_withbb', 'srf.chi1.coarse.std_err.cg_withbb', 'srf.chi2.coarse.std_err.cg_withbb', 'srf.chi3.coarse.std_err.cg_withbb', 'srf.chi4.coarse.std_err.cg_withbb', 'srf.phi.coarse.std_dev.cg_withbb', 'srf.psi.coarse.std_dev.cg_withbb', 'srf.omega.coarse.std_dev.cg_withbb', 'srf.chi1.coarse.std_dev.cg_withbb', 'srf.chi2.coarse.std_dev.cg_withbb', 'srf.chi3.coarse.std_dev.cg_withbb', 'srf.chi4.coarse.std_dev.cg_withbb', 'srf.J3_HN_C.std_err', 'srf.J3_HN_CB.std_err', 'srf.J3_HN_HA.std_err', 'srf.J3_HN_C.std_dev', 'srf.J3_HN_CB.std_dev', 'srf.J3_HN_HA.std_dev', 'srf.J3_HN_C.coarse.std_err.cg_nobb', 'srf.J3_HN_CB.coarse.std_err.cg_nobb', 'srf.J3_HN_HA.coarse.std_err.cg_nobb', 'srf.J3_HN_C.coarse.std_dev.cg_nobb', 'srf.J3_HN_CB.coarse.std_dev.cg_nobb', 'srf.J3_HN_HA.coarse.std_dev.cg_nobb', 'srf.J3_HN_C.coarse.std_err.cg_withbb', 'srf.J3_HN_CB.coarse.std_err.cg_withbb', 'srf.J3_HN_HA.coarse.std_err.cg_withbb', 'srf.J3_HN_C.coarse.std_dev.cg_withbb', 'srf.J3_HN_CB.coarse.std_dev.cg_withbb', 'srf.J3_HN_HA.coarse.std_dev.cg_withbb', 'prf.distance.Ca2Ca.std_err', 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb', 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb', 'prf.distance.Ca2Ca.std_dev', 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb', 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb', 'prf.correlation.CaPos.std_err', 'prf.partial_correlation.CaPos.std_err', 'prf.correlation.CaPos.coarse.std_err.cg_nobb', 'prf.partial_correlation.CaPos.coarse.std_err.cg_nobb', 'prf.correlation.CaPos.coarse.std_err.cg_withbb', 'prf.partial_correlation.CaPos.coarse.std_err.cg_withbb', 'prf.correlation.phi.std_err', 'prf.partial_correlation.phi.std_err', 'prf.correlation.phi.coarse.std_err.cg_nobb', 'prf.partial_correlation.phi.coarse.std_err.cg_nobb', 'prf.correlation.phi.coarse.std_err.cg_withbb', 'prf.partial_correlation.phi.coarse.std_err.cg_withbb', 'prf.correlation.J3_HN_C.std_err', 'prf.partial_correlation.J3_HN_C.std_err', 'prf.correlation.J3_HN_C.coarse.std_err.cg_nobb', 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_nobb', 'prf.correlation.J3_HN_C.coarse.std_err.cg_withbb', 'prf.partial_correlation.J3_HN_C.coarse.std_err.cg_withbb', 'paf.distance.Atm2Atm.std_err', 'paf.correlation.AtmPos.std_err', 'spbsf.HBond_VMD.std_err', 'spbsf.HBond_VMD.coarse.std_err.cg_nobb', 'spbsf.HBond_VMD.coarse.std_err.cg_withbb', 'spbsf.HBond_mdtraj.std_err', 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb', 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb', 'spbsf.Hvvdwdist_VMD.std_err', 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_nobb', 'spbsf.Hvvdwdist_VMD.coarse.std_err.cg_withbb', 'pprf.correlation.Ca2Ca_Distance.std_err', 'pprf.partial_correlation.Ca2Ca_Distance.std_err', 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb', 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_nobb', 'pprf.correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb', 'pprf.partial_correlation.Ca2Ca_Distance.coarse.std_err.cg_withbb', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.std_err', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.std_err', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_nobb', 'pspbsf.correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.std_err.coarse.std_err.cg_withbb', 'pspbsf.correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb', 'pspbsf.partial_correlation.spbsf.HBond_mdtraj.coarse.std_err.cg_nobb.std_errHB_cg_nobb', 'srf.isDSSPeqHsimplified.std_err', 'srf.isDSSPeqHsimplified.coarse.std_err.cg_nobb', 'srf.isDSSPeqHsimplified.coarse.std_err.cg_withbb', 'pff.correlation.spbsf.HBond_mdtraj.std_err_vs_srf.chi1.coarse.std_err.cg_withbbstd_err', 'srf.J3_HN_C.std_err_2moms_fhists', 'srf.J3_HN_C.coarse.std_err.cg_nobb_2moms_fhists', 'srf.J3_HN_C.coarse.std_err.cg_withbb_2moms_fhists', 'prf.distance.Ca2Ca.std_err_fhists', 'prf.distance.Ca2Ca.coarse.std_err.cg_nobb_fhists', 'prf.distance.Ca2Ca.coarse.std_err.cg_withbb_fhists', 'prf.distance.Ca2Ca.std_dev_fhists', 'prf.distance.Ca2Ca.coarse.std_dev.cg_nobb_fhists', 'prf.distance.Ca2Ca.coarse.std_dev.cg_withbb_fhists', 'spbsf.HBond_mdtraj.std_err_fhists', 'spbsf.HBond_mdtraj.coarse.std_err.cg_nobb_fhists', 'spbsf.HBond_mdtraj.coarse.std_err.cg_withbb_fhists']
+spbsf.HBond_VMD.std_err
+  seg1 res1 rnm1 bb1 seg2 res2 rnm2 bb2 lsdm sdiff
+                                                  
+0    A  176  LYS   1    A  163  CYX   1    1  -1.0
+1    B    7  PHE   1    A   15  ASN   1    1  -1.0
+2    B   16  HIP   0    A    4  GLU   0    1  -1.0
+3    B   84  GLY   1    B   80  ARG   1    1  -1.0
+4    B  113  ASN   1    B  104  SER   1    1   1.0
+spearman
+0.8932813452864784
+0.8806332336252071
+0.49780519425640246

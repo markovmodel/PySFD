@@ -1,0 +1,7 @@
+seg1	res1	rnm1	bb1	seg2	res2	rnm2	bb2	lsdm	sdiff
+									
+A	176	LYS	1	A	163	CYX	1	1	-1.0000
+B	7	PHE	1	A	15	ASN	1	1	-1.0000
+B	16	HIP	0	A	4	GLU	0	1	-1.0000
+B	84	GLY	1	B	80	ARG	1	1	-1.0000
+B	113	ASN	1	B	104	SER	1	1	1.0000
