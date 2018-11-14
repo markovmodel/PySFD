@@ -143,14 +143,14 @@ l_FeatureType += [pysfd.features.prf.Scalar_Coupling_Correlation(partial_corr=is
 #
 # Pairwise Atomic Features (PAF)
 #
-atmsel = pd.DataFrame({'seg1': {0: 'A', 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A', 8: 'A', 9: 'A'}, 'res1': {0: 4, 1: 4, 2: 4, 3: 4, 4: 5, 5: 5, 6: 5, 7: 6, 8: 6, 9: 7}, 'anm1': {0: 'CA', 1: 'CA', 2: 'CA', 3: 'CA', 4: 'CA', 5: 'CA', 6: 'CA', 7: 'CA', 8: 'CA', 9: 'CA'}, 'seg2': {0: 'A', 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A', 8: 'A', 9: 'A'}, 'res2': {0: 5, 1: 6, 2: 7, 3: 8, 4: 6, 5: 7, 6: 8, 7: 7, 8: 8, 9: 8}, 'anm2': {0: 'CA', 1: 'CA', 2: 'CA', 3: 'CA', 4: 'CA', 5: 'CA', 6: 'CA', 7: 'CA', 8: 'CA', 9: 'CA'}})
+subsel = pd.DataFrame({'seg1': {0: 'A', 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A', 8: 'A', 9: 'A'}, 'res1': {0: 4, 1: 4, 2: 4, 3: 4, 4: 5, 5: 5, 6: 5, 7: 6, 8: 6, 9: 7}, 'anm1': {0: 'CA', 1: 'CA', 2: 'CA', 3: 'CA', 4: 'CA', 5: 'CA', 6: 'CA', 7: 'CA', 8: 'CA', 9: 'CA'}, 'seg2': {0: 'A', 1: 'A', 2: 'A', 3: 'A', 4: 'A', 5: 'A', 6: 'A', 7: 'A', 8: 'A', 9: 'A'}, 'res2': {0: 5, 1: 6, 2: 7, 3: 8, 4: 6, 5: 7, 6: 8, 7: 7, 8: 8, 9: 8}, 'anm2': {0: 'CA', 1: 'CA', 2: 'CA', 3: 'CA', 4: 'CA', 5: 'CA', 6: 'CA', 7: 'CA', 8: 'CA', 9: 'CA'}})
 l_FeatureType += [pysfd.features.paf.Atm2Atm_Distance(error_type="std_err",
                                                df_rgn_seg_res_bb=None,
-                                               atmsel = atmsel,
+                                               subsel = subsel,
                                                label="")]
 l_FeatureType += [pysfd.features.paf.AtmPos_Correlation(error_type="std_err",
                                                df_rgn_seg_res_bb=None,
-                                               atmsel = atmsel,
+                                               subsel = subsel,
                                                label="")]
 
 #

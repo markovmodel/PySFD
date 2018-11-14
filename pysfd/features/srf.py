@@ -1079,8 +1079,10 @@ class RSASA_sr(_SRF):
         #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
         #traj_df = traj_df[l_lbl]
 
-        _df_max_rsasa = _df_max_rsasa.reindex(_np.unique(_np.concatenate((_df_max_rsasa.index.values, a_rnm))))
-        a_maxrsasa = _df_max_rsasa.loc[[fself.rnm2pdbrnm(resname) for resname in a_rnm], "tien_emp"]
+        #_df_max_rsasa = _df_max_rsasa.reindex(_np.unique(_np.concatenate((_df_max_rsasa.index.values, a_rnm))))
+        _df_max_rsasa = _df_max_rsasa.reindex(_np.unique(_np.concatenate((_df_max_rsasa.index.values, traj_df["rnm"].values))))
+        #a_maxrsasa = _df_max_rsasa.loc[[fself.rnm2pdbrnm(resname) for resname in a_rnm], "tien_emp"]
+        a_maxrsasa = _df_max_rsasa.loc[[fself.rnm2pdbrnm(resname) for resname in traj_df["rnm"]], "tien_emp"]
         a_feat = _np.apply_along_axis(lambda x: x / a_maxrsasa,
                                       1,
                                       _md.shrake_rupley(mytraj, mode="residue"))
@@ -1324,7 +1326,7 @@ class Dihedral(_SRF):
         a_indices = a_result[0][:, 1]
 
         #traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
-        traj_df = traj_df.loc[a_index]
+        traj_df = traj_df.loc[a_indices]
         traj_df = traj_df[l_lbl]
         a_feat = a_result[1]
         if circular_stats == None:
@@ -1567,7 +1569,7 @@ class Scalar_Coupling(_SRF):
 
         #l_lbl = ['seg', 'res', 'rnm']
         #traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
-        traj_df = traj_df.loc[a_index]
+        traj_df = traj_df.loc[a_indices]
         traj_df = traj_df[l_lbl]
         a_feat = a_result[1]
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
@@ -1663,7 +1665,7 @@ class IsDSSP_mdtraj(_SRF):
     * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = subsel, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", DSSPpars = None):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", DSSPpars = None):
         if DSSPpars is None:
             DSSPpars = ('H', True)
         DSSPlabel = "isDSSPeq" + DSSPpars[0]
