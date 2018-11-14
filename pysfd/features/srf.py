@@ -52,8 +52,9 @@ class _SRF(_feature_agent.FeatureAgent):
     _feature_agent.FeatureAgent
     in order to bundle common tasks
     """
-    def __init__(self, feature_name, error_type, df_rgn_seg_res_bb, rgn_agg_func, label, df_hist_feats = None, max_mom_ord = 1, **params):
+    def __init__(self, feature_name, error_type, subsel, df_rgn_seg_res_bb, rgn_agg_func, label, df_hist_feats = None, max_mom_ord = 1, **params):
         params["_finish_traj_df"] = self._finish_traj_df
+        params["subsel"] = subsel
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
             s_coarse = "coarse."
@@ -397,6 +398,14 @@ class ChemicalShift(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
       df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
@@ -430,13 +439,14 @@ class ChemicalShift(_SRF):
                       compute histograms for all features with
                       uniform histogram binning resolution dbin.
 
-   * label        : string, user-specific label for feature_name
+    * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
         super(ChemicalShift, self).__init__(feature_name      = "srf.chemical_shift.",
                                             error_type        = error_type,
                                             max_mom_ord       = max_mom_ord,
+                                            subsel            = subsel,
                                             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                             rgn_agg_func      = rgn_agg_func,
                                             df_hist_feats     = df_hist_feats,
@@ -475,42 +485,51 @@ class ChemicalShift(_SRF):
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
 
-        * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
-                              regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
-          df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
-                                          'seg' : ["A", "A", "B", "B", "C"],
-                                          'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
-                              if None, no coarse-graining is performed
-    
-        * rgn_agg_func  : function or str for coarse-graining
-                          function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
-                          this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
-                          - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
-                          - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
-                            such as "mean", "std"
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
-    * df_hist_feats : pandas.DataFrame, default=None
-                      data frame of features, for which to compute histograms.
-                      .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
-                      df_hist_feats = pd.DataFrame( { "seg1" : ["A", "A"],
-                                                      "res1" : [5, 10],
-                                                      "seg2" : ["A", "A"],
-                                                      "res2" : [10, 15],
-                                                      "dbin" : [0.1, 0.1] })
-                      dbin is the histogram binning resolution in units of the feature type.
-                      Only dbin values are allowed, which
-                      sum exactly to the next significant digit's unit, e.g.:
-                      for dbin = 0.02 = 2*10^-2 exists an n = 10, so that
-                      n * dbin = 0.1  = 1*10^-1
-                      Currently - for simplicity - dbin values have to be
-                      the same for each feature.
-                      If df_hist_feats == dbin (i.e. an int or float), 
-                      compute histograms for all features with
-                      uniform histogram binning resolution dbin.
-       """
+            * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
+                                  regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
+              df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
+                                              'seg' : ["A", "A", "B", "B", "C"],
+                                              'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
+                                  if None, no coarse-graining is performed
+        
+            * rgn_agg_func  : function or str for coarse-graining
+                              function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
+                              this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
+                              - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
+                              - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
+                                such as "mean", "std"
+
+            * df_hist_feats : pandas.DataFrame, default=None
+                              data frame of features, for which to compute histograms.
+                              .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
+                              df_hist_feats = pd.DataFrame( { "seg1" : ["A", "A"],
+                                                              "res1" : [5, 10],
+                                                              "seg2" : ["A", "A"],
+                                                              "res2" : [10, 15],
+                                                              "dbin" : [0.1, 0.1] })
+                              dbin is the histogram binning resolution in units of the feature type.
+                              Only dbin values are allowed, which
+                              sum exactly to the next significant digit's unit, e.g.:
+                              for dbin = 0.02 = 2*10^-2 exists an n = 10, so that
+                              n * dbin = 0.1  = 1*10^-1
+                              Currently - for simplicity - dbin values have to be
+                              the same for each feature.
+                              If df_hist_feats == dbin (i.e. an int or float), 
+                              compute histograms for all features with
+                              uniform histogram binning resolution dbin.
+        """
         fself, myens, r = args
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -518,28 +537,31 @@ class ChemicalShift(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
         df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
-        df_pdb = df_pdb.query("seg == '%s'" % mytraj.topology.chain(0).atom(0).segment_id)
         df_pdb.rename({"rnm" : "rnm_old"}, inplace = True)
-        traj_df = _md.compute_chemical_shifts(mytraj).reset_index()
-        a_feat = traj_df.copy().drop(["resSeq", "name"], axis = 1).as_matrix().transpose()
-        traj_df = traj_df[["resSeq", "name"]]
-        traj_df.columns = ['res', "anm"]
-        traj_df["seg"] = mytraj.topology.chain(0).atom(0).segment_id
-
-        traj_df_seg_res = traj_df[["seg", "res"]].drop_duplicates()
         df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
         df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
         if len(df_merge) > 0:
             warnstr = "residue name mismatch!:\n%s" % df_merge
             _warnings.warn(warnstr)
+
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = _md.compute_chemical_shifts(mytraj).reset_index()
+        a_feat = traj_df.copy().drop(["resSeq", "name"], axis = 1).as_matrix().transpose()
+        traj_df = traj_df[["resSeq", "name"]]
+        traj_df.columns = ['res', "anm"]
+        traj_df["seg"] = mytraj.topology.chain(0).atom(0).segment_id
         traj_df = traj_df.merge(df_pdb, copy = False)
         traj_df.drop(["rnm"], axis=1, inplace=True)
         traj_df.rename(columns={'rnm_old': 'rnm'}, inplace=True)
         l_lbl = ["seg", "res", "rnm", "anm"]
         traj_df = traj_df[l_lbl]
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
-
 
 class CA_RMSF(_SRF):
     """
@@ -555,6 +577,14 @@ class CA_RMSF(_SRF):
         compute feature errors as ...
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -577,13 +607,14 @@ class CA_RMSF(_SRF):
     * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
+    def __init__(self, error_type = "std_err", subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
         if error_type == "std_dev":
             print("WARNING: error_type \"std_dev\" not defined in CA_RMSF ! Falling back to \"std_err\" instead ...")
             error_type = "std_err"
         super(CA_RMSF, self).__init__(
                                         feature_name      = "srf.CA_RMSF.",
                                         error_type        = "std_err",
+                                        subsel            = subsel,
                                         df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                         rgn_agg_func      = rgn_agg_func,
                                         label             = label)
@@ -611,6 +642,14 @@ class CA_RMSF(_SRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
               df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
@@ -630,6 +669,7 @@ class CA_RMSF(_SRF):
     
         fself, myens, r = args
         fself.error_type[fself._feature_func_name] = params["error_type"]
+        subsel                                     = params["subsel"]
         df_rgn_seg_res_bb                          = params["df_rgn_seg_res_bb"]
         rgn_agg_func                               = params["rgn_agg_func"]
         _finish_traj_df                            = params["_finish_traj_df"]
@@ -639,8 +679,8 @@ class CA_RMSF(_SRF):
         outdir = "output/%s/r_%05d/%s/%s" % (myens, r, fself.feature_func_name, fself.intrajdatatype)
         _subprocess.Popen(_shlex.split("rm -rf %s" % outdir)).wait()
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
-        mycmd = "vmd -dispdev text -e %s/features/scripts/compute_carmsf.vmd.tcl -args %s %s %s %s" \
-                % (fself.pkg_dir, indir, instem, fself.intrajformat, outdir)
+        mycmd = "vmd -dispdev text -e %s/features/scripts/compute_carmsf.vmd.tcl -args %s %s %s %s \"%s\"" \
+                % (fself.pkg_dir, indir, instem, fself.intrajformat, outdir, subsel)
         outfile = open("%s/log.compute_carmsf.vmd.tcl.log" % outdir, "w")
         myproc = _subprocess.Popen(_shlex.split(mycmd), stdout=outfile, stderr=outfile)
         myproc.wait()
@@ -670,6 +710,14 @@ class SASA_sr(_SRF):
                       if max_mom_ord > 1, this will add additional entries
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -704,13 +752,14 @@ class SASA_sr(_SRF):
                       compute histograms for all features with
                       uniform histogram binning resolution dbin.
 
-   * label        : string, user-specific label for feature_name
+    * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "sum", df_hist_feats = None, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "sum", df_hist_feats = None, label = ""):
         super(SASA_sr, self).__init__(feature_name      = "srf.SASA_sr.",
                                       error_type        = error_type,
                                       max_mom_ord       = max_mom_ord,
+                                      subsel            = subsel,
                                       df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                       rgn_agg_func      = rgn_agg_func,
                                       df_hist_feats     = df_hist_feats,
@@ -736,6 +785,14 @@ class SASA_sr(_SRF):
                 compute feature errors as ...
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
+
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -778,6 +835,7 @@ class SASA_sr(_SRF):
         fself, myens, r = args
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -785,15 +843,30 @@ class SASA_sr(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
-        a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
 
-        a_residue = list(mytraj.topology.residues)
-        a_seg = [a.segment_id for a in a_residue]
-        a_res = [a.resSeq for a in a_residue]
-        #a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
-        #a_rnm = [a.name for a in a_residue]
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df.columns = ["seg", "res"]
+        traj_df = traj_df.merge(df_pdb)
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        #a_residue = list(mytraj.topology.residues)
+        #a_seg = [a.segment_id for a in a_residue]
+        #a_res = [a.resSeq for a in a_residue]
+        ##a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
+        ##a_rnm = [a.name for a in a_residue]
         l_lbl = ['seg', 'res', 'rnm']
-        traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
         traj_df = traj_df[l_lbl]
         a_feat = _md.shrake_rupley(mytraj, mode="residue")
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
@@ -813,6 +886,14 @@ class RSASA_sr(_SRF):
         compute feature errors as ...
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * max_mom_ord   : int, default: 1
                       maximum ordinal of moment to compute
@@ -856,11 +937,12 @@ class RSASA_sr(_SRF):
     * label        : string, user-specific label for feature_name
     """
  
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
       
         super(RSASA_sr, self).__init__(feature_name      ="srf.RSASA_sr.",
                                        error_type        = error_type,
                                        max_mom_ord       = max_mom_ord,
+                                       subsel            = subsel,
                                        df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                        rgn_agg_func      = rgn_agg_func,
                                        df_hist_feats     = df_hist_feats,
@@ -887,6 +969,14 @@ class RSASA_sr(_SRF):
                 compute feature errors as ...
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
+
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -955,6 +1045,7 @@ class RSASA_sr(_SRF):
         fself, myens, r = args
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -962,18 +1053,34 @@ class RSASA_sr(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
-        a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
 
-        a_residue = list(mytraj.topology.residues)
-        a_seg = [a.segment_id for a in a_residue]
-        a_res = [a.resSeq for a in a_residue]
-        #a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
-        #a_rnm = [a.name for a in a_residue]
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df.columns = ["seg", "res"]
+        traj_df = traj_df.merge(df_pdb)
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        #a_residue = list(mytraj.topology.residues)
+        #a_seg = [a.segment_id for a in a_residue]
+        #a_res = [a.resSeq for a in a_residue]
+        ##a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
+        ##a_rnm = [a.name for a in a_residue]
+        l_lbl = ['seg', 'res', 'rnm']
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = traj_df[l_lbl]
+
         _df_max_rsasa = _df_max_rsasa.reindex(_np.unique(_np.concatenate((_df_max_rsasa.index.values, a_rnm))))
         a_maxrsasa = _df_max_rsasa.loc[[fself.rnm2pdbrnm(resname) for resname in a_rnm], "tien_emp"]
-        l_lbl = ['seg', 'res', 'rnm']
-        traj_df = _pd.DataFrame(data={ 'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
-        traj_df = traj_df[l_lbl]
         a_feat = _np.apply_along_axis(lambda x: x / a_maxrsasa,
                                       1,
                                       _md.shrake_rupley(mytraj, mode="residue"))
@@ -1000,6 +1107,14 @@ class Dihedral(_SRF):
                       if max_mom_ord > 1, this will add additional entries
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1059,7 +1174,7 @@ class Dihedral(_SRF):
     * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, label = "", circular_stats = "csd", feat_subfunc = None):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = None, df_hist_feats = None, label = "", circular_stats = "csd", feat_subfunc = None):
         if circular_stats not in [None, "csd"]:
             raise ValueError("circular_stats not in [None, \"csd\"]")
 
@@ -1069,6 +1184,7 @@ class Dihedral(_SRF):
                                         feature_name      = "srf." + feat_subfunc.__name__.split("compute_")[-1] + ".",
                                         error_type        = error_type,
                                         max_mom_ord       = max_mom_ord,
+                                        subsel            = subsel,
                                         df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                         rgn_agg_func      = rgn_agg_func,
                                         df_hist_feats     = df_hist_feats,
@@ -1096,6 +1212,14 @@ class Dihedral(_SRF):
                 compute feature errors as ...
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
+
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -1163,6 +1287,7 @@ class Dihedral(_SRF):
         feat_subfunc                                = params["feat_subfunc"]
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -1170,19 +1295,37 @@ class Dihedral(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
-        a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
-        a_atom = list(mytraj.topology.atoms)
-        a_seg  = _np.array([a.segment_id for a in a_atom])
-        a_res  = _np.array([a.residue.resSeq for a in a_atom])
-        #df_rnm_rnm2 = _pd.DataFrame({ 'rnm' : a_rnm, 'rnm2' : _np.array([a.residue.name for a in a_atom])})
-        #print(df_rnm_rnm2.query('rnm != rnm2').drop_duplicates())
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
+
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].reset_index()
+        traj_df.columns = ["ind", "seg", "res"]
+        traj_df = traj_df.merge(df_pdb).set_index("ind")
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
+        #a_atom = list(mytraj.topology.atoms)
+        #a_seg  = _np.array([a.segment_id for a in a_atom])
+        #a_res  = _np.array([a.residue.resSeq for a in a_atom])
+        ##df_rnm_rnm2 = _pd.DataFrame({ 'rnm' : a_rnm, 'rnm2' : _np.array([a.residue.name for a in a_atom])})
+        ##print(df_rnm_rnm2.query('rnm != rnm2').drop_duplicates())
+        l_lbl = ['seg', 'res', 'rnm']
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = traj_df[l_lbl]
         a_result  = feat_subfunc(mytraj)
         a_indices = a_result[0][:, 1]
 
-        l_lbl = ['seg', 'res', 'rnm']
-        traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
+        #traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
+        traj_df = traj_df.loc[a_index]
         traj_df = traj_df[l_lbl]
-
         a_feat = a_result[1]
         if circular_stats == None:
             rgn_agg_func = "mean"
@@ -1229,6 +1372,14 @@ class Scalar_Coupling(_SRF):
                       if max_mom_ord > 1, this will add additional entries
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1278,13 +1429,14 @@ class Scalar_Coupling(_SRF):
     * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", feat_subfunc = None):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", feat_subfunc = None):
         if feat_subfunc is None:
             raise ValueError("feat_subfunc not defined")
         super(Scalar_Coupling, self).__init__(
                                         feature_name      = "srf." + feat_subfunc.__name__.split("compute_")[-1] + ".",
                                         error_type        = error_type,
                                         max_mom_ord       = max_mom_ord,
+                                        subsel            = subsel,
                                         df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                         rgn_agg_func      = rgn_agg_func,
                                         df_hist_feats     = df_hist_feats,
@@ -1317,6 +1469,14 @@ class Scalar_Coupling(_SRF):
                               if max_mom_ord > 1, this will add additional entries
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
+
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1368,6 +1528,7 @@ class Scalar_Coupling(_SRF):
         feat_subfunc                                = params["feat_subfunc"]
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -1375,17 +1536,38 @@ class Scalar_Coupling(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
-        a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
-        a_atom = list(mytraj.topology.atoms)
-        a_seg  = _np.array([a.segment_id for a in a_atom])
-        a_res  = _np.array([a.residue.resSeq for a in a_atom])
-        #df_rnm_rnm2 = _pd.DataFrame({ 'rnm' : a_rnm, 'rnm2' : _np.array([a.residue.name for a in a_atom])})
-        #print(df_rnm_rnm2.query('rnm != rnm2').drop_duplicates())
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
+
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].reset_index()
+        traj_df.columns = ["ind", "seg", "res"]
+        traj_df = traj_df.merge(df_pdb).set_index("ind")
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
+        #a_atom = list(mytraj.topology.atoms)
+        #a_seg  = _np.array([a.segment_id for a in a_atom])
+        #a_res  = _np.array([a.residue.resSeq for a in a_atom])
+        ##df_rnm_rnm2 = _pd.DataFrame({ 'rnm' : a_rnm, 'rnm2' : _np.array([a.residue.name for a in a_atom])})
+        ##print(df_rnm_rnm2.query('rnm != rnm2').drop_duplicates())
+        l_lbl = ['seg', 'res', 'rnm']
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = traj_df[l_lbl]
+
         a_result  = feat_subfunc(mytraj)
         a_indices = a_result[0][:, 1]
 
-        l_lbl = ['seg', 'res', 'rnm']
-        traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
+        #l_lbl = ['seg', 'res', 'rnm']
+        #traj_df   = _pd.DataFrame(data={'seg': a_seg[a_indices], 'rnm': a_rnm[a_indices], 'res': a_res[a_indices] })
+        traj_df = traj_df.loc[a_index]
         traj_df = traj_df[l_lbl]
         a_feat = a_result[1]
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)
@@ -1412,6 +1594,14 @@ class IsDSSP_mdtraj(_SRF):
                       if max_mom_ord > 1, this will add additional entries
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
+
+    * subsel : str, or pandas.DataFrame, optional, default = "all"
+               sub-selection of residues for which to compute features
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1473,7 +1663,7 @@ class IsDSSP_mdtraj(_SRF):
     * label        : string, user-specific label for feature_name
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", DSSPpars = None):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = subsel, df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = "", DSSPpars = None):
         if DSSPpars is None:
             DSSPpars = ('H', True)
         DSSPlabel = "isDSSPeq" + DSSPpars[0]
@@ -1484,6 +1674,7 @@ class IsDSSP_mdtraj(_SRF):
                                         feature_name      = "srf." + DSSPlabel + ".",
                                         error_type        = error_type,
                                         max_mom_ord       = max_mom_ord,
+                                        subsel            = subsel,
                                         df_rgn_seg_res_bb = df_rgn_seg_res_bb,
                                         rgn_agg_func      = rgn_agg_func,
                                         df_hist_feats     = df_hist_feats,
@@ -1517,6 +1708,14 @@ class IsDSSP_mdtraj(_SRF):
                               if max_mom_ord > 1, this will add additional entries
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
+
+            * subsel : str, or pandas.DataFrame, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
+                               example: "name CA and within 15 of chain A and resid 82"
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1580,6 +1779,7 @@ class IsDSSP_mdtraj(_SRF):
         DSSPpars                                    = params["DSSPpars"]
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.max_mom_ord[fself._feature_func_name] = params["max_mom_ord"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
         df_hist_feats                               = params["df_hist_feats"]
@@ -1587,16 +1787,30 @@ class IsDSSP_mdtraj(_SRF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
 
-        a_rnm     = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
-        a_residue = list(mytraj.topology.residues)
-        a_seg     = [a.segment_id for a in a_residue]
-        a_res     = [a.resSeq for a in a_residue]
-        #a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
-        #a_rnm = [a.name for a in a_residue]
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df.columns = ["seg", "res"]
+        traj_df = traj_df.merge(df_pdb)
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "residue").rnm.values
+        #a_residue = list(mytraj.topology.residues)
+        #a_seg = [a.segment_id for a in a_residue]
+        #a_res = [a.resSeq for a in a_residue]
+        ##a_rnm = [fself.rnm2pdbrnm(a.name) for a in a_residue]
+        ##a_rnm = [a.name for a in a_residue]
         l_lbl = ['seg', 'res', 'rnm']
-        traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
         traj_df = traj_df[l_lbl]
-
         a_feat = (_md.compute_dssp(mytraj, simplified = DSSPpars[1]) == DSSPpars[0]).astype("int")
         return _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, df_hist_feats)

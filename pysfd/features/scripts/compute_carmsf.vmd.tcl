@@ -38,6 +38,7 @@ set indir	[lindex $argv 0]
 set instem	[lindex $argv 1]
 set intype	[lindex $argv 2]   
 set outdir	[lindex $argv 3]
+set subsel 	[lindex $argv 4]
 
 if { $intype == "xtc" } {
 	mol load pdb $indir/$instem.pdb
@@ -52,8 +53,10 @@ if { $intype == "xtc" } {
 	exit
 }
 
+# used for the MHCII system:
 set fitselstr  "name CA and not ((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
-set rmsfselstr "((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
+#set fitselstr  "name CA"
+#set rmsfselstr "((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
 
 set refsel [atomselect top $fitselstr frame 0]
 set cmpsel [atomselect top $fitselstr]
@@ -67,7 +70,8 @@ $refsel delete
 $cmpsel delete
 $movsel delete
 
-set mysel [atomselect top "name CA"]
+puts "using RMSFs with atom selection string: \"($subsel) and name CA\""
+set mysel [atomselect top "($subsel) and name CA"]
 foreach myinfo { chain segid resid residue resname backbone } {
 	set l_($myinfo) [$mysel get $myinfo]
 }

@@ -79,11 +79,11 @@ class _PAF_Distance(_PAF):
     _feature_agent.FeatureAgent
     in order to bundle common tasks
     """
-    def __init__(self, feature_name, error_type, max_mom_ord, atmsel, df_rgn_seg_res_bb, rgn_agg_func, df_hist_feats, label, **params):
+    def __init__(self, feature_name, error_type, max_mom_ord, subsel, df_rgn_seg_res_bb, rgn_agg_func, df_hist_feats, label, **params):
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
             s_coarse = "coarse."
-        params["atmsel"] = atmsel
+        params["subsel"] = subsel
         super(_PAF_Distance, self).__init__(
                                   feature_name      = feature_name + s_coarse + error_type + label,
                                   error_type        = error_type,
@@ -122,17 +122,17 @@ class _PAF_Distance(_PAF):
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
 
-            * atmsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
+            * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                        selection of atoms between which to compute distances
-                       if str: atmsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in atmsel
+                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                               distances between all possible combinations of atoms defined in subsel
                                example: "name CA and within 15 of chain A and resid 82"
-                       if (str, str): distances between atmsel[0] and of atmsel[1] (element-wise),
-                                      no. of atoms defined in atmsel[0] & atmsel[1] must be the same
-                       if [str, str]: distances between any atom in atmsel[0] with any in atmsel[1]
-                                      number of atoms defined by atmsel[0] and atmsel[1] can be differ
-                       if DataFrame:  distances are only computed between atom pairs listed in atmsel
-                                      atmsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
+                       if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
+                                      no. of atoms defined in subsel[0] & subsel[1] must be the same
+                       if [str, str]: distances between any atom in subsel[0] with any in subsel[1]
+                                      number of atoms defined by subsel[0] and subsel[1] can be differ
+                       if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                      subsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -184,7 +184,7 @@ class _PAF_Distance(_PAF):
         df_rgn_seg_res_bb                             = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                  = params["rgn_agg_func"]
         df_hist_feats                                 = params["df_hist_feats"]
-        atmsel                                        = params["atmsel"]
+        subsel                                        = params["subsel"]
 
         dataflags = { "error_type"  : error_type, "max_mom_ord" : max_mom_ord }
 
@@ -194,7 +194,7 @@ class _PAF_Distance(_PAF):
 
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         a_rnm = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
-        a_f, traj_df = myf(mytraj, a_rnm, atmsel)
+        a_f, traj_df = myf(mytraj, a_rnm, subsel)
 
         def myhist(a_data, dbin):
             prec = len(str(dbin).partition(".")[2])+1
@@ -350,13 +350,13 @@ class _PAF_Correlation(_PAF):
     _feature_agent.FeatureAgent
     in order to bundle common tasks
     """
-    def __init__(self, feature_name, partial_corr, error_type, atmsel,
+    def __init__(self, feature_name, partial_corr, error_type, subsel,
                  df_rgn_seg_res_bb, rgn_agg_func, label, **params):
         s_coarse = ""
         if df_rgn_seg_res_bb is not None:
             s_coarse = "coarse."
         params["partial_corr"] = partial_corr
-        params["atmsel"] = atmsel
+        params["subsel"] = subsel
 
         super(_PAF_Correlation, self).__init__(feature_name      = feature_name + s_coarse + error_type + label,
                                                error_type        = error_type,
@@ -387,17 +387,17 @@ class _PAF_Correlation(_PAF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
-        * atmsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
+        * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                    selection of atoms between which to compute distances
-                   if str: atmsel is an atom selection string as used in MDTraj (or VMD)
-                           distances between all possible combinations of atoms defined in atmsel
+                   if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                           distances between all possible combinations of atoms defined in subsel
                            example: "name CA and within 15 of chain A and resid 82"
-                   if (str, str): distances between atmsel[0] and of atmsel[1] (element-wise),
-                                  no. of atoms defined in atmsel[0] & atmsel[1] must be the same
-                   if [str, str]: distances between any atom in atmsel[0] with any in atmsel[1]
-                                  number of atoms defined by atmsel[0] and atmsel[1] can be differ
-                   if DataFrame:  distances are only computed between atom pairs listed in atmsel
-                                  atmsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
+                   if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
+                                  no. of atoms defined in subsel[0] & subsel[1] must be the same
+                   if [str, str]: distances between any atom in subsel[0] with any in subsel[1]
+                                  number of atoms defined by subsel[0] and subsel[1] can be differ
+                   if DataFrame:  distances are only computed between atom pairs listed in subsel
+                                  subsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -431,7 +431,7 @@ class _PAF_Correlation(_PAF):
             params["error_type"] = "std_err"
         fself.error_type[fself._feature_func_name]  = params["error_type"]
         fself.partial_corr                          = params["partial_corr"]
-        atmsel                                      = params["atmsel"]
+        subsel                                      = params["subsel"]
         df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
         rgn_agg_func                                = params["rgn_agg_func"]
 
@@ -443,9 +443,9 @@ class _PAF_Correlation(_PAF):
         instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
         a_rnm = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
         if "feat_subfunc" in params:
-            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, atmsel, params["feat_subfunc"])
+            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, subsel, params["feat_subfunc"])
         else:
-            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, atmsel)
+            traj_df, corr, a_0ind1, a_0ind2 = myf(mytraj, a_rnm, subsel)
 
         if fself.partial_corr:
             cinv      = _np.linalg.pinv(corr)
@@ -513,17 +513,17 @@ class Atm2Atm_Distance(_PAF_Distance):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * atmsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
+    * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                selection of atoms between which to compute distances
-               if str: atmsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in atmsel
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
-               if (str, str): distances between atmsel[0] and of atmsel[1] (element-wise),
-                              no. of atoms defined in atmsel[0] & atmsel[1] must be the same
-               if [str, str]: distances between any atom in atmsel[0] with any in atmsel[1]
-                              number of atoms defined by atmsel[0] and atmsel[1] can be differ
-               if DataFrame:  distances are only computed between atom pairs listed in atmsel
-                              atmsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
+               if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
+                              no. of atoms defined in subsel[0] & subsel[1] must be the same
+               if [str, str]: distances between any atom in subsel[0] with any in subsel[1]
+                              number of atoms defined by subsel[0] and subsel[1] can be differ
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -578,48 +578,48 @@ class Atm2Atm_Distance(_PAF_Distance):
     vecstddev $l_dist 
     """
 
-    def __init__(self, error_type = "std_err", max_mom_ord = 1, atmsel = "name CA", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
+    def __init__(self, error_type = "std_err", max_mom_ord = 1, subsel = "name CA", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", df_hist_feats = None, label = ""):
         super(Atm2Atm_Distance, self).__init__(
             feature_name      = "paf.distance.Atm2Atm.",
             error_type        = error_type,
             max_mom_ord       = max_mom_ord,
-            atmsel            = atmsel,
+            subsel            = subsel,
             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
             rgn_agg_func      = rgn_agg_func,
             df_hist_feats     = df_hist_feats,
             label             = label)
 
     @staticmethod
-    def _myf	(mytraj, a_rnm, atmsel):
-        if isinstance(atmsel, str):
-            a_index = mytraj.topology.select(atmsel)
+    def _myf	(mytraj, a_rnm, subsel):
+        if isinstance(subsel, str):
+            a_index = mytraj.topology.select(subsel)
             a_pairs = _np.array(list(_itertools.combinations(a_index, 2)))
             a_ind1  = a_pairs[:,0]
             a_ind2  = a_pairs[:,1]
-        elif isinstance(atmsel, tuple):
-            a_ind1 = mytraj.topology.select(atmsel[0])
-            a_ind2 = mytraj.topology.select(atmsel[1])
+        elif isinstance(subsel, tuple):
+            a_ind1 = mytraj.topology.select(subsel[0])
+            a_ind2 = mytraj.topology.select(subsel[1])
             if len(a_ind1) != len(a_ind2):
-               raise ValueError("no. of indices defined in atmsel[0] and in atmsel[1] are not equal!")
+               raise ValueError("no. of indices defined in subsel[0] and in subsel[1] are not equal!")
             a_pairs = _np.array([a_ind1, a_ind2])
-        elif isinstance(atmsel, list):
-            a_ind1 = mytraj.topology.select(atmsel[0])
-            a_ind2 = mytraj.topology.select(atmsel[1])
+        elif isinstance(subsel, list):
+            a_ind1 = mytraj.topology.select(subsel[0])
+            a_ind2 = mytraj.topology.select(subsel[1])
             a_pairs = _np.array(list(_itertools.product(a_ind1, a_ind2)))
         else:
             df_top  = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq", "name"]].reset_index()
             df_top.columns = ["ind1", "seg1", "res1", "anm1"]
-            newatmsel  = atmsel.merge(df_top)
+            newsubsel  = subsel.merge(df_top)
             df_top.columns = ["ind2", "seg2", "res2", "anm2"]
-            newatmsel  = newatmsel.merge(df_top)
-            if len(newatmsel) != len(atmsel):
-                df_err = atmsel.merge(newatmsel, indicator=True, how='outer')
+            newsubsel  = newsubsel.merge(df_top)
+            if len(newsubsel) != len(subsel):
+                df_err = subsel.merge(newsubsel, indicator=True, how='outer')
                 df_err = df_err.query("_merge != 'both'")
-                warnstr = "check your entries in atmsel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
+                warnstr = "check your entries in subsel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
                 _warnings.warn(warnstr)
-            a_ind1  = newatmsel.ind1.values
-            a_ind2  = newatmsel.ind2.values
-            a_pairs = newatmsel.loc[:, ["ind1", "ind2"]].values
+            a_ind1  = newsubsel.ind1.values
+            a_ind2  = newsubsel.ind2.values
+            a_pairs = newsubsel.loc[:, ["ind1", "ind2"]].values
            
         a_f     = _md.compute_distances(mytraj, atom_pairs = a_pairs, periodic = True, opt = True)
 
@@ -648,17 +648,17 @@ class AtmPos_Correlation(_PAF_Correlation):
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
 
-    * atmsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
+    * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                selection of atoms between which to compute distances
-               if str: atmsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in atmsel
+               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
-               if (str, str): distances between atmsel[0] and of atmsel[1] (element-wise),
-                              no. of atoms defined in atmsel[0] & atmsel[1] must be the same
-               if [str, str]: distances between any atom in atmsel[0] with any in atmsel[1]
-                              number of atoms defined by atmsel[0] and atmsel[1] can be differ
-               if DataFrame:  distances are only computed between atom pairs listed in atmsel
-                              atmsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
+               if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
+                              no. of atoms defined in subsel[0] & subsel[1] must be the same
+               if [str, str]: distances between any atom in subsel[0] with any in subsel[1]
+                              number of atoms defined by subsel[0] and subsel[1] can be differ
+               if DataFrame:  distances are only computed between atom pairs listed in subsel
+                              subsel.columns = ["seg1", "res1", "anm1", "seg2", "res2", "anm2"]
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -681,36 +681,36 @@ class AtmPos_Correlation(_PAF_Correlation):
     * label        : string, user-specific label
     """
 
-    def __init__(self, partial_corr = False, error_type = "std_err", atmsel = "name CA", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
+    def __init__(self, partial_corr = False, error_type = "std_err", subsel = "name CA", df_rgn_seg_res_bb = None, rgn_agg_func = "mean", label = ""):
         s_pcorr = "partial_" if partial_corr else ""
         super(AtmPos_Correlation, self).__init__(
             feature_name      = "paf." + s_pcorr + "correlation.AtmPos.",
             partial_corr      = partial_corr,
             error_type        = error_type,
-            atmsel            = atmsel,
+            subsel            = subsel,
             df_rgn_seg_res_bb = df_rgn_seg_res_bb,
             rgn_agg_func      = rgn_agg_func,
             label             = label)
 
     @staticmethod
-    def _myf(mytraj, a_rnm, atmsel):
-        if isinstance(atmsel, str):
-            a_index = mytraj.topology.select(atmsel)
+    def _myf(mytraj, a_rnm, subsel):
+        if isinstance(subsel, str):
+            a_index = mytraj.topology.select(subsel)
             a_pairs = _np.array(list(_itertools.combinations(a_index, 2)))
             a_ind1  = a_pairs[:,0]
             a_ind2  = a_pairs[:,1]
-        elif isinstance(atmsel, tuple):
-            a_ind1 = mytraj.topology.select(atmsel[0])
-            a_ind2 = mytraj.topology.select(atmsel[1])
+        elif isinstance(subsel, tuple):
+            a_ind1 = mytraj.topology.select(subsel[0])
+            a_ind2 = mytraj.topology.select(subsel[1])
             if len(a_ind1) != len(a_ind2):
-               raise ValueError("no. of indices defined in atmsel[0] and in atmsel[1] are not equal!")
+               raise ValueError("no. of indices defined in subsel[0] and in subsel[1] are not equal!")
             a_pairs = _np.array([a_ind1, a_ind2])
             a_ind1  = a_pairs[:,0]
             a_ind2  = a_pairs[:,1]
             a_index  = _np.unique(a_pairs)
-        elif isinstance(atmsel, list):
-            a_ind1 = mytraj.topology.select(atmsel[0])
-            a_ind2 = mytraj.topology.select(atmsel[1])
+        elif isinstance(subsel, list):
+            a_ind1 = mytraj.topology.select(subsel[0])
+            a_ind2 = mytraj.topology.select(subsel[1])
             a_pairs = _np.array(list(_itertools.product(a_ind1, a_ind2)))
             a_ind1  = a_pairs[:,0]
             a_ind2  = a_pairs[:,1]
@@ -718,17 +718,17 @@ class AtmPos_Correlation(_PAF_Correlation):
         else:
             df_top  = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq", "name"]].reset_index()
             df_top.columns = ["ind1", "seg1", "res1", "anm1"]
-            newatmsel  = atmsel.merge(df_top)
+            newsubsel  = subsel.merge(df_top)
             df_top.columns = ["ind2", "seg2", "res2", "anm2"]
-            newatmsel  = newatmsel.merge(df_top)
-            if len(newatmsel) != len(atmsel):
-                df_err = atmsel.merge(newatmsel, indicator=True, how='outer')
+            newsubsel  = newsubsel.merge(df_top)
+            if len(newsubsel) != len(subsel):
+                df_err = subsel.merge(newsubsel, indicator=True, how='outer')
                 df_err = df_err.query("_merge != 'both'")
-                warnstr = "check your entries in atmsel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
+                warnstr = "check your entries in subsel: not all match with input topology!\n%s\ncontinuing with common entries ..." % df_err
                 _warnings.warn(warnstr)
-            a_ind1   = newatmsel.ind1.values
-            a_ind2   = newatmsel.ind2.values
-            a_pairs  = newatmsel.loc[:, ["ind1", "ind2"]].values
+            a_ind1   = newsubsel.ind1.values
+            a_ind2   = newsubsel.ind2.values
+            a_pairs  = newsubsel.loc[:, ["ind1", "ind2"]].values
             a_index  = _np.unique(a_pairs)
 
         # give me the indices in a_index of the atomic indices in a_ind1, a_ind2:
