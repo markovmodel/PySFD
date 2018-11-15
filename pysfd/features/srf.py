@@ -398,13 +398,11 @@ class ChemicalShift(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -485,13 +483,11 @@ class ChemicalShift(_SRF):
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -578,13 +574,11 @@ class CA_RMSF(_SRF):
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -642,13 +636,11 @@ class CA_RMSF(_SRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -711,13 +703,11 @@ class SASA_sr(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -786,13 +776,11 @@ class SASA_sr(_SRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -887,13 +875,11 @@ class RSASA_sr(_SRF):
         | "std_err" : ... standard errors
         | "std_dev" : ... mean standard deviations
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * max_mom_ord   : int, default: 1
                       maximum ordinal of moment to compute
@@ -970,13 +956,11 @@ class RSASA_sr(_SRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -1110,13 +1094,11 @@ class Dihedral(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1215,13 +1197,11 @@ class Dihedral(_SRF):
                 | "std_err" : ... standard errors
                 | "std_dev" : ... mean standard deviations
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * max_mom_ord   : int, default: 1
                               maximum ordinal of moment to compute
@@ -1375,13 +1355,11 @@ class Scalar_Coupling(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1472,13 +1450,11 @@ class Scalar_Coupling(_SRF):
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1597,13 +1573,11 @@ class IsDSSP_mdtraj(_SRF):
                       "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                       to the feature tables
 
-    * subsel : str, or pandas.DataFrame, optional, default = "all"
+    * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                       distances between all possible combinations of atoms defined in subsel
-                       example: "name CA and within 15 of chain A and resid 82"
-               if DataFrame:  distances are only computed between atom pairs listed in subsel
-                              subsel.columns = ["seg1", "res1", "seg2", "res2"]
+               subsel is an atom selection string as used in MDTraj (or VMD)
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of chain A and resid 82"
 
     * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                           regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
@@ -1711,13 +1685,11 @@ class IsDSSP_mdtraj(_SRF):
                               "mf.2", "sf.2", ..., "mf.%d" % max_mom_ord, "sf.%d" % max_mom_ord
                               to the feature tables
 
-            * subsel : str, or pandas.DataFrame, optional, default = "all"
+            * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       if str: subsel is an atom selection string as used in MDTraj (or VMD)
-                               distances between all possible combinations of atoms defined in subsel
-                               example: "name CA and within 15 of chain A and resid 82"
-                       if DataFrame:  distances are only computed between atom pairs listed in subsel
-                                      subsel.columns = ["seg1", "res1", "seg2", "res2"]
+                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of chain A and resid 82"
 
             * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
                                   regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
