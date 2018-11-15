@@ -511,7 +511,7 @@ class Ca2Ca_Distance(_PRF_Distance):
 
     * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "all"
                selection of atoms between which to compute distances
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
                if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
@@ -653,7 +653,7 @@ class CaPos_Correlation(_PRF_Correlation):
 
     * subsel : str, optional, default = "all"
                selection of atoms between which to compute distances
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -748,7 +748,7 @@ class Dihedral_Correlation(_PRF_Correlation):
 
     * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "all"
                selection of atoms between which to compute distances
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
                if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
@@ -874,7 +874,7 @@ class Scalar_Coupling_Correlation(_PRF_Correlation):
 
     * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "all"
                selection of residues between which to compute correlations
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
                if (str, str): distances between subsel[0] and of subsel[1] (element-wise),

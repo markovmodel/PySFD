@@ -515,7 +515,7 @@ class Atm2Atm_Distance(_PAF_Distance):
 
     * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                selection of atoms between which to compute distances
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
                if (str, str): distances between subsel[0] and of subsel[1] (element-wise),
@@ -650,7 +650,7 @@ class AtmPos_Correlation(_PAF_Correlation):
 
     * subsel : str, (str,str), [str,str], or pandas.DataFrame, optional, default = "name CA"
                selection of atoms between which to compute distances
-               if str: subsel is an atom selection string as used in MDTraj (or VMD)
+               if str: subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
                if (str, str): distances between subsel[0] and of subsel[1] (element-wise),

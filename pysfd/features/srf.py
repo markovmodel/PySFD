@@ -400,7 +400,7 @@ class ChemicalShift(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -485,7 +485,7 @@ class ChemicalShift(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -576,7 +576,7 @@ class CA_RMSF(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in VMD
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -638,7 +638,7 @@ class CA_RMSF(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in VMD
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -705,7 +705,7 @@ class SASA_sr(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -778,7 +778,7 @@ class SASA_sr(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -877,7 +877,7 @@ class RSASA_sr(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -958,7 +958,7 @@ class RSASA_sr(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -1096,7 +1096,7 @@ class Dihedral(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -1199,7 +1199,7 @@ class Dihedral(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -1357,7 +1357,7 @@ class Scalar_Coupling(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -1452,7 +1452,7 @@ class Scalar_Coupling(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
@@ -1575,7 +1575,7 @@ class IsDSSP_mdtraj(_SRF):
 
     * subsel : str, optional, default = "all"
                sub-selection of residues for which to compute features
-               subsel is an atom selection string as used in MDTraj (or VMD)
+               subsel is an atom selection string as used in MDTraj
                distances between all possible combinations of atoms defined in subsel
                example: "name CA and within 15 of chain A and resid 82"
 
@@ -1687,7 +1687,7 @@ class IsDSSP_mdtraj(_SRF):
 
             * subsel : str, optional, default = "all"
                        sub-selection of residues for which to compute features
-                       subsel is an atom selection string as used in MDTraj (or VMD)
+                       subsel is an atom selection string as used in MDTraj
                        distances between all possible combinations of atoms defined in subsel
                        example: "name CA and within 15 of chain A and resid 82"
 
