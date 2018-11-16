@@ -454,7 +454,7 @@ source $VisFeatDiffsDir/VMD/VMD_Vis.spbsf.tcl
 ```
 (also see `VisFeatDiffs/VMD/readme.txt`)
 
-You can "cursor" through the different simulated ensembles (and their significant feature differences) using the "q" and "e" keys.
+You can "cursor" through the different simulated ensembles (and their significant feature differences) using the "a" and "d" keys.
 
 Before visualizing coarse-grained significant differences,
 the coresponding "seg,res"->"rgn" mappings have to be defined in 
