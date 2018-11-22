@@ -384,8 +384,8 @@ and one of two different formats:
 ```sh
 PySFD.intrajformat : string, default = "xtc"
         Input trajectory format
-        |  "xtc" : gromacs xtc format (additional pdb file for topolgy information required)
-        |  "dcd" :         dcd format (additional pdb file for topolgy information required)
+        |  "xtc" : gromacs xtc format (additional pdb file for topolgy information required, see example)
+        |  "dcd" :         dcd format (additional pdb file for topolgy information required, see example)
         |  "pdb" :         pdb format
 ```
 The user is responsible for the correct naming and numbering of residues and atoms
