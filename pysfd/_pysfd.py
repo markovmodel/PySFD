@@ -153,8 +153,8 @@ class PySFD(object):
 
     * intrajformat : string, default = "xtc"
         Input trajectory format
-        |  "xtc" : gromacs xtc format
-        |  "dcd" :         dcd format
+        |  "xtc" : gromacs xtc format (additional pdb file for topolgy information required, see example)
+        |  "dcd" :         dcd format (additional pdb file for topolgy information required, see example)
         |  "pdb" :         pdb format
 
     * num_bs: int, optional if intrajdatatype != "samplebatches", default = 10
