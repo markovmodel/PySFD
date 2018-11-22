@@ -39,6 +39,8 @@ if { $intrajformat == "xtc" } {
 	mol load pdb $indir/$instem.pdb
 	animate delete all
 	animate read dcd $indir/$instem.dcd waitfor all
+} elseif { $intrajformat == "pdb" } {
+	mol load pdb $indir/$instem.pdb
 } else {
 	puts "ERROR: Unknown/missing intrajformat variable"
 	exit

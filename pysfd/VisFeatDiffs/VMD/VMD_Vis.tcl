@@ -77,8 +77,10 @@ proc VMD_visualize_feature_diffs { featuregroup featuretype s_coarse stdtype sta
 			set mymol [string range $mollbl 2 end]
 		}
 		mol load pdb input/$mymol/r_00000/$mymol.r_00000.prot.pdb
-		animate delete all
-		animate read $intrajformat input/$mymol/r_00000/$mymol.r_00000.prot.$intrajformat beg last end last waitfor all
+		if { $intrajformat != "pdb" } {             
+			animate delete all
+			animate read $intrajformat input/$mymol/r_00000/$mymol.r_00000.prot.$intrajformat beg last end last waitfor all
+		}
 		mol rename top $mollbl
 	
 		mol delrep 0 top

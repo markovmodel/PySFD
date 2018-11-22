@@ -78,6 +78,8 @@ if { $intype == "xtc" } {
 	mol load pdb $indir/$instem.pdb
 	animate delete all
 	animate read dcd $indir/$instem.dcd waitfor all
+} elseif { $intype == "pdb" } {
+	mol load pdb $indir/$instem.pdb
 } else {
 	puts "ERROR: Unknown/missing intype variable"
 	exit

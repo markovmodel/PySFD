@@ -155,6 +155,7 @@ class PySFD(object):
         Input trajectory format
         |  "xtc" : gromacs xtc format
         |  "dcd" :         dcd format
+        |  "pdb" :         pdb format
 
     * num_bs: int, optional if intrajdatatype != "samplebatches", default = 10
         Number of bootstrapped trajectory sets to create
@@ -190,7 +191,7 @@ class PySFD(object):
 
     def __init__(self, l_ens_numreplica = None, FeatureObj = None, intrajdatatype = "samplebatches",
                  intrajformat = "xtc", num_bs = 10, maxnumframes = -1, rnm2pdbrnm = None, l_bb_atomnames = None):
-        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck', 'bootstraps'], intrajformat = ['xtc'])
+        param2possible_values = dict(intrajdatatype = ['samplebatches', 'raw', 'convcheck', 'bootstraps'], intrajformat = ['xtc', 'dcd', 'pdb'])
         for myparam in param2possible_values:
             if eval(myparam) not in param2possible_values[myparam]:
                 raise ValueError("parameter %s with value %s not in %s" % (myparam, eval(myparam),

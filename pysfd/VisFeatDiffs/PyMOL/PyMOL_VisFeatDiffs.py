@@ -155,7 +155,8 @@ class PyMOL_VisFeatDiffs(object):
         # load in conformations and add visualizations
         for mymol in l_mol:
             cmd.load("input/%s/r_00000/%s.r_00000.prot.pdb" % (mymol, mymol), mymol)
-            cmd.load_traj("input/%s/r_00000/%s.r_00000.prot.%s" % (mymol, mymol, intrajformat), object=mymol, interval=1, start=1, stop=1, state=1)
+            if intrajformat != "pdb":
+                cmd.load_traj("input/%s/r_00000/%s.r_00000.prot.%s" % (mymol, mymol, intrajformat), object=mymol, interval=1, start=1, stop=1, state=1)
             cmd.cealign(refmol, mymol)
     
             cmd.hide("everything",mymol)

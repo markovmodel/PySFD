@@ -42,7 +42,7 @@ class PyMOL_VisFeatDiffs_spbsf(PyMOL_VisFeatDiffs):
     '''
     __doc__ = PyMOL_VisFeatDiffs.__doc__ + __doc__
 
-    def __init__(self, l_SDApair, l_SDA_not_pair, feature_func_name, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, is_only_water_access=False, myview=None, linewidth=15, sphererad=2):
+    def __init__(self, l_SDApair, l_SDA_not_pair, feature_func_name, stattype, nsigma, nfunit, intrajformat, df_rgn_seg_res_bb=None, VisFeatDiffsDir=None, outdir=None, is_only_water_access=False, myview=None, linewidth=5, sphererad=2):
         super(PyMOL_VisFeatDiffs_spbsf, self).__init__(l_SDApair,
                                              l_SDA_not_pair,
                                              feature_func_name,
