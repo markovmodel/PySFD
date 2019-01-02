@@ -267,10 +267,10 @@ class _PAF_Distance(_PAF):
             traj_df_seg2_res2 = traj_df[["seg2", "res2"]].drop_duplicates()
             traj_df_seg2_res2.rename(columns={"seg2" : "seg", "res2" : "res"}, inplace = True)
             traj_df_seg_res = _pd.concat([traj_df_seg1_res1, traj_df_seg2_res2]).drop_duplicates()
-            df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-            df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+            df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+            df_merge = df_merge.query("_merge == 'right_only'")
             if len(df_merge) > 0:
-                warnstr = "not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):\n%s" % df_merge
+                warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                 _warnings.warn(warnstr)
             df_rgn1_seg1_res1 = df_rgn_seg_res_bb.copy()
             df_rgn1_seg1_res1.columns = ['rgn1', 'seg1', 'res1']
@@ -466,10 +466,10 @@ class _PAF_Correlation(_PAF):
             traj_df_seg2_res2 = traj_df[["seg2", "res2"]].drop_duplicates()
             traj_df_seg2_res2.rename(columns={"seg2" : "seg", "res2" : "res"}, inplace = True)
             traj_df_seg_res = _pd.concat([traj_df_seg1_res1, traj_df_seg2_res2])
-            df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-            df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+            df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+            df_merge = df_merge.query("_merge == 'right_only'")
             if len(df_merge) > 0:
-                warnstr = "not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):\n%s" % df_merge
+                warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                 _warnings.warn(warnstr)
             df_rgn1_seg1_res1 = df_rgn_seg_res_bb.copy()
             df_rgn1_seg1_res1.columns = ['rgn1', 'seg1', 'res1']

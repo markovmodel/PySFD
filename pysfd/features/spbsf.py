@@ -375,11 +375,10 @@ class _sPBSF(_feature_agent.FeatureAgent):
                     df_rgn2_seg2_res2 = df_rgn_seg_res_bb.copy()
                     df_rgn2_seg2_res2.columns = ["rgn2", "seg2", "res2"]
                 traj_df_seg_res = _pd.concat([traj_df_seg1_res1, traj_df_seg2_res2]).drop_duplicates()
-                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-                df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+                df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "not-defined resIDs in df_rgn_seg_res_bb " \
-                              "(your definition for coarse-graining):\n%s" % df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                     _warnings.warn(warnstr)
                 traj_df = traj_df.merge(df_rgn1_seg1_res1, copy = False)
                 traj_df = traj_df.merge(df_rgn2_seg2_res2, copy = False)
@@ -604,11 +603,6 @@ class Hvvdwdist_VMD(_sPBSF):
     Venkatakrishnan, A., Deupi, X., Lebon, G., Tate, C. G., Schertler, G. F., and Babu, M. M. (2013)
     Molecular signatures of g-protein-coupled receptors. Nature, 494(7436), 185–194.
     for details)
-
-    Note:
-    When corase-graining interaction differences, result from this function will result in 
-    "UserWarning: not-defined resIDs in df_rgn_seg_res_bb ..."
-    because "Hvvdwdist_VMD" currently measure not only protein, but also solvent etc. residues
 
     Parameters
     ----------
@@ -1095,11 +1089,6 @@ class HvvdwHB(_sPBSF):
     command (see below), because such contacts are not as sensitive as
     corresponding hydrogen bonds
 
-    Note:
-    When corase-graining interaction differences, result from this function will result in 
-    "UserWarning: not-defined resIDs in df_rgn_seg_res_bb ..."
-    because "Hvvdwdist_VMD" currently measure not only protein, but also solvent etc. residues
-    
     Parameters
     ----------
     * l_solv_rnm : optional list of additional solvent residue names (str,   in VMD: "resname")

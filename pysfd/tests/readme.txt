@@ -14,7 +14,6 @@ chmod +x pysfd/features/scripts/compute_PI.hbplus.sh
 
 The commands
 """
-tar -xzf output.bak.tar.gz
 diff -r output/meta output.bak/meta > diff.log
 """
 should then result at most in minor numerical differences for

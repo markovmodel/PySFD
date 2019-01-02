@@ -245,19 +245,19 @@ class _SRF(_feature_agent.FeatureAgent):
             #elif (fself.error_type[fself._feature_func_name] == "std_err") and (circular_stats == "csd"):
             if (fself.error_type[fself._feature_func_name] == "std_err"):
                 traj_df_seg_res = traj_df[["seg", "res"]].copy().drop_duplicates()
-                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-                df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+                df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):\n%s" % \
-                            df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                     _warnings.warn(warnstr)
-                traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                 # if a_feat == None (as for class CA_RMSF), feature values are already averaged over frames and are found in traj_df
                 if a_feat is None:
+                    traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                     traj_df = traj_df.groupby(["rgn"]).agg( { "f" : rgn_agg_func } )
                     traj_df_hist = None
                 else:
                     traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
+                    traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                     traj_df.set_index(["rgn"] + l_lbl, inplace = True)
                     traj_df = traj_df.stack()
                     traj_df = traj_df.to_frame().reset_index()
@@ -267,7 +267,6 @@ class _SRF(_feature_agent.FeatureAgent):
                     traj_df.set_index(["rgn", "frame"] + l_lbl, inplace = True)
                     # computes the rgn_agg_func, e.g., mean over a region "rgn" in each frame:
                     traj_df = traj_df.groupby(["rgn", "frame"]).agg( { "f" : rgn_agg_func } )
-
                     if "is_correlation" in params:
                         if params["is_correlation"] == True:
                             traj_df = traj_df.unstack()
@@ -309,14 +308,13 @@ class _SRF(_feature_agent.FeatureAgent):
                         traj_df.columns = ["f"]
             elif fself.error_type[fself._feature_func_name] == "std_dev":
                 traj_df_seg_res = traj_df[["seg", "res"]].copy().drop_duplicates()
-                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-                df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+                df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "not-defined resIDs in df_rgn_seg_res_bb (your definition for coarse-graining):\n%s" % \
-                            df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                     _warnings.warn(warnstr)
-                traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                 traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
+                traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                 traj_df.set_index(["rgn"] + l_lbl, inplace = True)
                 traj_df = traj_df.stack()
                 traj_df = traj_df.to_frame().reset_index()

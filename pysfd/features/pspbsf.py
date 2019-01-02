@@ -231,11 +231,10 @@ class _PsPBSF_Correlation(_PsPBSF):
                                               traj_df_seg2_res2,
                                               traj_df_seg3_res3,
                                               traj_df_seg4_res4]).drop_duplicates()
-                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False)
-                df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+                df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
+                df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "not-defined resIDs in df_rgn_seg_res_bb " \
-                              "(your definition for coarse-graining):\n%s" % df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
                     _warnings.warn(warnstr)
                 traj_df = traj_df.merge(df_rgn1_seg1_res1, copy = False)
                 traj_df = traj_df.merge(df_rgn2_seg2_res2, copy = False)
