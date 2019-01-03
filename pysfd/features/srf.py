@@ -251,7 +251,7 @@ class _SRF(_feature_agent.FeatureAgent):
                 df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
                 df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not in your feature list:\n%s" % df_merge
                     _warnings.warn(warnstr)
                 # if a_feat == None (as for class CA_RMSF), feature values are already averaged over frames and are found in traj_df
                 if a_feat is None:
@@ -314,7 +314,7 @@ class _SRF(_feature_agent.FeatureAgent):
                 df_merge = traj_df_seg_res.merge(df_rgn_seg_res_bb, how = "outer", copy = False, indicator = True)
                 df_merge = df_merge.query("_merge == 'right_only'")
                 if len(df_merge) > 0:
-                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not listed in your input topology:\n%s" % df_merge
+                    warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not in your feature list:\n%s" % df_merge
                     _warnings.warn(warnstr)
                 traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
                 traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
