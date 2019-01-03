@@ -206,7 +206,10 @@ class _SRF(_feature_agent.FeatureAgent):
                 mytmp["fhist"] = list(_np.apply_along_axis(lambda x: myhist(x, dbin), axis = 0, arr = a_feat[:, traj_df.fhist == True]).transpose())
                 traj_df.loc[traj_df.fhist == True, "fhist"] = mytmp["fhist"]
             # correction factor to convert numpy.std into pandas.std
-            std_factor = _np.sqrt(_np.shape(a_feat)[0] / (_np.shape(a_feat)[0] - 1.)) 
+            if _np.shape(a_feat)[0] > 1:
+                std_factor = _np.sqrt(_np.shape(a_feat)[0] / (_np.shape(a_feat)[0] - 1.))
+            else:
+                std_factor = 0
             if circular_stats is None:
                 traj_df['f']  = _np.mean(a_feat, axis = 0)
                 l_flbl += ['f']
