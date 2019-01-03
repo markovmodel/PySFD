@@ -259,7 +259,10 @@ class _PAF_Distance(_PAF):
             traj_df = traj_df[l_lbl + l_flbl].copy()
             if error_type == "std_dev":
                 # correction factor to convert numpy.std into pandas.std
-                std_factor = _np.sqrt(_np.shape(a_f)[0] / (_np.shape(a_f)[0] - 1.))
+                if _np.shape(a_f)[0] > 1:
+                    std_factor = _np.sqrt(_np.shape(a_f)[0] / (_np.shape(a_f)[0] - 1.))
+                else:
+                    std_factor = 0
                 traj_df['sf'] = _np.std(a_f, axis=0) * std_factor
         elif df_rgn_seg_res_bb is not None:
             traj_df_seg1_res1 = traj_df[["seg1", "res1"]].drop_duplicates()
