@@ -942,13 +942,30 @@ class PySFD(object):
         if l_sda_not_pair is not None:
             s_sda_pair += "_not_" + "_and_".join(["_vs_".join(x) for x in l_sda_not_pair])
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
-        df_merged.to_csv("%s/%s.%s.%s.nsigma_%f.nfunit_%f.dat" % (
-            outdir,
-            feature_func_name, self.intrajdatatype,
-            s_sda_pair,
-            self.num_sigma_funit[0],
-            self.num_sigma_funit[1]),
-            sep="\t", float_format="%.4f", index=False)
+        
+        try:
+            df_merged.to_csv("%s/%s.%s.%s.nsigma_%f.nfunit_%f.dat" % (
+                outdir,
+                feature_func_name, self.intrajdatatype,
+                s_sda_pair,
+                self.num_sigma_funit[0],
+                self.num_sigma_funit[1]),
+                sep="\t", float_format="%.4f", index=False)
+        except OSError as e:
+            if e.errno == 36:
+                warnstr = "output file name for common SFDs too long, shortening by renaming s_sda_pair to \"common_SFDs\""
+                _warnings.warn(warnstr)
+                s_sda_pair = "common_SFDs"
+                df_merged.to_csv("%s/%s.%s.%s.nsigma_%f.nfunit_%f.dat" % (
+                    outdir,
+                    feature_func_name, self.intrajdatatype,
+                    s_sda_pair,
+                    self.num_sigma_funit[0],
+                    self.num_sigma_funit[1]),
+                    sep="\t", float_format="%.4f", index=False)
+            else:
+                raise
+            
         return df_merged
 
     def write_features(self, outdir=None):
