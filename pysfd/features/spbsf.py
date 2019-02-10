@@ -320,6 +320,7 @@ class _sPBSF(_feature_agent.FeatureAgent):
                     traj_df_hist = traj_df_hist.groupby(l_lbl).agg( { "f" : lambda x: myhist(x, dbin ) } ).reset_index()
                     traj_df_hist.rename(columns = { "f" : "fhist" }, inplace = True)
 
+                traj_df.drop_duplicates(inplace = True)
                 traj_df = traj_df.groupby(l_lbl).agg({ 'f' : 'sum' })
                 traj_df.rename(columns = { 'f' : 'N' }, inplace = True)
                 traj_df['f'] = traj_df['N'] / numframes
