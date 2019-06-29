@@ -266,7 +266,9 @@ l_FeatureType += [myClass(error_type="std_err",
 
 mybenchmark = {}
 mymaxworkers = (2, 3)
-mySFD     = pysfd.PySFD()
+mySFD     = pysfd.PySFD(l_ens_numreplica = l_ens2numreplica,
+                        intrajdatatype   = intrajdatatype,
+                        intrajformat     = "xtc")
 
 #
 # Compute features and significant feature differences
@@ -276,10 +278,7 @@ for myFeatureType in l_FeatureType:
     print(myFeatureType)
     starttime = time.time()
     # compute features
-    mySFD.__init__(l_ens_numreplica = l_ens2numreplica,
-                   FeatureObj       = myFeatureType,
-                   intrajdatatype   = intrajdatatype,
-                   intrajformat     = "xtc")
+    mySFD.init_FeatureObj(myFeatureType)
     mySFD.comp_features(max_workers = mymaxworkers)
     if mySFD.feature_func_name in mySFD.df_fhists:
         mySFD.plot_feature_hists()

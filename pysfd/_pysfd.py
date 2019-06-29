@@ -200,9 +200,9 @@ class PySFD(object):
         self.l_ens               = _np.transpose(l_ens_numreplica)[0] if l_ens_numreplica is not None else None
         self.l_ens_numreplica    = dict(l_ens_numreplica) if l_ens_numreplica is not None else None
         self.intrajdatatype      = intrajdatatype
-        self._feature_func       = FeatureObj.get_feature_func() if FeatureObj is not None else None
-        self._feature_func_name  = self._feature_func.__name__ if FeatureObj is not None else None
-        self._num_sigma_funit    = { self._feature_func_name : None }
+        
+        self.init_FeatureObj(FeatureObj)
+
         self.l_bb_atomnames      = l_bb_atomnames
         self.intrajformat        = intrajformat
         self.pkg_dir             = _os.path.dirname(_os.path.abspath(__file__))
@@ -243,6 +243,12 @@ class PySFD(object):
         self.df_fhists           = {}
         self.df_feature_diffs    = {}
         self.is_bb               = lambda x: 1 if x in ["N", "CA", "C", "O"] else 0
+
+    def init_FeatureObj(self, FeatureObj):
+        # use feature_func setter for proper initialization
+        self._feature_func       = FeatureObj.get_feature_func() if FeatureObj is not None else None
+        self._feature_func_name  = self._feature_func.__name__   if FeatureObj is not None else None
+        self._num_sigma_funit    = { self._feature_func_name : None }
 
     def rnm2pdbrnm(self, x):
         if x not in self._rnm2pdbrnm:
