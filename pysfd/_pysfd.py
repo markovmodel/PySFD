@@ -337,6 +337,7 @@ class PySFD(object):
             Dataframe containing average and standard errors of interaction observables (e.g. frequencies)
             for all relevant pairs of residue backbone/sidechain entities
         """
+        print("run_ens")
         def mycircmean(x):
             return _scipy_stats.circmean(x, low = -_np.pi, high = _np.pi)
         def mycircstd(x):
@@ -345,6 +346,12 @@ class PySFD(object):
         myens, numreplica, max_workers = args
         l_args = [(self, myens, r) for r in range(numreplica)]
 
+        print("run_ens: %d" % pathos.multiprocessing.cpu_count())
+        if max_workers >= pathos.multiprocessing.cpu_count():
+            warnstr = "run_ens: Only %d CPUs available. Setting max_workers to %d" % (pathos.multiprocessing.cpu_count(),
+                                                                                      pathos.multiprocessing.cpu_count()-1)
+            _warnings.warn(warnstr)
+            #max_workers = pathos.multiprocessing.cpu_count() - 1
         pool = _pathos.pools.ProcessPool(max_workers)
         pool.restart(force=True)
         try:
@@ -548,6 +555,12 @@ class PySFD(object):
         """
         l_args = [(myens, self.l_ens_numreplica[myens], max_workers[1]) for myens in self.l_ens]
 
+        print("comp_features: %d" % pathos.multiprocessing.cpu_count())
+        if max_workers[0] >= pathos.multiprocessing.cpu_count():
+            warnstr = "Only %d CPUs available. Setting max_workers[0] to %d" % (pathos.multiprocessing.cpu_count(),
+                                                                                pathos.multiprocessing.cpu_count()-1)
+            _warnings.warn(warnstr)
+            #max_workers[0] = pathos.multiprocessing.cpu_count() - 1
         pool = _NoDaemonPool(max_workers[0])
         #pool.restart(force=True)
         try:
