@@ -567,7 +567,9 @@ class PySFD(object):
                     for myobs in l_rename:
                         myensdf.rename(columns = { myobs : 'm' + myobs }, inplace = True)
                     myensdf  = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
-                    myensdf /= 1. * numreplica
+                    print(myensdf.columns)
+                    #myensdf /= 1. * numreplica
+                    myensdf._get_numeric_data() /= 1. * numreplica
             if df_hist is not None:
                 myensdf = myensdf.merge(df_hist, left_index = True, right_index = True, how = "outer")
             myensdf = myensdf.reset_index()[self.l_lbl[self.feature_func_name] + [x for x in myensdf.columns if x not in self.l_lbl[self.feature_func_name]]].set_index(self.l_lbl[self.feature_func_name])
