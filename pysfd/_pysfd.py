@@ -433,6 +433,17 @@ class PySFD(object):
                                'sf'      : _np.sum}
 
         self.l_lbl[self.feature_func_name] = [ l for l in l_traj_df[0].columns if l not in ["r", 'fhist'] + l_obs]
+
+        def mark_MTS(x):
+            return 'MTS' if len(_np.unique(x)) > 1 else x.iloc[0]
+        if 'rnm' in self.l_lbl[self.feature_func_name]:
+            dict_groups['rnm'] = mark_MTS
+        elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
+            dict_groups['rnm1'] = mark_MTS
+            dict_groups['rnm2'] = mark_MTS
+        else:
+            _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
+        l_lbl_no_rnm = [x for x in self.l_lbl[self.feature_func_name] if x not in ['rnm', 'rnm1', 'rnm2']]
         if self.intrajdatatype == "samplebatches":
             l_myensdf = [_pd.concat(l_traj_df, copy=False)]
             #myensdf.to_csv("df_myensdf.%s.dat" % myens, sep = "\t")
@@ -491,30 +502,55 @@ class PySFD(object):
         for myind, myensdf in enumerate(l_myensdf):
             if 'fhist' in myensdf.columns:
                 numframes = len(myensdf.r.unique())
+                my_dict_groups = { 'fhist' : lambda x: myfunc(x, numframes) }
+                if 'rnm' in self.l_lbl[self.feature_func_name]:
+                    my_dict_groups['rnm'] = mark_MTS
+                    df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
+                    df_hist = df_hist.groupby(l_lbl_no_rnm)[['rnm', 'fhist']]
+                    df_hist = df_hist.agg(my_dict_groups).to_frame()
+                    df_hist = df_hist[self.l_lbl[self.feature_func_name] + ['fhist']]
+                elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
+                    my_dict_groups['rnm1'] = mark_MTS
+                    my_dict_groups['rnm2'] = mark_MTS
+                    df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
+                    df_hist = df_hist.groupby(l_lbl_no_rnm)[['rnm1', 'rnm2', 'fhist']]
+                    df_hist = df_hist.agg(my_dict_groups).to_frame()
+                    df_hist = df_hist[self.l_lbl[self.feature_func_name] + ['fhist']]
+                else:
+                    _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]! No df_hist variable created")
+                    df_hist = None
                 #df_hist = myensdf.loc[~_pd.isnull(myensdf.fhist)].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes))
-                df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
+                #df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
                 myensdf = myensdf.loc[~_pd.isnull(myensdf.f)]
                 myensdf.drop(columns = "fhist", inplace = True)
             else:
                 df_hist = None
             if self.error_type[self._feature_func_name] == 'std_err':
-                mygroup = myensdf.groupby(self.l_lbl[self.feature_func_name])
+                #mygroup = myensdf.groupby(l_lbl_no_rnm)
                 # check for circular statistics
                 if circular_stats == "csd":
                     #dict_groups = dict([('f', [mycircmean, mycircstd])] + [('f.%d' % mymom, [mycircmean, mycircstd]) for mymom in range(2, self.max_mom_ord[self._feature_func_name]+1)])
                     dict_groups = dict([('f', [mycircmean, mycircstd])])
-                    myensdf = mygroup.agg(dict_groups)
+                    if 'rnm' in self.l_lbl[self.feature_func_name]:
+                        dict_groups['rnm'] = mark_MTS
+                    elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
+                        dict_groups['rnm1'] = mark_MTS
+                        dict_groups['rnm2'] = mark_MTS
+                    else:
+                        _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
+                    myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's' }, level = 1, inplace = True)
                     myensdf.columns = [myensdf.columns.map('{0[1]}{0[0]}'.format)]
                 else:
                     # the following unusual way to compute mean/std frequencies for each feature
                     # accounts for missing frequency entries of zero-frequency trajectories in sPBSF features
                     for myobs in l_obs:
+                        mygroup = myensdf.groupby(l_lbl_no_rnm)
                         myensdf['m' + myobs] = 1. * mygroup[myobs].transform('sum') / numreplica
                         myensdf['s' + myobs] = (myensdf[myobs] - myensdf['m' + myobs]) ** 2
                     del mygroup
                     myensdf['sfcount'] = 1
-                    myensdf = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
+                    myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     for myobs in l_obs:
                         # add contributions from missing frequency entries, i.e. for which myensdf["freq"] = 0
                         myensdf['s' + myobs] += (numreplica - myensdf['sfcount']) * myensdf['m' + myobs] ** 2
@@ -522,16 +558,24 @@ class PySFD(object):
                     del myensdf["sfcount"]
             elif self.error_type[self._feature_func_name] == 'std_dev':
                 if circular_stats == "csd":
-                    mygroup = myensdf.groupby(self.l_lbl[self.feature_func_name])
-                    myensdf = mygroup.agg( { 'f' : mycircmean, 'sf' : mycircmean } )
+                    dict_groups = { 'f' : mycircmean, 'sf' : mycircmean }
+                    if 'rnm' in self.l_lbl[self.feature_func_name]:
+                        dict_groups['rnm'] = mark_MTS
+                    elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
+                        dict_groups['rnm1'] = mark_MTS
+                        dict_groups['rnm2'] = mark_MTS
+                    else:
+                        _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
+                    myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     myensdf.rename(columns = { 'f' : 'mf' }, inplace = True)
                 else:
                     for myobs in l_rename:
                         myensdf.rename(columns = { myobs : 'm' + myobs }, inplace = True)
-                    myensdf  = myensdf.groupby(self.l_lbl[self.feature_func_name]).agg(dict_groups)
+                    myensdf  = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     myensdf /= 1. * numreplica
             if df_hist is not None:
                 myensdf = myensdf.merge(df_hist, left_index = True, right_index = True, how = "outer")
+            myensdf = myensdf.reset_index()[self.l_lbl[self.feature_func_name] + [x for x in myensdf.columns if x not in self.l_lbl[self.feature_func_name]]].set_index(self.l_lbl[self.feature_func_name])
             l_myensdf[myind] = _pd.concat([myensdf], axis=1, keys=[myens]).reset_index(drop = False)
         return [l_myensdf, self.l_lbl, self.error_type, self.max_mom_ord]
 
