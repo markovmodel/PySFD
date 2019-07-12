@@ -441,8 +441,6 @@ class PySFD(object):
         elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
             dict_groups['rnm1'] = mark_MTS
             dict_groups['rnm2'] = mark_MTS
-        else:
-            _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
         l_lbl_no_rnm = [x for x in self.l_lbl[self.feature_func_name] if x not in ['rnm', 'rnm1', 'rnm2']]
         if self.intrajdatatype == "samplebatches":
             l_myensdf = [_pd.concat(l_traj_df, copy=False)]
@@ -517,8 +515,9 @@ class PySFD(object):
                     df_hist = df_hist.agg(my_dict_groups).to_frame()
                     df_hist = df_hist[self.l_lbl[self.feature_func_name] + ['fhist']]
                 else:
-                    _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]! No df_hist variable created")
-                    df_hist = None
+                    df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
+                    df_hist = df_hist.groupby(l_lbl_no_rnm)['fhist']
+                    df_hist = df_hist.agg(my_dict_groups).to_frame()
                 #df_hist = myensdf.loc[~_pd.isnull(myensdf.fhist)].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes))
                 #df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
                 myensdf = myensdf.loc[~_pd.isnull(myensdf.f)]
@@ -536,8 +535,6 @@ class PySFD(object):
                     elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
                         dict_groups['rnm1'] = mark_MTS
                         dict_groups['rnm2'] = mark_MTS
-                    else:
-                        _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
                     myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's' }, level = 1, inplace = True)
                     myensdf.columns = [myensdf.columns.map('{0[1]}{0[0]}'.format)]
@@ -564,8 +561,6 @@ class PySFD(object):
                     elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
                         dict_groups['rnm1'] = mark_MTS
                         dict_groups['rnm2'] = mark_MTS
-                    else:
-                        _warnings.warn("neither 'rnm' nor 'rnm1','rnm2' is in self.l_lbl[self.feature_func_name]!")
                     myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
                     myensdf.rename(columns = { 'f' : 'mf' }, inplace = True)
                 else:
