@@ -6,8 +6,11 @@ Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual
 Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
 Info) -------------------------------------------------------------
 Info) Multithreading available, 8 CPUs detected.
-Info) Free system memory: 12397MB (77%)
+Info) Free system memory: 10046MB (62%)
 Info) Creating CUDA device pool and initializing hardware...
+Warning) thread[0] can't init GPU[0] found by device query
+Warning) CUDA error: out of memory
+CUDA error: out of memory, CUDAClearDevice.cu line 62
 Info) Detected 1 available CUDA accelerator:
 Info) [0] NVS 300             2 SM_1.2 @ 1.23 GHz,  511MB RAM, KTO, OIO, ZCP
 Info) Dynamically loaded 2 plugins in directory:
@@ -50,7 +53,7 @@ numframes: 3
 {"Cl-"} {"Na\+"} WAT
 atomselect7
 atomselect11
-file18
+file10
 frame 0
 frame 1
 frame 2

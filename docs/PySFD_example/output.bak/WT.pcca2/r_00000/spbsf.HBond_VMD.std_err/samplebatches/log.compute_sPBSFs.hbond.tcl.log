@@ -6,7 +6,7 @@ Info)    Humphrey, W., Dalke, A. and Schulten, K., `VMD - Visual
 Info)    Molecular Dynamics', J. Molec. Graphics 1996, 14.1, 33-38.
 Info) -------------------------------------------------------------
 Info) Multithreading available, 8 CPUs detected.
-Info) Free system memory: 13469MB (84%)
+Info) Free system memory: 10966MB (68%)
 Info) Creating CUDA device pool and initializing hardware...
 Info) Detected 1 available CUDA accelerator:
 Info) [0] NVS 300             2 SM_1.2 @ 1.23 GHz,  511MB RAM, KTO, OIO, ZCP

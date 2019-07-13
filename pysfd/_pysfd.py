@@ -505,19 +505,20 @@ class PySFD(object):
                     my_dict_groups['rnm'] = mark_MTS
                     df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
                     df_hist = df_hist.groupby(l_lbl_no_rnm)[['rnm', 'fhist']]
-                    df_hist = df_hist.agg(my_dict_groups).to_frame()
+                    df_hist = df_hist.agg(my_dict_groups).reset_index()
                     df_hist = df_hist[self.l_lbl[self.feature_func_name] + ['fhist']]
                 elif ('rnm1' in self.l_lbl[self.feature_func_name]) and ('rnm2' in self.l_lbl[self.feature_func_name]):
                     my_dict_groups['rnm1'] = mark_MTS
                     my_dict_groups['rnm2'] = mark_MTS
                     df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
                     df_hist = df_hist.groupby(l_lbl_no_rnm)[['rnm1', 'rnm2', 'fhist']]
-                    df_hist = df_hist.agg(my_dict_groups).to_frame()
+                    df_hist = df_hist.agg(my_dict_groups).reset_index()
                     df_hist = df_hist[self.l_lbl[self.feature_func_name] + ['fhist']]
                 else:
                     df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))]
                     df_hist = df_hist.groupby(l_lbl_no_rnm)['fhist']
-                    df_hist = df_hist.agg(my_dict_groups).to_frame()
+                    df_hist = df_hist.agg(my_dict_groups).reset_index()
+                df_hist.set_index(self.l_lbl[self.feature_func_name], inplace = True)
                 #df_hist = myensdf.loc[~_pd.isnull(myensdf.fhist)].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes))
                 #df_hist = myensdf.loc[(~_pd.isnull(myensdf.fhist))|(_pd.isnull(myensdf.f))].groupby(self.l_lbl[self.feature_func_name])['fhist'].agg(lambda x: myfunc(x, numframes)).to_frame()
                 myensdf = myensdf.loc[~_pd.isnull(myensdf.f)]
@@ -567,12 +568,10 @@ class PySFD(object):
                     for myobs in l_rename:
                         myensdf.rename(columns = { myobs : 'm' + myobs }, inplace = True)
                     myensdf  = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
-                    print(myensdf.columns)
-                    #myensdf /= 1. * numreplica
-                    myensdf._get_numeric_data() /= 1. * numreplica
+                    myensdf.loc[:, myensdf.select_dtypes(include=[_np.number]).columns] /= 1. * numreplica
+            myensdf = myensdf.reset_index()[self.l_lbl[self.feature_func_name] + [x for x in myensdf.columns if x not in self.l_lbl[self.feature_func_name]]].set_index(self.l_lbl[self.feature_func_name])
             if df_hist is not None:
                 myensdf = myensdf.merge(df_hist, left_index = True, right_index = True, how = "outer")
-            myensdf = myensdf.reset_index()[self.l_lbl[self.feature_func_name] + [x for x in myensdf.columns if x not in self.l_lbl[self.feature_func_name]]].set_index(self.l_lbl[self.feature_func_name])
             l_myensdf[myind] = _pd.concat([myensdf], axis=1, keys=[myens]).reset_index(drop = False)
         return [l_myensdf, self.l_lbl, self.error_type, self.max_mom_ord]
 
