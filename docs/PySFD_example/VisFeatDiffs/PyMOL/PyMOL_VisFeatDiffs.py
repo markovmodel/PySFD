@@ -135,20 +135,10 @@ class PyMOL_VisFeatDiffs(object):
                                                                 s_SDApairs,
                                                                 nsigma,
                                                                 nfunit)
-        with open(infilename) as infile:
-            l_lbl1  = next(infile).split()
-            l_lbl2  = next(infile).split()
-        numdifflbls = len([x for x in l_lbl1 if x in ["sdiff", "score", "pval"]])
-        numenscols  = len(l_lbl2) // 2
-        numlblcols  = len(l_lbl1) - 2 * numenscols - numdifflbls
-        newcols = l_lbl1[:numlblcols] + l_lbl1[numlblcols:-numdifflbls:2] + l_lbl1[-numdifflbls:]
-        df_features = pd.read_csv(infilename, skiprows = 2, header=None, delim_whitespace = True)
-        df_features.columns = pd.MultiIndex(levels=[newcols, ['', 'mf', 'sf']],
-                           labels=[list(range(numlblcols)) + [(numlblcols + i) for i in range(numenscols) for j in range(2)] + list(range(len(newcols)-numdifflbls, len(newcols))),
-                                  numlblcols * [0] +  numenscols * [1,2] + numdifflbls * [0] ])
-        df_features.drop(["mf", "sf"], level = 1, axis = 1, inplace=True)
+        df_features = pd.read_csv(infilename, header=[0,1], sep = "\t")
+        df_features.drop(columns = ["mf", "sf"], level = 1, inplace = True)
         df_features.columns = df_features.columns.droplevel(1)
-        
+
         # load reference structure for structural alignments
         l_mol    = np.unique([y for x in l_SDApair + l_SDA_not_pair for y in x])
         refmol   = "ref.%s" % l_mol[0]
