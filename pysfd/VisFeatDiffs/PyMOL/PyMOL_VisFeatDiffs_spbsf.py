@@ -91,7 +91,7 @@ class PyMOL_VisFeatDiffs_spbsf(PyMOL_VisFeatDiffs):
                 for myrgn in [row.rgn1, row.rgn2]:
                     selstr = "/%s and (" % (mymol)
                     for sindex, srow in df_unique_rgnsegbb.iterrows():
-                        df_sel = self.df_rgn_seg_res_bb.query("rgn == '%s' and seg == '%s'" % (row.rgn1, srow.seg))
+                        df_sel = self.df_rgn_seg_res_bb.query("rgn == '%s' and seg == '%s'" % (myrgn, srow.seg))
                         if df_sel.shape[0] > 0:
                             selstr += "(c. %s and i. %s) or" % (srow.seg,
                                                                 "+".join([str(x) for x in df_sel.res.values[0]]))
