@@ -55,8 +55,9 @@ if { $intype == "xtc" } {
 	exit
 }
 
+set fitselstr "($subsel) and name CA"
 # used for the MHCII system:
-set fitselstr  "name CA and not ((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
+#set fitselstr  "name CA and not ((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
 #set fitselstr  "name CA"
 #set rmsfselstr "((chain A and resid 4 to 78) or (chain B and resid 6 to 86) or (chain C and resid 105 to 117))"
 
