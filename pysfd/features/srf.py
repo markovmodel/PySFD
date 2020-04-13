@@ -673,7 +673,7 @@ class CA_RMSF(_SRF):
         _subprocess.Popen(_shlex.split("rm -rf %s" % outdir)).wait()
         _subprocess.Popen(_shlex.split("mkdir -p %s" % outdir)).wait()
         mycmd = "vmd -dispdev text -e %s/features/scripts/compute_carmsf.vmd.tcl -args %s %s %s %s \"%s\"" \
-                % (fself.pkg_dir, indir, instem, fself.intrajformat, outdir, subsel)
+                % (fself.pkg_dir, indir, instem, fself.intrajformat, outdir, subsel.replace(" ", "_"))
         outfile = open("%s/log.compute_carmsf.vmd.tcl.log" % outdir, "w")
         myproc = _subprocess.Popen(_shlex.split(mycmd), stdout=outfile, stderr=outfile)
         myproc.wait()
