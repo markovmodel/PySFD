@@ -38,7 +38,7 @@ set indir	[lindex $argv 0]
 set instem	[lindex $argv 1]
 set intype	[lindex $argv 2]   
 set outdir	[lindex $argv 3]
-set subsel 	[lindex $argv 4]
+set subsel 	[string map {"_" " "} [lindex $argv 4]]
 
 if { $intype == "xtc" } {
 	mol load pdb $indir/$instem.pdb
