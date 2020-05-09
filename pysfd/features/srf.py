@@ -221,6 +221,8 @@ class _SRF(_feature_agent.FeatureAgent):
                     traj_df['sf'] = _np.std(a_feat, axis=0) * std_factor
             elif circular_stats == "csd":
                 traj_df['f']  = _scipy_stats.circmean(a_feat, low = -_np.pi, high = _np.pi, axis = 0)
+                l_flbl += ['f']
+                traj_df = traj_df[l_lbl + l_flbl].copy()
                 if fself.error_type[fself._feature_func_name] == "std_dev":
                     traj_df['sf'] = _scipy_stats.circstd(a_feat, low = -_np.pi, high = _np.pi, axis=0)
             #traj_df.set_index(l_lbl)
@@ -259,6 +261,7 @@ class _SRF(_feature_agent.FeatureAgent):
                     traj_df = traj_df.groupby(["rgn"]).agg( { "f" : rgn_agg_func } )
                     traj_df_hist = None
                 else:
+                    traj_df.reset_index(drop = True, inplace = True)
                     traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
                     traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                     traj_df.set_index(["rgn"] + l_lbl, inplace = True)
@@ -316,6 +319,7 @@ class _SRF(_feature_agent.FeatureAgent):
                 if len(df_merge) > 0:
                     warnstr = "df_rgn_seg_res_bb, your coarse-graining definition, has resID entries that are not in your feature list:\n%s" % df_merge
                     _warnings.warn(warnstr)
+                traj_df.reset_index(drop = True, inplace = True)
                 traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
                 traj_df = traj_df.merge(df_rgn_seg_res_bb, copy = False)
                 traj_df.set_index(["rgn"] + l_lbl, inplace = True)
