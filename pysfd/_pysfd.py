@@ -537,8 +537,8 @@ class PySFD(object):
                         dict_groups['rnm1'] = mark_MTS
                         dict_groups['rnm2'] = mark_MTS
                     myensdf = myensdf.groupby(l_lbl_no_rnm).agg(dict_groups)
-                    myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's' }, level = 1, inplace = True)
-                    myensdf.columns = [myensdf.columns.map('{0[1]}{0[0]}'.format)]
+                    myensdf.rename(columns = { 'mycircmean' : 'm', 'mycircstd' : 's', 'mark_MTS' : '' }, level = 1, inplace = True)
+                    myensdf.columns = myensdf.columns.map('{0[1]}{0[0]}'.format)
                 else:
                     # the following unusual way to compute mean/std frequencies for each feature
                     # accounts for missing frequency entries of zero-frequency trajectories in sPBSF features
