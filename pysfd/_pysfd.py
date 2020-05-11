@@ -58,6 +58,8 @@ from matplotlib.backends.backend_pdf import PdfPages as _PdfPages
 import pickle as _pickle
 #import socket as _socket
 
+import psutil as _psutil
+
 import seaborn as _sns; _sns.set()
 
 if _sys.version_info[0] < 3:
@@ -354,7 +356,9 @@ class PySFD(object):
                 while not feature_func_results.ready():
                     _time.sleep(2)
                     if counter_i % 30 == 0:
-                        print('Waiting for child processes running in pool.amap() in run_ens( {} )'.format(myens))
+                        mymem = _psutil.virtual_memory()
+                        print('Waiting for child processes running in pool.amap() in run_ens( %s ), RAM [GB] total: %.3f, free: %.3f' % (myens, mymem.total / 1000000000, mymem.free / 1000000000))
+                        _sys.stdout.flush()
                     counter_i += 1
                 l_traj_df, dataflags = list(zip(*feature_func_results.get()))
             else:
@@ -366,7 +370,9 @@ class PySFD(object):
                     while not feature_func_results.ready(): 
                         _time.sleep(2) 
                         if counter_i % 30 == 0: 
-                            print('Waiting for child processes running in pool.amap() in run_ens( {} )'.format(myens)) 
+                            mymem = _psutil.virtual_memory()
+                            print('Waiting for child processes running in pool.amap() in run_ens( %s ), RAM [GB] total: %.3f, free: %.3f' % (myens, mymem.total / 1000000000, mymem.free / 1000000000))
+                            _sys.stdout.flush()
                         counter_i += 1 
                     l_traj_df, dataflags = list(zip(*feature_func_results.get()))
                     with open(picklefname, "wb") as f:
@@ -604,9 +610,11 @@ class PySFD(object):
             results = pool.map_async(self.run_ens, l_args)
             counter_i = 0
             while not results.ready():
-                if counter_i % 30 == 0:
-                    print("Waiting for child processes running in pool.map_async() in comp_features()")
                 _time.sleep(2)
+                if counter_i % 30 == 0:
+                    mymem = _psutil.virtual_memory()
+                    print('Waiting for child processes running in pool.amap() in run_ens( %s ), RAM [GB] total: %.3f, free: %.3f' % (myens, mymem.total / 1000000000, mymem.free / 1000000000))
+                    _sys.stdout.flush()
                 counter_i += 1
             results = results.get()
             pool.close()
