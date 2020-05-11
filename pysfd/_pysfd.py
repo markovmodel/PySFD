@@ -613,7 +613,7 @@ class PySFD(object):
                 _time.sleep(2)
                 if counter_i % 30 == 0:
                     mymem = _psutil.virtual_memory()
-                    print('Waiting for child processes running in pool.amap() in run_ens( %s ), RAM [GB] total: %.3f, free: %.3f' % (myens, mymem.total / 1000000000, mymem.free / 1000000000))
+                    print('Waiting for child processes running in pool.map_async() in comp_features(), RAM [GB] total: %.3f, free: %.3f' % (mymem.total / 1000000000, mymem.free / 1000000000))
                     _sys.stdout.flush()
                 counter_i += 1
             results = results.get()
