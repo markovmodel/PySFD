@@ -1423,7 +1423,7 @@ class Dihedral_Std(_SRF):
         if feat_subfunc is None:
             raise ValueError("feat_subfunc not defined")
         super(Dihedral_Std, self).__init__(
-                                        feature_name      = "srf." + feat_subfunc.__name__.split("compute_")[-1] + ".",
+                                        feature_name      = "srf." + feat_subfunc.__name__.split("compute_")[-1] + "_std.",
                                         #error_type        = error_type,
                                         error_type        = "std_err",
                                         subsel            = subsel,
