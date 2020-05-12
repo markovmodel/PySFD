@@ -111,7 +111,7 @@ and feature classes:
 [srf.py] : Single Residue Feature (SRF)
 - `CA_RMSF_VMD`:      CA atom root mean square flucatuations (RMSF), computed with VMD
 - `ChemicalShift`:    predicted NMR Chemical Shifts, computed via mdtraj and shiftx2
-- `Dihedral`:         dihedral angles computed with mdtraj, one of the following methods is passed to the `Dihedral` class:
+- `Dihedral` (`Dihedral_Std`): dihedral angles (their standard deviations) computed with mdtraj, one of the following methods is passed to the `Dihedral` (`Dihedral_Std`) class:
     - `mdtraj.compute_chi1`
     - `mdtraj.compute_chi2`
     - `mdtraj.compute_chi3`
