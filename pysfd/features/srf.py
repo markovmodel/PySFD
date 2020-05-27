@@ -1552,6 +1552,211 @@ class Dihedral_Std(_SRF):
         traj_df, dataflags = _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, circular_stats = circular_stats)
         return traj_df, dataflags
 
+class PhiPsiOmg_Std(_SRF):
+    """
+    Computes the average standard devidation of the phi, psi omega dihedrals:
+    Avg. Std ( 0.5 Omega_i-1, Phi_i, Psi_i, 0.5 Omega_i+1)
+    If coarse-graining (via df_rgn_seg_res_bb, see below) into regions,
+    by default aggregate via rgn_agg_func = "mean" or mycircmean(),
+    depending on circular_stats (see below). 
+    Parameters
+    ----------
+    * error_type   : str, default="std_err"
+        compute feature errors as ...
+        | "std_err" : ... standard errors
+    * subsel : str, optional, default = "all"
+               sub-selection of residues for which to compute features
+               subsel is an atom selection string as used in MDTraj
+               distances between all possible combinations of atoms defined in subsel
+               example: "name CA and within 15 of resid 82"
+    * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
+                          regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
+      df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
+                                      'seg' : ["A", "A", "B", "B", "C"],
+                                      'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
+                          if None, no coarse-graining is performed
+                          !!!
+                          Note: of course, coarse-graining cannot be performed here in
+                                individual frames, but over standard deviation values
+                          !!! 
+    * rgn_agg_func  : function or str for coarse-graining, 
+                      default is rgn_agg_func = "mean" or mycircmean(), depending on circular_stats (see below)
+                      function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
+                      this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
+                      - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
+                      - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
+                        such as "mean", "std"
+    * df_hist_feats : pandas.DataFrame, default=None
+                      data frame of features, for which to compute histograms.
+                      .columns are self.l_lbl[self.feature_func_name] + ["dbin"], e.g.:
+                      df_hist_feats = pd.DataFrame( { "seg1" : ["A", "A"],
+                                                      "res1" : [5, 10],
+                                                      "seg2" : ["A", "A"],
+                                                      "res2" : [10, 15],
+                                                      "dbin" : [0.1, 0.1] })
+                      dbin is the histogram binning resolution in units of the feature type.
+                      Only dbin values are allowed, which
+                      sum exactly to the next significant digit's unit, e.g.:
+                      for dbin = 0.02 = 2*10^-2 exists an n = 10, so that
+                      n * dbin = 0.1  = 1*10^-1
+                      Currently - for simplicity - dbin values have to be
+                      the same for each feature.
+                      If df_hist_feats == dbin (i.e. an int or float), 
+                      compute histograms for all features with
+                      uniform histogram binning resolution dbin.
+    * circular_stats : str, default="csd"
+        whether to use circular statistics in combination with error_type
+            | None  : use regular statistics on the dihedral (ignores periodic boundary conditions)
+            | "csd" : use circular mean and standard deviations
+    * label        : string, user-specific label for feature_name
+    """
+
+    def __init__(self, error_type = "std_err", subsel = "all", df_rgn_seg_res_bb = None, rgn_agg_func = None, label = "", circular_stats = "csd"):
+        if error_type == "std_dev":
+            print("WARNING: error_type \"std_dev\" not defined in PhiPsiOmg_Std ! Falling back to \"std_err\" instead ...")
+            error_type = "std_err"
+
+        if circular_stats not in [None, "csd"]:
+            raise ValueError("circular_stats not in [None, \"csd\"]")
+
+        super(PhiPsiOmg_Std, self).__init__(
+                                        feature_name      = "srf.PhiPsiOmg_Std.",
+                                        #error_type        = error_type,
+                                        error_type        = "std_err",
+                                        subsel            = subsel,
+                                        df_rgn_seg_res_bb = df_rgn_seg_res_bb,
+                                        rgn_agg_func      = rgn_agg_func,
+                                        label             = label,
+                                        circular_stats    = circular_stats)
+
+    @staticmethod
+    def _feature_func_engine(args, params):
+        """
+        Computes the average standard devidation of the phi, psi omega dihedrals:
+        Avg. Std ( 0.5 Omega_i-1, Phi_i, Psi_i, 0.5 Omega_i+1)
+    
+        Parameters
+        ----------
+        * args   : tuple (fself, myens, r):
+            * fself      : self pointer to foreign master PySFD object
+            * myens        : string
+                             Name of simulated ensemble
+            * r            : int, replica index
+        * params : dict, extra parameters as keyword arguments
+            * error_type   : str
+                compute feature errors as ...
+                | "std_err" : ... standard errors
+            * subsel : str, optional, default = "all"
+                       sub-selection of residues for which to compute features
+                       subsel is an atom selection string as used in MDTraj
+                       distances between all possible combinations of atoms defined in subsel
+                       example: "name CA and within 15 of resid 82"
+            * df_rgn_seg_res_bb : optional pandas.DataFrame for coarse-graining that defines
+                                  regions by segIDs and resIDs, and optionally backbone/sidechain, e.g.
+              df_rgn_seg_res_bb = _pd.DataFrame({'rgn' : ["a1", "a2", "b1", "b2", "c"],
+                                              'seg' : ["A", "A", "B", "B", "C"],
+                                              'res' : [range(4,83), range(83,185), range(4,95), range(95,191), range(102,121)]})
+                                  if None, no coarse-graining is performed
+    
+            * rgn_agg_func  : function or str for coarse-graining
+                              function that defines how to aggregate from residues (backbone/sidechain) to regions in each frame
+                              this function uses the coarse-graining mapping defined in df_rgn_seg_res_bb
+                              - if a function, it has to be vectorized (i.e. able to be used by, e.g., a 1-dimensional numpy array)
+                              - if a string, it has to be readable by the aggregate function of a pandas Data.Frame,
+                                such as "mean", "std"
+
+            * circular_stats : str
+                whether to use circular statistics in combination with error_type
+                    | None  : use regular statistics on the dihedral (ignores periodic boundary conditions)
+                    | "csd" : use circular mean and standard deviations
+        """
+
+        l_lbl = ["seg", "res", "rnm"]
+
+        fself, myens, r                             = args
+        circular_stats                              = params["circular_stats"]
+        fself.error_type[fself._feature_func_name]  = params["error_type"]
+        subsel                                      = params["subsel"]
+        df_rgn_seg_res_bb                           = params["df_rgn_seg_res_bb"]
+        rgn_agg_func                                = params["rgn_agg_func"]
+        _finish_traj_df                             = params["_finish_traj_df"]
+
+        def mycircmean(x):
+            return _scipy_stats.circmean(x, low = -_np.pi, high = _np.pi)
+        def mycircstd(x):
+            return _scipy_stats.circstd(x, low = -_np.pi, high = _np.pi)
+
+        instem = 'input/%s/r_%05d/%s.r_%05d.prot' % (myens, r, myens, r)
+        mytraj = _md.load('%s.%s' % (instem, fself.intrajformat), top='%s.pdb' % instem)
+        traj_df_seg_res = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
+        traj_df_seg_res.columns = ["seg", "res"]
+        df_pdb = fself._get_raw_topology_ids('%s.pdb' % instem, "residue")
+        df_merge = traj_df_seg_res.merge(df_pdb, how = "outer", copy = False)
+        df_merge = df_merge.loc[df_merge.isnull().values.sum(axis=1) > 0].drop_duplicates()
+        if len(df_merge) > 0:
+            warnstr = "residue name mismatch!:\n%s" % df_merge
+            _warnings.warn(warnstr)
+
+        if isinstance(subsel, str):
+            mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+        else:
+            raise ValueError("subsel has to be of instance str!")
+        traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].reset_index()
+        traj_df.columns = ["ind", "seg", "res"]
+        traj_df = traj_df.merge(df_pdb).set_index("ind")
+        #a_rnm  = fself._get_raw_topology_ids('%s.pdb' % instem, "atom").rnm.values
+        #a_atom = list(mytraj.topology.atoms)
+        #a_seg  = _np.array([a.segment_id for a in a_atom])
+        #a_res  = _np.array([a.residue.resSeq for a in a_atom])
+        ##df_rnm_rnm2 = _pd.DataFrame({ 'rnm' : a_rnm, 'rnm2' : _np.array([a.residue.name for a in a_atom])})
+        ##print(df_rnm_rnm2.query('rnm != rnm2').drop_duplicates())
+        l_lbl = ['seg', 'res', 'rnm']
+        #traj_df = _pd.DataFrame(data={'seg': a_seg, 'rnm': a_rnm, 'res': a_res })
+        #traj_df = traj_df[l_lbl]
+
+        if circular_stats == None:
+            rgn_agg_func = "mean"
+        elif circular_stats == "csd":
+            rgn_agg_func = mycircmean
+
+        def get_std(a_feat):
+            if circular_stats == None:
+                a_feat = _np.std(a_feat, axis = 0)
+            elif circular_stats == "csd":
+                a_feat = _scipy_stats.circstd(a_feat, low = -_np.pi, high = _np.pi, axis = 0)
+            return a_feat
+
+        a_result  = _md.compute_omega(mytraj)
+        a_indices1 = a_result[0][:, 1]
+        a_indices2 = a_result[0][:, 2]
+        df_omega1 = traj_df.loc[a_indices1].copy()[l_lbl]
+        df_omega2 = traj_df.loc[a_indices2].copy()[l_lbl]
+        #traj_df = _pd.concat([traj_df, _pd.DataFrame(_np.transpose(a_feat))], axis = 1, copy = False)
+        df_omega1["o1"] = get_std(a_result[1])
+        df_omega1.set_index(l_lbl, inplace = True)
+        df_omega2["o2"] = get_std(a_result[1])
+        df_omega2.set_index(l_lbl, inplace = True)
+
+        a_result  = _md.compute_phi(mytraj)
+        a_indices = a_result[0][:, 1]
+        df_phi    = traj_df.loc[a_indices].copy()[l_lbl]
+        df_phi["phi"] = get_std(a_result[1])
+        df_phi.set_index(l_lbl, inplace = True)
+
+        a_result  = _md.compute_psi(mytraj)
+        a_indices = a_result[0][:, 1]
+        df_psi    = traj_df.loc[a_indices].copy()[l_lbl]
+        df_psi["psi"] = get_std(a_result[1])
+        df_psi.set_index(l_lbl, inplace = True)
+
+        traj_df = _pd.concat([0.5 * df_omega1, 0.5 * df_omega2, df_phi, df_psi], axis = 1)
+        traj_df["f"] = traj_df.sum(axis = 1) / 3
+        traj_df.drop(columns = [ "phi", "psi", "o1", "o2" ], inplace = True)
+        traj_df.reset_index(drop = False, inplace = True)
+        a_feat = None
+        traj_df, dataflags = _finish_traj_df(fself, l_lbl, traj_df, a_feat, df_rgn_seg_res_bb, rgn_agg_func, r, params, circular_stats = circular_stats)
+        return traj_df, dataflags
+
 class Scalar_Coupling(_SRF):
     """
     Computes a type of scalar coupling as defined by feat_subfunc
