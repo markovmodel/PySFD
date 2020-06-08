@@ -847,6 +847,11 @@ class SASA_sr(_SRF):
 
         if isinstance(subsel, str):
             mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+            for i, a in enumerate(mytraj.topology.atoms):
+                a.serial = i
+            for i, r in enumerate(mytraj.topology.residues):
+                r.index  = i
+
         else:
             raise ValueError("subsel has to be of instance str!")
         traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
@@ -1053,6 +1058,10 @@ class RSASA_sr(_SRF):
 
         if isinstance(subsel, str):
             mytraj.atom_slice(mytraj.topology.select(subsel), inplace = True)
+            for i, a in enumerate(mytraj.topology.atoms):
+                a.serial = i
+            for i, r in enumerate(mytraj.topology.residues):
+                r.index  = i        
         else:
             raise ValueError("subsel has to be of instance str!")
         traj_df = mytraj.topology.to_dataframe()[0].loc[:, ["segmentID", "resSeq"]].drop_duplicates()
