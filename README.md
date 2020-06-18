@@ -8,6 +8,8 @@ For further details, please read
 - the doc strings throughout the PySFD package
 - example jupyter notebook and python files located in `PySFD/docs/PySFD_example`
 
+This software has been thoroughly tested, but comes with no warranty.
+
 ### Citation
 If you find this tool useful, please cite:
 ```
